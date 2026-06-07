@@ -1418,7 +1418,7 @@ window.addEventListener('online', syncOfflineData);
 window.addEventListener('load', () => {
   if (navigator.onLine) syncOfflineData();
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('https://bosscostumes.com/sw.js')
       .then(registration => console.log('SW registered:', registration))
       .catch(error => console.log('SW registration failed:', error));
   }
