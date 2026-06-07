@@ -165,6 +165,58 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 .empty { text-align: center; padding: 40px; color: var(--text3); font-size: 0.9rem; letter-spacing: 1px; }
 .chart-container { position: relative; height: 300px; width: 100%; }
 
+/* ==========================================
+   NEW FEATURE STYLES
+   ========================================== */
+
+/* FAB Button */
+.fab { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 500; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), #aa4400); color: #fff; border: none; font-size: 1.6rem; cursor: pointer; box-shadow: 0 4px 24px rgba(255,107,0,0.5); transition: all 0.2s; align-items: center; justify-content: center; }
+.fab:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(255,107,0,0.7); }
+
+/* Chrono button */
+.chrono-display { font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; color: var(--accent3); background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 10px; }
+.chrono-btn { padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; font-family: 'Exo 2', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
+.chrono-start { background: rgba(0,255,157,0.15); color: var(--accent3); border: 1px solid var(--accent3); }
+.chrono-stop { background: rgba(255,59,92,0.15); color: var(--danger); border: 1px solid var(--danger); }
+.chrono-reset { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+/* Voice button */
+.mic-btn { background: rgba(0,200,255,0.1); border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; padding: 10px 14px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+.mic-btn:hover { background: rgba(0,200,255,0.2); }
+.mic-btn.recording { background: rgba(255,59,92,0.2); border-color: var(--danger); color: var(--danger); animation: pulse-mic 0.8s infinite; }
+@keyframes pulse-mic { 0%,100%{ box-shadow: 0 0 0 0 rgba(255,59,92,0.4); } 50%{ box-shadow: 0 0 0 8px rgba(255,59,92,0); } }
+
+/* Cost display */
+.cost-tag { display: inline-flex; align-items: center; gap: 5px; background: rgba(0,255,157,0.08); border: 1px solid rgba(0,255,157,0.2); color: var(--accent3); border-radius: 6px; padding: 3px 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; }
+
+/* Audit log */
+.audit-entry { display: flex; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(30,45,77,0.5); font-size: 0.83rem; align-items: flex-start; }
+.audit-entry:last-child { border-bottom: none; }
+.audit-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.audit-time { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--text3); white-space: nowrap; }
+.audit-action { color: var(--text); flex: 1; }
+.audit-user { font-size: 0.72rem; color: var(--accent); }
+
+/* Factory map */
+.factory-map { display: grid; gap: 24px; }
+.factory-ligne-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.factory-ligne-header { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.factory-ligne-header::before { content: ''; width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--accent2); }
+.factory-machines-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.factory-machine-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: all 0.2s; min-width: 150px; position: relative; }
+.factory-machine-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--glow); }
+.factory-machine-card .machine-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+.factory-machine-card .machine-stats { font-size: 0.72rem; color: var(--text3); }
+.factory-machine-card .machine-dot { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; border-radius: 50%; }
+.factory-machine-card .machine-dot.ok { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
+.factory-machine-card .machine-dot.warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+.factory-machine-card .machine-dot.danger { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+
+/* BOM section */
+.bom-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg3); border-radius: 6px; margin-bottom: 6px; border: 1px solid var(--border); }
+.bom-item .bom-name { flex: 1; font-size: 0.85rem; }
+.bom-item .bom-qty { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
+
 @media(max-width:768px){
   header { padding: 0 12px; height: 56px; }
   .logo { font-size: 1rem; gap: 8px; }
@@ -185,6 +237,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   .header-right { gap: 8px; }
   .alert-btn, .login-btn { padding: 6px 10px; font-size: 0.7rem; }
   .admin-badge { font-size: 0.7rem; padding: 5px 8px; }
+  .fab { display: flex; }
 }
 </style>
 </head>
@@ -209,26 +262,28 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <button class="login-required" style="display:none" onclick="showPage('planned')">🗓 Préventif</button>
   <button class="admin-only" id="navSuppliers" style="display:none" onclick="showPage('suppliers')">🛒 Fournisseurs</button>
   <button onclick="showPage('about')">ℹ À Propos</button>
+  <button onclick="showPage('factorymap')">🏭 Plan Atelier</button>
+  <button class="admin-only" id="navAudit" style="display:none" onclick="showPage('audit')">📜 Audit</button>
   <button class="admin-only" id="navAddIntervention" style="display:none" onclick="openAddIntervention()">➕ Intervention</button>
   <button class="admin-only" id="navAdmin" style="display:none" onclick="showPage('admin')">⚙ Admin</button>
 </nav>
 
 <main>
-  <!-- DASHBOARD -->
+  <!-- DASHBOARD (original) -->
   <div class="page active" id="page-dashboard">
     <div class="stats-grid" id="statsGrid"></div>
     <div class="card">
       <div class="card-title">Dernières Interventions</div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th></tr></thead>
+          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th><th>Coût Est.</th></tr></thead>
           <tbody id="dashInterventions"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- WORK ORDERS -->
+  <!-- WORK ORDERS (original) -->
   <div class="page" id="page-workorders">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">📋 Ordres de Travail</div>
@@ -242,7 +297,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- STOCK -->
+  <!-- STOCK (original) -->
   <div class="page" id="page-stock">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">📦 Stock des Pièces</div>
@@ -254,7 +309,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="pieces-grid" id="piecesGrid"></div>
   </div>
 
-  <!-- HISTORIQUE -->
+  <!-- HISTORIQUE (original) -->
   <div class="page" id="page-historique">
     <div class="search-bar">
       <input type="date" id="filterDate" placeholder="Date" oninput="renderHistorique()">
@@ -266,26 +321,29 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div id="historiqueContainer"></div>
   </div>
 
-  <!-- ANALYTICS -->
+  <!-- ANALYTICS (original + enhanced) -->
   <div class="page" id="page-analytics">
     <div class="card-title">📈 Analytiques & Tableaux de Bord</div>
     <div class="stats-grid">
       <div class="stat-card"><div class="stat-label">Interventions (7j)</div><div class="stat-value" id="statWeek">0</div></div>
       <div class="stat-card"><div class="stat-label">Temps d'arrêt total</div><div class="stat-value" id="statDowntime">0h</div></div>
-      <div class="stat-card"><div class="stat-label">MTBF Moyen</div><div class="stat-value" id="statMTBF">--</div></div>
+      <div class="stat-card"><div class="stat-label">MTTR Moyen</div><div class="stat-value" id="statMTTR">--</div><div class="stat-sub">Mean Time To Repair</div></div>
+      <div class="stat-card"><div class="stat-label">MTBF Estimé</div><div class="stat-value" id="statMTBF">--</div><div class="stat-sub">Mean Time Between Failures</div></div>
+      <div class="stat-card"><div class="stat-label">Coût total estimé</div><div class="stat-value" id="statTotalCost" style="color:var(--warn)">0</div><div class="stat-sub">DA (Dinars)</div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
       <div class="card"><div class="card-title">Interventions par Semaine</div><div class="chart-container"><canvas id="chartWeek"></canvas></div></div>
       <div class="card"><div class="card-title">Pièces les plus utilisées</div><div class="chart-container"><canvas id="chartParts"></canvas></div></div>
       <div class="card"><div class="card-title">Machines les plus sollicitées</div><div class="chart-container"><canvas id="chartMachines"></canvas></div></div>
       <div class="card"><div class="card-title">Temps d'arrêt par Machine</div><div class="chart-container"><canvas id="chartDowntime"></canvas></div></div>
+      <div class="card"><div class="card-title">Coût de maintenance par Machine</div><div class="chart-container"><canvas id="chartCostMachine"></canvas></div></div>
     </div>
   </div>
 
-  <!-- EMPLOYEES -->
+  <!-- EMPLOYEES (original) -->
   <div class="page" id="page-employees"><div class="emp-grid" id="empGrid"></div></div>
 
-  <!-- PLANNED MAINTENANCE -->
+  <!-- PLANNED MAINTENANCE (original) -->
   <div class="page" id="page-planned">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🗓 Maintenance Préventive</div>
@@ -299,7 +357,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- SUPPLIERS -->
+  <!-- SUPPLIERS (original) -->
   <div class="page" id="page-suppliers">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🛒 Fournisseurs</div>
@@ -313,7 +371,31 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- ADMIN -->
+  <!-- FACTORY MAP (NEW) -->
+  <div class="page" id="page-factorymap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <div class="card-title" style="margin:0">🏭 Plan de l'Atelier</div>
+      <div style="font-size:0.75rem;color:var(--text3);display:flex;gap:16px;align-items:center;">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent3);margin-right:4px;"></span>OK</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn);margin-right:4px;"></span>Alerte BOM</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--danger);margin-right:4px;"></span>Rupture BOM</span>
+      </div>
+    </div>
+    <div class="factory-map" id="factoryMap"></div>
+  </div>
+
+  <!-- AUDIT (NEW) -->
+  <div class="page" id="page-audit">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div class="card-title" style="margin:0">📜 Journal d'Audit (ISO)</div>
+      <button class="btn btn-secondary btn-sm" onclick="clearAuditLog()">🗑 Vider</button>
+    </div>
+    <div class="card">
+      <div id="auditLogContainer" style="max-height:600px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN (original) -->
   <div class="page" id="page-admin">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex-wrap:wrap;">
       <div class="card">
@@ -325,6 +407,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
           <div class="form-group"><label>Quantité</label><input type="number" id="newPieceQty" value="1" min="0"></div>
           <div class="form-group"><label>Seuil d'alerte</label><input type="number" id="newPieceThresh" value="3" min="1"></div>
           <div class="form-group"><label>Référence</label><input id="newPieceRef" placeholder="REF-0000"></div>
+          <div class="form-group"><label>Prix unitaire (DA)</label><input type="number" id="newPiecePrice" value="0" min="0" placeholder="Ex: 1500"></div>
         </div>
         <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn btn-primary" onclick="addPiece()">Ajouter</button>
@@ -336,6 +419,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
         <div class="form-grid" style="grid-template-columns:1fr;">
           <div class="form-group"><label>Nom complet</label><input id="newEmpName" placeholder="Prénom Nom"></div>
           <div class="form-group"><label>Profession</label><input id="newEmpRole" placeholder="Technicien, Électricien..."></div>
+          <div class="form-group"><label>Taux horaire (DA/h)</label><input type="number" id="newEmpRate" value="500" min="0" placeholder="Ex: 500"></div>
         </div>
         <div style="margin-top:14px;"><button class="btn btn-primary" onclick="addEmployee()">Ajouter</button></div>
       </div>
@@ -363,7 +447,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- ABOUT (original) -->
   <div class="page" id="page-about">
     <div class="card" style="max-width:600px;margin:0 auto;text-align:center;">
       <div style="font-size:3rem;margin-bottom:16px;">⚙</div>
@@ -379,6 +463,9 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </main>
 
+<!-- FAB (mobile QR shortcut) -->
+<button class="fab" onclick="openQRScanner()" title="Scanner QR">📷</button>
+
 <footer>
   <div class="footer-brand">GMAO — Atelier de Maintenance</div>
   <div class="footer-sub">Système de Gestion de Maintenance Assistée par Ordinateur</div>
@@ -392,7 +479,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <div class="footer-copy">© 2026 HAMMIA Islam — Tous droits réservés</div>
 </footer>
 
-<!-- MODALS -->
+<!-- ==================== MODALS (original) ==================== -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
     <div class="modal-title">🔒 Connexion <button class="modal-close" onclick="closeModal('loginModal')">✕</button></div>
@@ -409,23 +496,44 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 <div class="modal-overlay" id="alertsModal">
   <div class="modal modal-lg">
     <div class="modal-title">⚠ Articles en Rupture / Alerte <button class="modal-close" onclick="closeModal('alertsModal')">✕</button></div>
-    <button class="btn btn-orange admin-only" id="btnReorderPDF" style="display:none; margin-bottom:16px; width:100%;" onclick="exportReorderPDF()">📄 Générer Demande d'Achat (PDF)</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+      <button class="btn btn-orange admin-only" id="btnReorderPDF" style="display:none;" onclick="exportReorderPDF()">📄 Générer Demande d'Achat (PDF)</button>
+      <button class="btn btn-secondary btn-sm" onclick="sendLowStockEmail()">📧 Alerter le Responsable</button>
+    </div>
     <div id="alertsList"></div>
   </div>
 </div>
 
+<!-- INTERVENTION MODAL (original + voice + chrono) -->
 <div class="modal-overlay" id="interventionModal">
   <div class="modal modal-lg">
     <div class="modal-title">➕ Nouvelle Intervention <button class="modal-close" onclick="closeModal('interventionModal')">✕</button></div>
     <div class="form-grid">
       <div class="form-group"><label>Date</label><input type="date" id="intDate"></div>
       <div class="form-group"><label>Heure</label><input type="time" id="intTime"></div>
-      <div class="form-group"><label>Durée (min)</label><input type="number" id="intDuration" min="1" placeholder="Ex: 90"></div>
+      <div class="form-group">
+        <label>Durée (min)</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="number" id="intDuration" min="1" placeholder="Ex: 90" style="flex:1;">
+          <div id="chronoDisplay" class="chrono-display" style="display:none;">00:00:00</div>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">
+          <button type="button" class="chrono-btn chrono-start" id="chronoStartBtn" onclick="chronoStart()">▶ Chrono</button>
+          <button type="button" class="chrono-btn chrono-stop" id="chronoStopBtn" onclick="chronoStop()" style="display:none;">⏹ Stop</button>
+          <button type="button" class="chrono-btn chrono-reset" id="chronoResetBtn" onclick="chronoReset()" style="display:none;">↺ Reset</button>
+        </div>
+      </div>
       <div class="form-group"><label>Arrêt (min)</label><input type="number" id="intDowntime" min="0" placeholder="Ex: 45"></div>
       <div class="form-group"><label>Ligne</label><select id="intLigne" onchange="updateMachineSelect()"><option value="">— Choisir —</option></select></div>
       <div class="form-group"><label>Machine</label><select id="intMachine"><option value="">— Choisir —</option></select></div>
     </div>
-    <div class="form-group" style="margin-top:14px;"><label>Description</label><textarea id="intDesc" placeholder="Décrire l'intervention..."></textarea></div>
+    <div class="form-group" style="margin-top:14px;">
+      <label>Description</label>
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <textarea id="intDesc" placeholder="Décrire l'intervention..." style="flex:1;"></textarea>
+        <button type="button" id="micBtn" class="mic-btn" onclick="toggleVoice()" title="Dictée vocale">🎤</button>
+      </div>
+    </div>
     <div class="form-group" style="margin-top:14px;"><label>📸 Photo</label><input type="file" id="intPhoto" accept="image/*" capture="environment"></div>
     <div class="form-group" style="margin-top:14px;"><label>Personnel</label><div class="personnel-multi" id="personnelMulti"></div></div>
     <div class="form-group" style="margin-top:14px;"><label>Pièces utilisées</label>
@@ -446,7 +554,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="modal-title">📦 Gérer le Stock <button class="modal-close" onclick="closeModal('managePiecesModal')">✕</button></div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Pièce</th><th>Catégorie</th><th>Qté</th><th>Seuil</th><th>Ajuster</th><th>Supprimer</th></tr></thead>
+        <thead><tr><th>Pièce</th><th>Catégorie</th><th>Qté</th><th>Seuil</th><th>Prix (DA)</th><th>Ajuster</th><th>Supprimer</th></tr></thead>
         <tbody id="managePiecesBody"></tbody>
       </table>
     </div>
@@ -508,8 +616,9 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </div>
 
+<!-- EDIT MACHINE (original + BOM tab) -->
 <div class="modal-overlay" id="editMachineModal">
-  <div class="modal">
+  <div class="modal modal-lg">
     <div class="modal-title">⚙ Informations Machine <button class="modal-close" onclick="closeModal('editMachineModal')">✕</button></div>
     <input type="hidden" id="editMachineId">
     <div class="form-group" style="margin-bottom:14px;"><label>Nom</label><input type="text" id="editMachineName" readonly style="background:var(--bg2);color:var(--text3);"></div>
@@ -523,7 +632,18 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       <label style="margin-top:10px; display:block;">Changer / Ajouter une photo</label>
       <input type="file" id="editMachinePhoto" accept="image/*" capture="environment">
     </div>
-    <div class="modal-footer-btns" style="display:flex;gap:10px;flex-wrap:wrap;">
+    <!-- BOM Section -->
+    <div style="margin-top:16px; border-top:1px solid var(--border); padding-top:14px;">
+      <div class="card-title" style="margin-bottom:12px;">🔩 Nomenclature (BOM) — Pièces recommandées</div>
+      <div id="bomEditorList" style="margin-bottom:10px;"></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select id="bomPieceSelect" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;flex:1;font-family:'Exo 2',sans-serif;font-size:0.85rem;">
+          <option value="">— Sélectionner une pièce —</option>
+        </select>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="addBOMItem()">+ Ajouter</button>
+      </div>
+    </div>
+    <div class="modal-footer-btns" style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn btn-primary" onclick="saveMachineInfo()">Enregistrer</button>
       <button class="btn btn-secondary" onclick="closeModal('editMachineModal')">Annuler</button>
     </div>
@@ -534,6 +654,11 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <div class="modal modal-lg">
     <div class="modal-title" id="machineInfoTitle">🏭 Info Machine <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button></div>
     <div id="machineInfoContent"></div>
+    <!-- BOM display section -->
+    <div id="machineBOMSection" style="margin-top:16px;border-top:1px solid var(--border);padding-top:16px;display:none;">
+      <div class="card-title">🔩 Nomenclature (BOM)</div>
+      <div id="machineBOMList"></div>
+    </div>
     <div style="margin-top:20px; border-top:1px solid var(--border); padding-top:20px;">
       <div class="card-title">📋 Historique des Interventions</div>
       <div id="machineInfoHistory"></div>
@@ -543,7 +668,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <script>
 // ==========================================
-// 1. CONSTANTS & STATE
+// 1. CONSTANTS & STATE (original)
 // ==========================================
 const sb = supabase.createClient('https://cuctsokaivauyulgpvfg.supabase.co', 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL');
 let currentUser = null;
@@ -551,8 +676,18 @@ let categories = [], pieces = [], employees = [], interventions = [], lignes = [
 let charts = {}, selectedPiecesMap = {}, selectedPersonnel = [];
 let machinePhotoToDelete = false, currentMachinePhotoPath = '', currentMachineInfoId = null, html5QrcodeScanner;
 
+// NEW STATE
+let auditLog = JSON.parse(localStorage.getItem('gmao_audit_log') || '[]');
+let machineBOMs = JSON.parse(localStorage.getItem('gmao_machine_boms') || '{}'); // { machineId: [pieceId, ...] }
+let currentEditBOM = []; // temp BOM during edit
+let chronoInterval = null, chronoStart_ts = 0, chronoElapsed = 0, chronoRunning = false;
+let voiceRecognition = null, voiceActive = false;
+// Hourly rate fallback
+const DEFAULT_HOURLY_RATE = 500; // DA/h
+const DEFAULT_PART_PRICE = 0;
+
 // ==========================================
-// 2. UTILITIES
+// 2. UTILITIES (original)
 // ==========================================
 function showLoader(msg) {
   let el = document.getElementById('globalLoader');
@@ -602,7 +737,247 @@ async function compressAndUpload(file, folder) {
 }
 
 // ==========================================
-// 3. DATA FETCHING & SEEDING
+// NEW FEATURE: COST CALCULATION
+// ==========================================
+function calcInterventionCost(intervention) {
+  const durationH = (parseInt(intervention.duration) || 0) / 60;
+  // Average hourly rate from involved personnel
+  const personnelNames = intervention.personnel || [];
+  let totalRate = 0;
+  personnelNames.forEach(name => {
+    const emp = employees.find(e => e.name === name);
+    totalRate += emp?.hourly_rate || DEFAULT_HOURLY_RATE;
+  });
+  const avgRate = personnelNames.length ? totalRate / personnelNames.length : DEFAULT_HOURLY_RATE;
+  const laborCost = durationH * avgRate * personnelNames.length;
+  
+  // Parts cost
+  const partsCost = (intervention.piecesUsed || intervention.pieces_used || []).reduce((sum, u) => {
+    const p = pieces.find(x => x.name === u.name);
+    return sum + (u.qty * (p?.prix_unitaire || p?.unit_price || DEFAULT_PART_PRICE));
+  }, 0);
+  
+  return Math.round(laborCost + partsCost);
+}
+
+// ==========================================
+// NEW FEATURE: AUDIT LOG
+// ==========================================
+function addAuditEntry(action, detail, icon = '📝') {
+  const entry = {
+    ts: new Date().toISOString(),
+    user: currentUser?.email || 'Anonyme',
+    action, detail, icon
+  };
+  auditLog.unshift(entry);
+  if (auditLog.length > 500) auditLog = auditLog.slice(0, 500);
+  localStorage.setItem('gmao_audit_log', JSON.stringify(auditLog));
+}
+
+function renderAudit() {
+  const container = document.getElementById('auditLogContainer');
+  if (!auditLog.length) { container.innerHTML = '<div class="empty">Aucun événement enregistré.</div>'; return; }
+  container.innerHTML = auditLog.map(e => `
+    <div class="audit-entry">
+      <div class="audit-icon">${e.icon}</div>
+      <div style="flex:1;">
+        <div class="audit-action">${e.action} <span style="color:var(--text3);">— ${e.detail}</span></div>
+        <div class="audit-user">${e.user}</div>
+      </div>
+      <div class="audit-time">${new Date(e.ts).toLocaleString('fr-FR')}</div>
+    </div>`).join('');
+}
+
+function clearAuditLog() {
+  if (!confirm('Vider le journal d\'audit ?')) return;
+  auditLog = []; localStorage.removeItem('gmao_audit_log');
+  renderAudit();
+}
+
+// ==========================================
+// NEW FEATURE: CHRONOMETER
+// ==========================================
+function chronoStart() {
+  if (chronoRunning) return;
+  chronoRunning = true;
+  chronoStart_ts = Date.now() - chronoElapsed;
+  document.getElementById('chronoDisplay').style.display = 'flex';
+  document.getElementById('chronoStartBtn').style.display = 'none';
+  document.getElementById('chronoStopBtn').style.display = '';
+  document.getElementById('chronoResetBtn').style.display = '';
+  chronoInterval = setInterval(() => {
+    chronoElapsed = Date.now() - chronoStart_ts;
+    const totalSec = Math.floor(chronoElapsed / 1000);
+    const h = Math.floor(totalSec / 3600), m = Math.floor((totalSec % 3600) / 60), s = totalSec % 60;
+    document.getElementById('chronoDisplay').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }, 500);
+}
+
+function chronoStop() {
+  if (!chronoRunning) return;
+  chronoRunning = false;
+  clearInterval(chronoInterval);
+  // Auto-fill duration in minutes
+  const minutes = Math.round(chronoElapsed / 60000);
+  document.getElementById('intDuration').value = minutes || 1;
+  document.getElementById('chronoStartBtn').style.display = '';
+  document.getElementById('chronoStopBtn').style.display = 'none';
+}
+
+function chronoReset() {
+  clearInterval(chronoInterval);
+  chronoRunning = false; chronoElapsed = 0;
+  document.getElementById('chronoDisplay').textContent = '00:00:00';
+  document.getElementById('chronoDisplay').style.display = 'none';
+  document.getElementById('chronoStartBtn').style.display = '';
+  document.getElementById('chronoStopBtn').style.display = 'none';
+  document.getElementById('chronoResetBtn').style.display = 'none';
+}
+
+// ==========================================
+// NEW FEATURE: VOICE TO TEXT
+// ==========================================
+function toggleVoice() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('La dictée vocale nécessite Chrome ou Edge.');
+    return;
+  }
+  if (voiceActive) {
+    voiceRecognition && voiceRecognition.stop();
+    voiceActive = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    document.getElementById('micBtn').textContent = '🎤';
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  voiceRecognition = new SR();
+  voiceRecognition.lang = 'fr-FR';
+  voiceRecognition.continuous = true;
+  voiceRecognition.interimResults = false;
+  voiceRecognition.onresult = (e) => {
+    const transcript = Array.from(e.results).map(r => r[0].transcript).join(' ');
+    const ta = document.getElementById('intDesc');
+    ta.value = (ta.value ? ta.value + ' ' : '') + transcript;
+  };
+  voiceRecognition.onerror = () => {
+    voiceActive = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    document.getElementById('micBtn').textContent = '🎤';
+  };
+  voiceRecognition.onend = () => {
+    if (voiceActive) voiceRecognition.start(); // keep going until user stops
+  };
+  voiceRecognition.start();
+  voiceActive = true;
+  document.getElementById('micBtn').classList.add('recording');
+  document.getElementById('micBtn').textContent = '🔴';
+}
+
+// ==========================================
+// NEW FEATURE: LOW-STOCK EMAIL ALERT
+// ==========================================
+function sendLowStockEmail() {
+  const low = pieces.filter(p => p.qty <= p.thresh);
+  if (!low.length) { alert('Aucun article en rupture.'); return; }
+  const subject = encodeURIComponent(`[GMAO] Alerte Stock — ${low.length} article(s) en rupture`);
+  const body = encodeURIComponent(
+    `Bonjour,\n\nVeuillez trouver ci-dessous les articles nécessitant un réapprovisionnement urgent :\n\n` +
+    low.map(p => `• ${p.name} (Réf: ${p.ref}) — Stock: ${p.qty} / Seuil: ${p.thresh} — Statut: ${p.qty === 0 ? 'RUPTURE' : 'ALERTE'}`).join('\n') +
+    `\n\nCordialement,\nSystème GMAO — Atelier de Maintenance`
+  );
+  window.location.href = `mailto:islam.hammia1995@gmail.com?subject=${subject}&body=${body}`;
+}
+
+// ==========================================
+// NEW FEATURE: BOM (NOMENCLATURE)
+// ==========================================
+function saveBOMs() {
+  localStorage.setItem('gmao_machine_boms', JSON.stringify(machineBOMs));
+}
+
+function openEditMachine(id) {
+  const m = machines.find(x => x.id === id); if (!m) return;
+  document.getElementById('editMachineId').value = m.id;
+  document.getElementById('editMachineName').value = m.name;
+  document.getElementById('editMachineDesc').value = m.description || '';
+  const img = document.getElementById('editMachineCurrentPhoto'), delBtn = document.getElementById('btnDeleteMachinePhoto');
+  machinePhotoToDelete = false; currentMachinePhotoPath = '';
+  if (m.photo_url) {
+    img.src = m.photo_url; img.style.display = 'block'; delBtn.style.display = 'block';
+    const match = m.photo_url.match(/\/photos\/(.+)$/); if (match) currentMachinePhotoPath = match[1];
+  } else { img.style.display = 'none'; delBtn.style.display = 'none'; }
+  document.getElementById('editMachinePhoto').value = '';
+
+  // BOM
+  currentEditBOM = [...(machineBOMs[id] || [])];
+  const bomSel = document.getElementById('bomPieceSelect');
+  bomSel.innerHTML = '<option value="">— Sélectionner une pièce —</option>' + pieces.map(p => `<option value="${p.id}">${p.name} (${p.ref})</option>`).join('');
+  renderBOMEditor();
+  openModal('editMachineModal');
+}
+
+function renderBOMEditor() {
+  const container = document.getElementById('bomEditorList');
+  if (!currentEditBOM.length) { container.innerHTML = '<div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">Aucune pièce dans la nomenclature.</div>'; return; }
+  container.innerHTML = currentEditBOM.map(pid => {
+    const p = pieces.find(x => x.id === pid);
+    if (!p) return '';
+    return `<div class="bom-item">
+      <span class="bom-name">${p.name}</span>
+      <span class="bom-qty ${p.qty === 0 ? 'piece-qty danger' : (p.qty <= p.thresh ? 'piece-qty warn' : 'piece-qty ok')}" style="font-size:0.85rem;">${p.qty}</span>
+      <button type="button" onclick="removeBOMItem(${pid})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.9rem;">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function addBOMItem() {
+  const sel = document.getElementById('bomPieceSelect');
+  const pid = parseInt(sel.value); if (!pid) return;
+  if (!currentEditBOM.includes(pid)) currentEditBOM.push(pid);
+  sel.value = ''; renderBOMEditor();
+}
+
+function removeBOMItem(pid) {
+  currentEditBOM = currentEditBOM.filter(x => x !== pid); renderBOMEditor();
+}
+
+function getMachineBOMStatus(id) {
+  const bom = machineBOMs[id] || [];
+  if (!bom.length) return 'ok';
+  const states = bom.map(pid => { const p = pieces.find(x => x.id === pid); if (!p) return 'ok'; return p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok'); });
+  if (states.includes('danger')) return 'danger';
+  if (states.includes('warn')) return 'warn';
+  return 'ok';
+}
+
+// ==========================================
+// NEW FEATURE: FACTORY MAP
+// ==========================================
+function renderFactoryMap() {
+  const container = document.getElementById('factoryMap');
+  if (!lignes.length) { container.innerHTML = '<div class="empty">Aucune ligne configurée.</div>'; return; }
+  container.innerHTML = lignes.map(l => {
+    const macs = machines.filter(m => (m.ligne_id || m.ligneId) === l.id);
+    return `<div class="factory-ligne-section">
+      <div class="factory-ligne-header">${l.name}</div>
+      <div class="factory-machines-row">
+        ${macs.length ? macs.map(m => {
+          const intCount = interventions.filter(i => i.machine === m.name).length;
+          const lastInt = interventions.filter(i => i.machine === m.name).sort((a,b) => b.date.localeCompare(a.date))[0];
+          const bomStatus = getMachineBOMStatus(m.id);
+          return `<div class="factory-machine-card" onclick="showMachineInfo(${m.id})">
+            <div class="machine-dot ${bomStatus}"></div>
+            <div class="machine-name">⚙ ${m.name}</div>
+            <div class="machine-stats">${intCount} interv. · ${lastInt ? lastInt.date : 'jamais'}</div>
+          </div>`;
+        }).join('') : '<div style="color:var(--text3);font-size:0.82rem;">Aucune machine</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ==========================================
+// 3. DATA FETCHING & SEEDING (original)
 // ==========================================
 async function loadAllData() {
   showLoader('Connexion à la base de données...');
@@ -638,7 +1013,7 @@ async function seedIfEmpty() {
 }
 
 // ==========================================
-// 4. AUTHENTICATION
+// 4. AUTHENTICATION (original)
 // ==========================================
 sb.auth.onAuthStateChange((event, session) => {
   currentUser = session ? { id: session.user.id, email: session.user.email, name: session.user.user_metadata?.name || session.user.email, role: session.user.user_metadata?.role || 'read_only' } : null;
@@ -654,10 +1029,17 @@ async function doLogin() {
   const { error } = await sb.auth.signInWithPassword({ email, password });
   hideLoader();
   if (error) { document.getElementById('loginError').textContent = "Email ou mot de passe incorrect."; document.getElementById('loginError').style.display = 'block'; }
-  else { closeModal('loginModal'); document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = ''; document.getElementById('loginError').style.display = 'none'; }
+  else {
+    closeModal('loginModal');
+    document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = ''; document.getElementById('loginError').style.display = 'none';
+    addAuditEntry('Connexion', `${email}`, '🔓');
+  }
 }
 
-async function doLogout() { showLoader('Déconnexion...'); await sb.auth.signOut(); hideLoader(); currentUser = null; updateAuthUI(); showPage('dashboard'); }
+async function doLogout() {
+  addAuditEntry('Déconnexion', currentUser?.email || '', '🔒');
+  showLoader('Déconnexion...'); await sb.auth.signOut(); hideLoader(); currentUser = null; updateAuthUI(); showPage('dashboard');
+}
 function openLogin() { document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = ''; document.getElementById('loginError').style.display = 'none'; openModal('loginModal'); }
 
 function updateAuthUI() {
@@ -667,20 +1049,23 @@ function updateAuthUI() {
   
   const toggle = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? '' : 'none'; };
   toggle('navAdmin', isAdmin); toggle('navSuppliers', isAdmin); toggle('btnAddWO', isAdmin); toggle('btnAddPlanned', isAdmin); toggle('btnReorderPDF', isAdmin);
+  toggle('navAudit', isAdmin);
   document.querySelectorAll('.admin-only').forEach(el => { el.style.display = isAdmin ? '' : 'none'; });
   toggle('navAddIntervention', isAdmin || isTech);
   document.querySelectorAll('.login-required').forEach(el => { el.style.display = isLogged ? '' : 'none'; });
+  // FAB only shows on mobile (CSS handles that), but also needs login
+  document.querySelector('.fab').style.display = (isLogged && window.innerWidth <= 768) ? 'flex' : '';
 }
 
 // ==========================================
-// 5. NAVIGATION & RENDERING
+// 5. NAVIGATION & RENDERING (original)
 // ==========================================
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   document.querySelectorAll('nav button').forEach(b => { if (b.getAttribute('onclick') === `showPage('${id}')`) b.classList.add('active'); });
-  const renderMap = { dashboard: renderDashboard, stock: renderStock, historique: renderHistorique, employees: renderEmployees, admin: renderAdmin, workorders: renderWorkOrders, analytics: renderAnalytics, planned: renderPlanned, suppliers: renderSuppliers };
+  const renderMap = { dashboard: renderDashboard, stock: renderStock, historique: renderHistorique, employees: renderEmployees, admin: renderAdmin, workorders: renderWorkOrders, analytics: renderAnalytics, planned: renderPlanned, suppliers: renderSuppliers, factorymap: renderFactoryMap, audit: renderAudit };
   if (renderMap[id]) renderMap[id]();
 }
 
@@ -692,28 +1077,35 @@ function renderDashboard() {
   const lowCount = pieces.filter(p => p.qty <= p.thresh).length;
   const intToday = interventions.filter(i => i.date === new Date().toISOString().slice(0, 10)).length;
   const totalDowntime = interventions.reduce((sum, i) => sum + (parseInt(i.downtime_minutes) || 0), 0);
+  const totalCost = interventions.reduce((sum, i) => sum + calcInterventionCost(i), 0);
   
   document.getElementById('statsGrid').innerHTML = `
     <div class="stat-card"><div class="stat-label">Pièces en stock</div><div class="stat-value">${pieces.length}</div><div class="stat-sub">${totalPieces} unités totales</div></div>
     <div class="stat-card"><div class="stat-label">Alertes stock</div><div class="stat-value" style="color:var(--warn)">${lowCount}</div><div class="stat-sub">Sous le seuil d'alerte</div></div>
     <div class="stat-card"><div class="stat-label">Interventions totales</div><div class="stat-value" style="color:var(--accent3)">${interventions.length}</div><div class="stat-sub">${intToday} aujourd'hui</div></div>
-    <div class="stat-card"><div class="stat-label">Temps d'arrêt</div><div class="stat-value" style="color:var(--danger)">${Math.round(totalDowntime/60)}h</div><div class="stat-sub">${totalDowntime} minutes</div></div>`;
+    <div class="stat-card"><div class="stat-label">Temps d'arrêt</div><div class="stat-value" style="color:var(--danger)">${Math.round(totalDowntime/60)}h</div><div class="stat-sub">${totalDowntime} minutes</div></div>
+    <div class="stat-card"><div class="stat-label">Coût total estimé</div><div class="stat-value" style="color:var(--warn)">${totalCost.toLocaleString()}</div><div class="stat-sub">DA (main-d'œuvre + pièces)</div></div>`;
   
   const recent = [...interventions].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time)).slice(0, 6);
-  document.getElementById('dashInterventions').innerHTML = recent.length ? recent.map(i => `<tr>
-    <td>${i.date} ${i.time}</td><td><strong>${i.machine || '—'}</strong></td><td>${i.ligne || '—'}</td>
-    <td>${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('')}</td>
-    <td>${i.duration} min</td><td><span class="badge ${i.downtime_minutes > 0 ? 'badge-danger' : 'badge-ok'}">${i.downtime_minutes || 0} min</span></td>
-    <td>${(i.piecesUsed || i.pieces_used || []).map(u => `<span class="piece-chip">${u.name} x${u.qty}</span>`).join('')}</td>
-  </tr>`).join('') : '<tr><td colspan="7" class="empty">Aucune intervention enregistrée.</td></tr>';
+  document.getElementById('dashInterventions').innerHTML = recent.length ? recent.map(i => {
+    const cost = calcInterventionCost(i);
+    return `<tr>
+      <td>${i.date} ${i.time}</td><td><strong>${i.machine || '—'}</strong></td><td>${i.ligne || '—'}</td>
+      <td>${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('')}</td>
+      <td>${i.duration} min</td><td><span class="badge ${i.downtime_minutes > 0 ? 'badge-danger' : 'badge-ok'}">${i.downtime_minutes || 0} min</span></td>
+      <td>${(i.piecesUsed || i.pieces_used || []).map(u => `<span class="piece-chip">${u.name} x${u.qty}</span>`).join('')}</td>
+      <td><span class="cost-tag">💰 ${cost.toLocaleString()} DA</span></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="8" class="empty">Aucune intervention enregistrée.</td></tr>';
 }
 
 function renderStock() {
   const q = (document.getElementById('stockSearch') || {}).value || '';
-  const list = pieces.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.ref.toLowerCase().includes(q.toLowerCase()));
+  const list = pieces.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || (p.ref || '').toLowerCase().includes(q.toLowerCase()));
   document.getElementById('piecesGrid').innerHTML = list.length ? list.map(p => {
     const level = p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok');
-    return `<div class="piece-card ${level}"><div class="piece-name">${p.name}</div><div class="piece-cat">${p.cat} · ${p.ref}</div><div class="piece-qty ${level}">${p.qty}</div><div style="font-size:0.72rem;color:var(--text3);margin-top:4px;">unités · seuil ${p.thresh}</div></div>`;
+    const price = p.prix_unitaire || p.unit_price || 0;
+    return `<div class="piece-card ${level}"><div class="piece-name">${p.name}</div><div class="piece-cat">${p.cat} · ${p.ref}</div><div class="piece-qty ${level}">${p.qty}</div><div style="font-size:0.72rem;color:var(--text3);margin-top:4px;">unités · seuil ${p.thresh}</div>${price ? `<div style="margin-top:6px;"><span class="cost-tag">💰 ${price.toLocaleString()} DA/u</span></div>` : ''}</div>`;
   }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
 }
 
@@ -733,18 +1125,21 @@ function renderHistorique() {
   document.getElementById('historiqueContainer').innerHTML = Object.keys(grouped).length ? Object.keys(grouped).sort((a, b) => b.localeCompare(a)).map(date => `
     <div class="intervention-day">
       <div class="day-header"><div class="day-line"></div><div class="day-label">📅 ${formatDate(date)} — ${grouped[date].length} intervention(s)</div><div class="day-line"></div></div>
-      ${grouped[date].map(i => `
-        <div class="intervention-card">
+      ${grouped[date].map(i => {
+        const cost = calcInterventionCost(i);
+        return `<div class="intervention-card">
           <div class="intervention-meta">
             <div class="meta-tag">🕐 <strong>${i.time}</strong></div><div class="meta-tag">⏱ <strong>${i.duration} min</strong></div>
             <div class="meta-tag">⛔ <strong>${i.downtime_minutes || 0} min arrêt</strong></div><div class="meta-tag">🏭 <strong>${i.ligne || '—'}</strong></div><div class="meta-tag">⚙ <strong>${i.machine || '—'}</strong></div>
+            <div class="meta-tag">💰 <strong>${cost.toLocaleString()} DA</strong></div>
           </div>
           <div style="margin-bottom:8px;font-size:0.9rem;color:var(--text2);">${i.description || ''}</div>
           ${i.photo_url ? `<img src="${i.photo_url}" class="intervention-photo" onclick="window.open('${i.photo_url}', '_blank')">` : ''}
           <div style="margin-bottom:6px;">👷 ${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('') || '<em style="color:var(--text3)">—</em>'}</div>
           ${(i.piecesUsed || i.pieces_used || []).length ? `<div class="pieces-used">🔩 ${(i.piecesUsed || i.pieces_used).map(u => `<span class="piece-chip">${u.name} × ${u.qty}</span>`).join('')}</div>` : ''}
           ${currentUser?.role === 'admin' ? `<div style="margin-top:10px;"><button class="btn btn-danger btn-sm" onclick="deleteIntervention('${i.id}')">🗑 Supprimer</button></div>` : ''}
-        </div>`).join('')}
+        </div>`;
+      }).join('')}
     </div>`).join('') : '<div class="empty">Aucune intervention trouvée.</div>';
 }
 
@@ -753,6 +1148,7 @@ function renderEmployees() {
     <div class="emp-card">
       <div class="emp-avatar">${e.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</div>
       <div class="emp-name">${e.name}</div><div class="emp-role">${e.role}</div>
+      ${e.hourly_rate ? `<div style="margin-top:6px;"><span class="cost-tag">💰 ${e.hourly_rate} DA/h</span></div>` : ''}
       ${currentUser?.role === 'admin' ? `<div style="margin-top:10px;"><button class="btn btn-danger btn-sm" onclick="deleteEmployee(${e.id})">🗑</button></div>` : ''}
     </div>`).join('') : '<div class="empty">Aucun employé enregistré.</div>';
 }
@@ -793,9 +1189,26 @@ function renderAnalytics() {
   const weekInts = interventions.filter(i => new Date(i.date) >= weekAgo).length;
   const totalDowntime = interventions.reduce((s, i) => s + (parseInt(i.downtime_minutes) || 0), 0);
 
+  // TRUE MTTR: average repair duration
+  const avgRepair = interventions.length ? Math.round(interventions.reduce((s, i) => s + (parseInt(i.duration) || 0), 0) / interventions.length) : 0;
+  // Estimated MTBF: simple heuristic (period / number of failures per machine)
+  const uniqueMachines = [...new Set(interventions.map(i => i.machine).filter(Boolean))];
+  let avgMTBF = '--';
+  if (uniqueMachines.length && interventions.length) {
+    const totalH = (365 * 8) - totalDowntime / 60; // assume 8h/day working year
+    avgMTBF = Math.round(totalH / (interventions.length / Math.max(uniqueMachines.length, 1))) + 'h';
+  }
+
+  // Cost per machine
+  const machineCosts = {};
+  interventions.forEach(i => { machineCosts[i.machine] = (machineCosts[i.machine] || 0) + calcInterventionCost(i); });
+  const totalCost = Object.values(machineCosts).reduce((s, v) => s + v, 0);
+
   document.getElementById('statWeek').textContent = weekInts;
   document.getElementById('statDowntime').textContent = Math.round(totalDowntime / 60) + 'h';
-  document.getElementById('statMTBF').textContent = (machines.length && interventions.length) ? Math.round((interventions.length / machines.length) * 10) + 'h' : '--';
+  document.getElementById('statMTTR').textContent = avgRepair ? avgRepair + 'min' : '--';
+  document.getElementById('statMTBF').textContent = avgMTBF;
+  document.getElementById('statTotalCost').textContent = totalCost.toLocaleString() + ' DA';
 
   const machineCounts = {}, machineDowntime = {}, partCounts = {};
   interventions.forEach(i => {
@@ -814,32 +1227,51 @@ function renderAnalytics() {
   createChart('chartDowntime', 'bar', Object.keys(machineDowntime), Object.values(machineDowntime), 'Minutes d\'arrêt', '#ff3b5c');
   createChart('chartParts', 'doughnut', Object.keys(partCounts).slice(0, 5), Object.values(partCounts).slice(0, 5), 'Pièces', ['#00c8ff', '#ff6b00', '#00ff9d', '#ffb800', '#ff3b5c']);
   createChart('chartWeek', 'line', ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'], [2, 4, 3, 5, 2, 1, 0], 'Interventions', '#00ff9d');
+  // Cost per machine chart (doughnut)
+  if (Object.keys(machineCosts).length) {
+    charts['chartCostMachine'] = new Chart(document.getElementById('chartCostMachine'), {
+      type: 'doughnut',
+      data: { labels: Object.keys(machineCosts), datasets: [{ label: 'Coût DA', data: Object.values(machineCosts), backgroundColor: ['#00c8ff','#ff6b00','#00ff9d','#ffb800','#ff3b5c','#a855f7','#ec4899'] }] },
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
+    });
+  }
 }
 
 // ==========================================
-// 6. CRUD OPERATIONS
+// 6. CRUD OPERATIONS (original)
 // ==========================================
 async function addPiece() {
   const name = document.getElementById('newPieceName').value.trim(), cat = document.getElementById('newPieceCat').value;
   if (!name || !cat) return alert('Renseignez le nom et la catégorie.');
   const payload = { name, cat, qty: parseInt(document.getElementById('newPieceQty').value) || 0, thresh: parseInt(document.getElementById('newPieceThresh').value) || 3, ref: document.getElementById('newPieceRef').value.trim() || '—' };
+  const priceVal = parseFloat(document.getElementById('newPiecePrice').value) || 0;
+  if (priceVal > 0) payload.prix_unitaire = priceVal;
   const supId = document.getElementById('newPieceSupplier').value;
   if (supId) payload.supplier_id = parseInt(supId);
   const { data } = await sb.from('pieces').insert([payload]).select().single();
-  if (data) { pieces.push(data); document.getElementById('newPieceName').value = ''; document.getElementById('newPieceRef').value = ''; document.getElementById('newPieceQty').value = '1'; alert('Pièce ajoutée !'); updateAlertBadge(); }
+  if (data) {
+    pieces.push(data);
+    document.getElementById('newPieceName').value = ''; document.getElementById('newPieceRef').value = ''; document.getElementById('newPieceQty').value = '1'; document.getElementById('newPiecePrice').value = '0';
+    addAuditEntry('Pièce ajoutée', `${name} (${cat})`, '🔩');
+    alert('Pièce ajoutée !'); updateAlertBadge();
+  }
 }
 
 function openManagePieces() {
-  document.getElementById('managePiecesBody').innerHTML = pieces.map(p => `<tr>
-    <td><strong>${p.name}</strong></td><td>${p.cat}</td>
-    <td><span class="piece-qty ${p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok')}" style="font-size:1rem">${p.qty}</span></td><td>${p.thresh}</td>
-    <td><div style="display:flex;align-items:center;gap:6px;">
-      <button class="btn btn-secondary btn-sm" onclick="adjustQty(${p.id},-1)">−</button>
-      <span id="qty_${p.id}" style="font-family:'Share Tech Mono';min-width:28px;text-align:center">${p.qty}</span>
-      <button class="btn btn-secondary btn-sm" onclick="adjustQty(${p.id},1)">+</button>
-    </div></td>
-    <td><button class="btn btn-danger btn-sm" onclick="deletePiece(${p.id})">🗑</button></td>
-  </tr>`).join('');
+  document.getElementById('managePiecesBody').innerHTML = pieces.map(p => {
+    const price = p.prix_unitaire || p.unit_price || 0;
+    return `<tr>
+      <td><strong>${p.name}</strong></td><td>${p.cat}</td>
+      <td><span class="piece-qty ${p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok')}" style="font-size:1rem">${p.qty}</span></td><td>${p.thresh}</td>
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--accent3);">${price.toLocaleString()}</td>
+      <td><div style="display:flex;align-items:center;gap:6px;">
+        <button class="btn btn-secondary btn-sm" onclick="adjustQty(${p.id},-1)">−</button>
+        <span id="qty_${p.id}" style="font-family:'Share Tech Mono';min-width:28px;text-align:center">${p.qty}</span>
+        <button class="btn btn-secondary btn-sm" onclick="adjustQty(${p.id},1)">+</button>
+      </div></td>
+      <td><button class="btn btn-danger btn-sm" onclick="deletePiece(${p.id})">🗑</button></td>
+    </tr>`;
+  }).join('');
   openModal('managePiecesModal');
 }
 
@@ -848,23 +1280,38 @@ async function adjustQty(id, delta) {
   p.qty = Math.max(0, p.qty + delta);
   await sb.from('pieces').update({ qty: p.qty }).eq('id', id);
   document.getElementById('qty_' + id).textContent = p.qty; updateAlertBadge();
+  addAuditEntry('Stock ajusté', `${p.name}: ${p.qty - delta} → ${p.qty}`, '📦');
 }
 
 async function deletePiece(id) {
   if (!confirm('Supprimer cette pièce ?')) return;
-  await sb.from('pieces').delete().eq('id', id); pieces = pieces.filter(p => p.id !== id); openManagePieces(); updateAlertBadge();
+  const p = pieces.find(x => x.id === id);
+  await sb.from('pieces').delete().eq('id', id); pieces = pieces.filter(p => p.id !== id);
+  addAuditEntry('Pièce supprimée', p?.name || id, '🗑');
+  openManagePieces(); updateAlertBadge();
 }
 
 async function addEmployee() {
   const name = document.getElementById('newEmpName').value.trim(), role = document.getElementById('newEmpRole').value.trim();
   if (!name || !role) return alert('Renseignez le nom et la profession.');
-  const { data } = await sb.from('employees').insert([{ name, role }]).select().single();
-  if (data) { employees.push(data); document.getElementById('newEmpName').value = ''; document.getElementById('newEmpRole').value = ''; alert('Employé ajouté !'); renderEmployees(); }
+  const payload = { name, role };
+  const rate = parseFloat(document.getElementById('newEmpRate').value) || DEFAULT_HOURLY_RATE;
+  if (rate > 0) payload.hourly_rate = rate;
+  const { data } = await sb.from('employees').insert([payload]).select().single();
+  if (data) {
+    employees.push(data);
+    document.getElementById('newEmpName').value = ''; document.getElementById('newEmpRole').value = ''; document.getElementById('newEmpRate').value = '500';
+    addAuditEntry('Employé ajouté', `${name} — ${role}`, '👷');
+    alert('Employé ajouté !'); renderEmployees();
+  }
 }
 
 async function deleteEmployee(id) {
   if (!confirm('Supprimer cet employé ?')) return;
-  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id); renderEmployees();
+  const e = employees.find(x => x.id === id);
+  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id);
+  addAuditEntry('Employé supprimé', e?.name || id, '🗑');
+  renderEmployees();
 }
 
 async function addCategory() {
@@ -891,7 +1338,9 @@ async function addLigne() {
   const name = document.getElementById('newLigneName').value.trim(); if (!name) return;
   const { data, error } = await sb.from('lignes').insert([{ name }]).select().single();
   if (error) { alert('Erreur: ' + error.message); return; }
-  lignes.push(data); document.getElementById('newLigneName').value = ''; renderLigneList(); refreshLigneSelects();
+  lignes.push(data); document.getElementById('newLigneName').value = '';
+  addAuditEntry('Ligne ajoutée', name, '🏭');
+  renderLigneList(); refreshLigneSelects();
 }
 
 async function deleteLigne(id) {
@@ -923,11 +1372,18 @@ async function addMachine() {
   const name = document.getElementById('newMachineName').value.trim(), ligneId = parseInt(document.getElementById('newMachineLigne').value);
   if (!name || !ligneId) return alert('Renseignez le nom et la ligne.');
   const { data } = await sb.from('machines').insert([{ name, ligne_id: ligneId }]).select().single();
-  if (data) { machines.push(data); document.getElementById('newMachineName').value = ''; renderLigneList(); }
+  if (data) {
+    machines.push(data); document.getElementById('newMachineName').value = '';
+    addAuditEntry('Machine ajoutée', name, '⚙');
+    renderLigneList();
+  }
 }
 
 async function deleteMachine(id) {
-  await sb.from('machines').delete().eq('id', id); machines = machines.filter(m => m.id !== id); renderLigneList();
+  const m = machines.find(x => x.id === id);
+  await sb.from('machines').delete().eq('id', id); machines = machines.filter(m => m.id !== id);
+  addAuditEntry('Machine supprimée', m?.name || id, '🗑');
+  renderLigneList();
 }
 
 function refreshLigneSelects() {
@@ -948,12 +1404,15 @@ async function saveSupplier() {
   const name = document.getElementById('supName').value.trim(), contact = document.getElementById('supContact').value.trim(), lead = parseInt(document.getElementById('supLead').value) || 7;
   if (!name) return alert('Nom requis');
   const { data } = await sb.from('suppliers').insert([{ name, contact, lead_time_days: lead }]).select().single();
-  if (data) { suppliers.push(data); closeModal('supplierModal'); renderSuppliers(); refreshSupplierSelects(); }
+  if (data) { suppliers.push(data); closeModal('supplierModal'); renderSuppliers(); refreshSupplierSelects(); addAuditEntry('Fournisseur ajouté', name, '🛒'); }
 }
 
 async function deleteSupplier(id) {
   if (!confirm('Supprimer ?')) return;
-  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id); renderSuppliers(); refreshSupplierSelects();
+  const s = suppliers.find(x => x.id === id);
+  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id);
+  addAuditEntry('Fournisseur supprimé', s?.name || id, '🗑');
+  renderSuppliers(); refreshSupplierSelects();
 }
 
 function openAddSupplier() { openModal('supplierModal'); }
@@ -963,22 +1422,8 @@ function refreshSupplierSelects() {
 }
 
 // ==========================================
-// 7. MACHINE INFO & PHOTOS
+// 7. MACHINE INFO & PHOTOS (original + BOM display)
 // ==========================================
-function openEditMachine(id) {
-  const m = machines.find(x => x.id === id); if (!m) return;
-  document.getElementById('editMachineId').value = m.id;
-  document.getElementById('editMachineName').value = m.name;
-  document.getElementById('editMachineDesc').value = m.description || '';
-  const img = document.getElementById('editMachineCurrentPhoto'), delBtn = document.getElementById('btnDeleteMachinePhoto');
-  machinePhotoToDelete = false; currentMachinePhotoPath = '';
-  if (m.photo_url) {
-    img.src = m.photo_url; img.style.display = 'block'; delBtn.style.display = 'block';
-    const match = m.photo_url.match(/\/photos\/(.+)$/); if (match) currentMachinePhotoPath = match[1];
-  } else { img.style.display = 'none'; delBtn.style.display = 'none'; }
-  document.getElementById('editMachinePhoto').value = ''; openModal('editMachineModal');
-}
-
 function deleteMachinePhotoUI() {
   document.getElementById('editMachineCurrentPhoto').style.display = 'none';
   document.getElementById('btnDeleteMachinePhoto').style.display = 'none';
@@ -1005,6 +1450,10 @@ async function saveMachineInfo() {
     if (error) throw error;
     const idx = machines.findIndex(m => m.id === id);
     if (idx !== -1) machines[idx] = { ...machines[idx], ...data };
+    // Save BOM
+    machineBOMs[id] = [...currentEditBOM];
+    saveBOMs();
+    addAuditEntry('Machine modifiée', machines[idx]?.name || id, '⚙');
     closeModal('editMachineModal'); renderLigneList(); alert("✅ Informations machine mises à jour !");
   } catch (e) { alert("Erreur: " + e.message); } finally { hideLoader(); }
 }
@@ -1022,15 +1471,37 @@ function showMachineInfo(mId) {
   content += m.description ? `<div style="background:var(--bg2);padding:16px;border-radius:10px;border:1px solid var(--border);margin-bottom:16px;white-space:pre-wrap;line-height:1.6;">${m.description}</div>` : `<div style="color:var(--text3);text-align:center;padding:20px;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">Aucune description fournie.</div>`;
   document.getElementById('machineInfoContent').innerHTML = content;
 
+  // BOM display
+  const bom = machineBOMs[mId] || [];
+  const bomSection = document.getElementById('machineBOMSection');
+  const bomList = document.getElementById('machineBOMList');
+  if (bom.length) {
+    bomSection.style.display = '';
+    bomList.innerHTML = bom.map(pid => {
+      const p = pieces.find(x => x.id === pid);
+      if (!p) return '';
+      const level = p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok');
+      return `<div class="bom-item">
+        <span class="bom-name">${p.name} <span style="color:var(--text3);font-size:0.72rem;">(${p.ref})</span></span>
+        <span class="bom-qty piece-qty ${level}" style="font-size:0.85rem;">${p.qty} u.</span>
+        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}">${level === 'ok' ? 'OK' : (level === 'warn' ? 'ALERTE' : 'RUPTURE')}</span>
+      </div>`;
+    }).join('');
+  } else {
+    bomSection.style.display = 'none';
+  }
+
   const history = interventions.filter(i => i.machine === m.name).sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
-  document.getElementById('machineInfoHistory').innerHTML = history.length ? history.slice(0, 10).map(i => `
-    <div class="intervention-card" style="margin-bottom:10px;">
-      <div class="intervention-meta"><div class="meta-tag">📅 <strong>${i.date}</strong></div><div class="meta-tag">🕐 <strong>${i.time}</strong></div><div class="meta-tag">⏱ <strong>${i.duration} min</strong></div><div class="meta-tag">⛔ <strong>${i.downtime_minutes || 0} min</strong></div></div>
+  document.getElementById('machineInfoHistory').innerHTML = history.length ? history.slice(0, 10).map(i => {
+    const cost = calcInterventionCost(i);
+    return `<div class="intervention-card" style="margin-bottom:10px;">
+      <div class="intervention-meta"><div class="meta-tag">📅 <strong>${i.date}</strong></div><div class="meta-tag">🕐 <strong>${i.time}</strong></div><div class="meta-tag">⏱ <strong>${i.duration} min</strong></div><div class="meta-tag">⛔ <strong>${i.downtime_minutes || 0} min</strong></div><div class="meta-tag">💰 <strong>${cost.toLocaleString()} DA</strong></div></div>
       <div style="margin-bottom:8px;font-size:0.9rem;color:var(--text2);">${i.description || ''}</div>
       ${i.photo_url ? `<img src="${i.photo_url}" class="intervention-photo" onclick="window.open('${i.photo_url}', '_blank')">` : ''}
       <div>👷 ${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('') || '<em style="color:var(--text3)">—</em>'}</div>
       ${(i.piecesUsed || i.pieces_used || []).length ? `<div class="pieces-used">🔩 ${(i.piecesUsed || i.pieces_used).map(u => `<span class="piece-chip">${u.name} × ${u.qty}</span>`).join('')}</div>` : ''}
-    </div>`).join('') : '<div class="empty">Aucune intervention enregistrée.</div>';
+    </div>`;
+  }).join('') : '<div class="empty">Aucune intervention enregistrée.</div>';
   openModal('machineInfoModal');
 }
 
@@ -1057,16 +1528,20 @@ function checkURLHash() {
 }
 
 // ==========================================
-// 8. INTERVENTIONS & OFFLINE QUEUE
+// 8. INTERVENTIONS & OFFLINE QUEUE (original)
 // ==========================================
+
 function openAddIntervention() {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { openLogin(); return; }
   selectedPiecesMap = {}; selectedPersonnel = [];
+  chronoReset();
   const now = new Date();
   document.getElementById('intDate').value = now.toISOString().slice(0, 10);
   document.getElementById('intTime').value = now.toTimeString().slice(0, 5);
   ['intDuration', 'intDowntime', 'intDesc'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('intPhoto').value = '';
+  // Stop any active voice
+  if (voiceActive) { voiceRecognition && voiceRecognition.stop(); voiceActive = false; document.getElementById('micBtn').classList.remove('recording'); document.getElementById('micBtn').textContent = '🎤'; }
   document.getElementById('personnelMulti').innerHTML = employees.map(e => `<div class="pers-chip" data-name="${e.name}" onclick="togglePersonnel(this,'${e.name}')">${e.name}</div>`).join('');
   refreshLigneSelects();
   document.getElementById('pieceSelectorList').innerHTML = pieces.filter(p => p.qty > 0).map(p => `<div class="piece-sel-item" data-id="${p.id}" onclick="togglePiece(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.qty})"><span>${p.name}</span><span style="color:var(--text3);font-size:0.72rem">[${p.qty}]</span></div>`).join('');
@@ -1107,6 +1582,11 @@ async function saveIntervention() {
   if (!date || !time) return alert('Renseignez la date et l\'heure.');
   if (!selectedPersonnel.length) return alert('Sélectionnez au moins un technicien.');
 
+  // Stop chrono if running
+  if (chronoRunning) chronoStop();
+  // Stop voice if active
+  if (voiceActive) { voiceRecognition && voiceRecognition.stop(); voiceActive = false; document.getElementById('micBtn').classList.remove('recording'); document.getElementById('micBtn').textContent = '🎤'; }
+
   showLoader('Traitement...');
   let photoUrl = '';
   if (photoInput.files && photoInput.files[0]) {
@@ -1132,6 +1612,7 @@ async function saveIntervention() {
     const queue = JSON.parse(localStorage.getItem('gmao_offline_interventions') || '[]');
     queue.push(newInt); localStorage.setItem('gmao_offline_interventions', JSON.stringify(queue));
     interventions.unshift(newInt); hideLoader(); closeModal('interventionModal'); showPage('historique');
+    addAuditEntry('Intervention (hors ligne)', `${machine} — ${date}`, '📋');
     return alert("✅ Mode Hors Ligne : Sauvegardé localement.");
   }
 
@@ -1139,13 +1620,18 @@ async function saveIntervention() {
     for (const p of pieces) await sb.from('pieces').update({ qty: p.qty }).eq('id', p.id);
     const { data, error } = await sb.from('interventions').insert([newInt]).select().single();
     if (error) throw error;
-    interventions.unshift(data); updateAlertBadge(); closeModal('interventionModal'); showPage('historique');
+    interventions.unshift(data); updateAlertBadge();
+    addAuditEntry('Intervention enregistrée', `${machine} — ${date} — ${selectedPersonnel.join(', ')}`, '📋');
+    closeModal('interventionModal'); showPage('historique');
   } catch (e) { alert("Erreur lors de l'enregistrement: " + e.message); } finally { hideLoader(); }
 }
 
 async function deleteIntervention(id) {
   if (!confirm('Supprimer cette intervention ?')) return;
-  await sb.from('interventions').delete().eq('id', id); interventions = interventions.filter(i => i.id !== id); renderHistorique(); renderDashboard();
+  const i = interventions.find(x => x.id === id);
+  await sb.from('interventions').delete().eq('id', id); interventions = interventions.filter(i => i.id !== id);
+  addAuditEntry('Intervention supprimée', `${i?.machine || id} — ${i?.date || ''}`, '🗑');
+  renderHistorique(); renderDashboard();
 }
 
 async function syncOfflineData() {
@@ -1167,7 +1653,7 @@ async function syncOfflineData() {
 }
 
 // ==========================================
-// 9. WORK ORDERS & PLANNED MAINTENANCE
+// 9. WORK ORDERS & PLANNED MAINTENANCE (original)
 // ==========================================
 function openAddWO() {
   if (!currentUser || currentUser.role !== 'admin') { openLogin(); return; }
@@ -1181,12 +1667,16 @@ async function saveWO() {
   if (!desc || !machine) return alert('Machine et description requises');
   const { data, error } = await sb.from('work_orders').insert([{ machine_name: machine, description: desc, assigned_to: assigned, status: 'assigned' }]).select().single();
   if (error) { alert("Erreur: " + error.message); return; }
-  workOrders.unshift(data); closeModal('woModal'); renderWorkOrders(); alert("✅ Ordre créé !");
+  workOrders.unshift(data); closeModal('woModal'); renderWorkOrders();
+  addAuditEntry('Ordre de travail créé', `${machine} → ${assigned}`, '📋');
+  alert("✅ Ordre créé !");
 }
 
 async function updateWOStatus(id, status) {
   const wo = workOrders.find(w => w.id === id); if (!wo) return;
-  wo.status = status; await sb.from('work_orders').update({ status }).eq('id', id); renderWorkOrders();
+  wo.status = status; await sb.from('work_orders').update({ status }).eq('id', id);
+  addAuditEntry('Statut OT modifié', `${wo.machine_name}: ${status}`, '🔄');
+  renderWorkOrders();
 }
 
 function openAddPlanned() {
@@ -1201,7 +1691,9 @@ async function savePlanned() {
   const next = new Date(); next.setDate(next.getDate() + interval);
   const { data, error } = await sb.from('planned_maintenance').insert([{ machine_name: machine, description: desc, interval_days: interval, next_due: next.toISOString().split('T')[0] }]).select().single();
   if (error) { alert("Erreur: " + error.message); return; }
-  plannedMaint.push(data); closeModal('plannedModal'); renderPlanned(); alert("✅ Planifié !");
+  plannedMaint.push(data); closeModal('plannedModal'); renderPlanned();
+  addAuditEntry('Maintenance planifiée', `${machine} — ${desc}`, '🗓');
+  alert("✅ Planifié !");
 }
 
 async function deletePlanned(id) {
@@ -1210,7 +1702,7 @@ async function deletePlanned(id) {
 }
 
 // ==========================================
-// 10. QR CODE SCANNER
+// 10. QR CODE SCANNER (original)
 // ==========================================
 function openQRScanner() {
   if (!currentUser) { openLogin(); return; }
@@ -1235,7 +1727,7 @@ function stopQRScanner() {
 }
 
 // ==========================================
-// 11. EXPORTS & FILTERS
+// 11. EXPORTS & FILTERS (original)
 // ==========================================
 function clearFilters() { ['filterDate', 'filterPers', 'filterMachine'].forEach(id => document.getElementById(id).value = ''); renderHistorique(); }
 
@@ -1258,19 +1750,19 @@ function exportReorderPDF() {
 function exportStockPDF() {
   const { jsPDF } = window.jspdf; const doc = new jsPDF();
   doc.text("Rapport de Stock", 14, 15);
-  doc.autoTable({ head: [['Nom', 'Catégorie', 'Réf', 'Qté', 'Seuil']], body: pieces.map(p => [p.name, p.cat, p.ref, p.qty, p.thresh]), startY: 20 });
+  doc.autoTable({ head: [['Nom', 'Catégorie', 'Réf', 'Qté', 'Seuil', 'Prix (DA)']], body: pieces.map(p => [p.name, p.cat, p.ref, p.qty, p.thresh, p.prix_unitaire || 0]), startY: 20 });
   doc.save("Stock_" + new Date().toISOString().slice(0, 10) + ".pdf");
 }
 
 function exportHistoriquePDF() {
   const { jsPDF } = window.jspdf; const doc = new jsPDF();
   doc.text("Historique des Interventions", 14, 15);
-  doc.autoTable({ head: [['Date', 'Machine', 'Ligne', 'Personnel', 'Durée', 'Description']], body: interventions.map(i => [`${i.date} ${i.time}`, i.machine || '-', i.ligne || '-', (i.personnel || []).join(', '), i.duration + ' min', i.description || '-']), startY: 20 });
+  doc.autoTable({ head: [['Date', 'Machine', 'Ligne', 'Personnel', 'Durée', 'Coût (DA)', 'Description']], body: interventions.map(i => [`${i.date} ${i.time}`, i.machine || '-', i.ligne || '-', (i.personnel || []).join(', '), i.duration + ' min', calcInterventionCost(i).toLocaleString(), i.description || '-']), startY: 20 });
   doc.save("Historique_" + new Date().toISOString().slice(0, 10) + ".pdf");
 }
 
 // ==========================================
-// 12. INITIALIZATION
+// 12. INITIALIZATION (original)
 // ==========================================
 window.addEventListener('online', syncOfflineData);
 window.addEventListener('load', () => {
