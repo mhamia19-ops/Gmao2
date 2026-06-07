@@ -544,8 +544,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top
     <div class="form-group" style="margin-bottom:14px;"><label>Description / Spécifications</label><textarea id="editMachineDesc" rows="5" placeholder="Ajouter des détails, spécifications, notes..."></textarea></div>
     <div class="form-group" style="margin-bottom:14px;">
         <label>Photo actuelle</label>
-        <img id="editMachineCurrentPhoto" style="max-width:100%;max-height:200px;border-radius:8px;margin-bottom:10px;display:none;border:1px solid var(--border);">
-        <label>Changer la photo</label>
+        <div style="position:relative; display:inline-block; width:100%;">
+            <img id="editMachineCurrentPhoto" style="max-width:100%;max-height:200px;border-radius:8px;margin-bottom:10px;border:1px solid var(--border);display:none;">
+            <button type="button" id="btnDeleteMachinePhoto" class="btn btn-danger btn-sm" onclick="deleteMachinePhotoUI()" style="display:none; position:absolute; top:10px; right:10px;">🗑 Supprimer</button>
+        </div>
+        <label style="margin-top:10px; display:block;">Changer / Ajouter une photo</label>
         <input type="file" id="editMachinePhoto" accept="image/*" capture="environment">
     </div>
     <div class="modal-footer-btns" style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -569,17 +572,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);margin-top
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* 
- * =====================================================================
- * IMPORTANT SUPABASE SETUP INSTRUCTIONS:
- * 1. Create a PUBLIC storage bucket named 'photos' in your Supabase dashboard.
- *    (Go to Storage -> New Bucket -> Name: 'photos' -> Public bucket: ON)
- * 2. Add two new columns to your 'machines' table:
- *    - description (type: text)
- *    - photo_url (type: text)
- * =====================================================================
- */
-
 const SUPABASE_URL = 'https://cuctsokaivauyulgpvfg.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1360,7 +1352,8 @@ async function uploadPhoto(file, folder) {
 // ==========================================
 // MACHINE INFO & PHOTOS
 // ==========================================
-let currentMachineInfoId = null;
+let machinePhotoToDelete = false;
+let currentMachinePhotoPath = '';
 
 function openEditMachine(id) {
     const m = machines.find(x => x.id === id);
@@ -1368,15 +1361,32 @@ function openEditMachine(id) {
     document.getElementById('editMachineId').value = m.id;
     document.getElementById('editMachineName').value = m.name;
     document.getElementById('editMachineDesc').value = m.description || '';
+    
     const img = document.getElementById('editMachineCurrentPhoto');
+    const delBtn = document.getElementById('btnDeleteMachinePhoto');
+    
+    machinePhotoToDelete = false;
+    currentMachinePhotoPath = '';
+    
     if(m.photo_url) {
         img.src = m.photo_url;
         img.style.display = 'block';
+        delBtn.style.display = 'block';
+        const match = m.photo_url.match(/\/photos\/(.+)$/);
+        if(match) currentMachinePhotoPath = match[1];
     } else {
         img.style.display = 'none';
+        delBtn.style.display = 'none';
     }
+    
     document.getElementById('editMachinePhoto').value = '';
     openModal('editMachineModal');
+}
+
+function deleteMachinePhotoUI() {
+    document.getElementById('editMachineCurrentPhoto').style.display = 'none';
+    document.getElementById('btnDeleteMachinePhoto').style.display = 'none';
+    machinePhotoToDelete = true;
 }
 
 async function saveMachineInfo() {
@@ -1386,9 +1396,26 @@ async function saveMachineInfo() {
     
     let updatePayload = { description: desc };
     
+    // Handle photo deletion
+    if(machinePhotoToDelete && currentMachinePhotoPath) {
+        showLoader('Suppression de la photo...');
+        try {
+            await sb.storage.from('photos').remove([currentMachinePhotoPath]);
+            updatePayload.photo_url = null;
+        } catch(e) {
+            console.error("Error deleting photo from storage:", e);
+            updatePayload.photo_url = null;
+        }
+        hideLoader();
+    }
+    
+    // Handle new photo upload
     if(photoInput.files && photoInput.files[0]) {
         showLoader('Upload photo machine...');
         try {
+            if(currentMachinePhotoPath && !machinePhotoToDelete) {
+                try { await sb.storage.from('photos').remove([currentMachinePhotoPath]); } catch(e){}
+            }
             const url = await uploadPhoto(photoInput.files[0], `machines/${id}`);
             updatePayload.photo_url = url;
         } catch(e) {
@@ -1399,7 +1426,10 @@ async function saveMachineInfo() {
         hideLoader();
     }
     
+    showLoader('Enregistrement...');
     const { data, error } = await sb.from('machines').update(updatePayload).eq('id', id).select().single();
+    hideLoader();
+    
     if(error) {
         alert("Erreur sauvegarde: " + error.message);
         return;
