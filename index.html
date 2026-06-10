@@ -239,6 +239,31 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   .admin-badge { font-size: 0.7rem; padding: 5px 8px; }
   .fab { display: flex; }
 }
+  /* ==========================================
+   PIECE DETAIL CARDS & QR
+   ========================================== */
+.piece-card-detail { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.piece-detail-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+.piece-detail-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.piece-detail-card.warn { border-color: rgba(255,184,0,0.5); }
+.piece-detail-card.danger { border-color: rgba(255,59,92,0.5); }
+.piece-detail-photo { width: 100%; height: 130px; object-fit: cover; display: block; background: var(--bg3); cursor: pointer; }
+.piece-detail-photo-placeholder { width: 100%; height: 130px; display: flex; align-items: center; justify-content: center; background: var(--bg3); color: var(--text3); font-size: 2rem; }
+.piece-detail-body { padding: 14px; }
+.piece-detail-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+.piece-detail-ref { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.piece-detail-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.piece-detail-actions { display: flex; gap: 6px; flex-wrap: wrap; padding: 10px 14px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.15); }
+
+/* BOM availability tags */
+.bom-avail-tag { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
+.bom-avail-tag.avail { background: rgba(0,255,157,0.1); color: var(--accent3); border: 1px solid rgba(0,255,157,0.35); }
+.bom-avail-tag.low { background: rgba(255,184,0,0.1); color: var(--warn); border: 1px solid rgba(255,184,0,0.35); }
+.bom-avail-tag.out { background: rgba(255,59,92,0.1); color: var(--danger); border: 1px solid rgba(255,59,92,0.35); }
+
+/* Piece detail modal */
+.piece-qr-area { text-align: center; margin: 14px 0; }
+.piece-qr-area canvas { background: #fff; padding: 12px; border-radius: 10px; }
 </style>
 </head>
 <body>
@@ -298,16 +323,19 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 
   <!-- STOCK (original) -->
-  <div class="page" id="page-stock">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-      <div class="card-title" style="margin:0">📦 Stock des Pièces</div>
-      <div style="display:flex;gap:10px;">
-        <button class="btn btn-secondary btn-sm" onclick="exportStockPDF()">📄 Export PDF</button>
-        <input id="stockSearch" placeholder="Rechercher..." style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:0.85rem;outline:none;width:200px;" oninput="renderStock()">
-      </div>
+<div class="page" id="page-stock">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div class="card-title" style="margin:0">📦 Stock des Pièces</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-secondary btn-sm" onclick="exportStockPDF()">📄 Export PDF</button>
+      <button class="btn btn-secondary btn-sm" onclick="openPieceQRScan()">📷 Scanner QR Pièce</button>
+      <input id="stockSearch" placeholder="Rechercher nom ou référence..." 
+        style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:0.85rem;outline:none;width:220px;" 
+        oninput="renderStock()">
     </div>
-    <div class="pieces-grid" id="piecesGrid"></div>
   </div>
+  <div class="piece-card-detail" id="piecesGrid"></div>
+</div>
 
   <!-- HISTORIQUE (original) -->
   <div class="page" id="page-historique">
@@ -1772,6 +1800,286 @@ window.addEventListener('load', () => {
   }
   loadAllData();
 });
+  <!-- PIECE DETAIL MODAL -->
+<div class="modal-overlay" id="pieceDetailModal">
+  <div class="modal modal-lg">
+    <div class="modal-title"><span id="pieceDetailTitle">🔩 Pièce</span><button class="modal-close" onclick="closeModal('pieceDetailModal')">✕</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;" id="pieceDetailGrid">
+      <div>
+        <img id="pieceDetailImg" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:none;">
+        <div id="pieceDetailImgPlaceholder" style="width:100%;height:180px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:3rem;">🔩</div>
+        <div class="piece-qr-area" style="margin-top:14px;">
+          <canvas id="pieceDetailQR" style="display:block;margin:0 auto;"></canvas>
+          <div style="font-size:0.72rem;color:var(--text3);margin-top:6px;">QR Code de la pièce</div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="downloadPieceQR()">⬇ Télécharger QR</button>
+        </div>
+      </div>
+      <div id="pieceDetailInfo"></div>
+    </div>
+    <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;" id="pieceMachinesSection">
+      <div class="card-title">🏭 Machines utilisant cette pièce (BOM)</div>
+      <div id="pieceMachinesList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PIECE QR SCANNER (search by QR) -->
+<div class="modal-overlay" id="pieceQRScanModal">
+  <div class="modal">
+    <div class="modal-title">🔍 Scanner QR Pièce <button class="modal-close" onclick="stopPieceQRScan()">✕</button></div>
+    <div id="piece-qr-reader" style="width:100%;border-radius:8px;overflow:hidden;"></div>
+    <p style="text-align:center;color:var(--text3);margin-top:10px;font-size:0.8rem;">Pointez vers le QR code d'une pièce.</p>
+  </div>
+</div>
+  // ==========================================
+// PIECE DETAILS, PHOTOS, QR
+// ==========================================
+let currentPieceQRScanner = null;
+let currentPieceDetailId = null;
+
+// ── Render stock with full detail cards ──
+function renderStock() {
+  const q = (document.getElementById('stockSearch') || {}).value?.toLowerCase() || '';
+  const list = pieces.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    (p.ref || '').toLowerCase().includes(q)
+  );
+  document.getElementById('piecesGrid').innerHTML = list.length ? list.map(p => {
+    const level = p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok');
+    const price = p.prix_unitaire || p.unit_price || 0;
+    const photoHtml = p.photo_url
+      ? `<img src="${p.photo_url}" class="piece-detail-photo" onclick="openPieceDetail(${p.id})">`
+      : `<div class="piece-detail-photo-placeholder" onclick="openPieceDetail(${p.id})">🔩</div>`;
+    return `<div class="piece-detail-card ${level}">
+      ${photoHtml}
+      <div class="piece-detail-body">
+        <div class="piece-detail-name">${p.name}</div>
+        <div class="piece-detail-ref">
+          <span style="color:var(--text3);">REF:</span>${p.ref || '—'}
+          <button onclick="openPieceQRScanForRef('${(p.ref||'').replace(/'/g,"\\'")}'); event.stopPropagation();" 
+            title="Chercher par QR" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.85rem;padding:0;">📷</button>
+        </div>
+        <div class="piece-detail-meta">
+          <span class="badge badge-info">${p.cat}</span>
+          <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}">
+            ${p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE' : 'OK')}
+          </span>
+          ${price ? `<span class="cost-tag">💰 ${price.toLocaleString()} DA</span>` : ''}
+        </div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--${level === 'ok' ? 'accent3' : (level === 'warn' ? 'warn' : 'danger')})">${p.qty}</div>
+        <div style="font-size:0.72rem;color:var(--text3);">unités · seuil ${p.thresh}</div>
+      </div>
+      <div class="piece-detail-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openPieceDetail(${p.id})">🔍 Détails</button>
+        <button class="btn btn-secondary btn-sm" onclick="showPieceQR(${p.id}, event)">📷 QR</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
+}
+
+// ── Open full piece detail modal ──
+function openPieceDetail(id) {
+  const p = pieces.find(x => x.id === id); if (!p) return;
+  currentPieceDetailId = id;
+  document.getElementById('pieceDetailTitle').textContent = `🔩 ${p.name}`;
+
+  // Photo
+  const img = document.getElementById('pieceDetailImg');
+  const placeholder = document.getElementById('pieceDetailImgPlaceholder');
+  if (p.photo_url) {
+    img.src = p.photo_url; img.style.display = 'block'; placeholder.style.display = 'none';
+  } else {
+    img.style.display = 'none'; placeholder.style.display = 'flex';
+  }
+
+  // QR code — encode ref so scanner can look up by ref
+  const qrValue = `${window.location.origin}${window.location.pathname}#piece_ref=${encodeURIComponent(p.ref || p.id)}`;
+  new QRious({
+    element: document.getElementById('pieceDetailQR'),
+    value: qrValue,
+    size: 180,
+    foreground: '#0a0e1a',
+    background: '#ffffff'
+  });
+
+  // Info panel
+  const price = p.prix_unitaire || p.unit_price || 0;
+  const level = p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok');
+  const statusLabel = p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE' : 'DISPONIBLE');
+  document.getElementById('pieceDetailInfo').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:4px;">Statut</div>
+        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}" style="font-size:0.85rem;padding:5px 14px;">${statusLabel}</span>
+      </div>
+      <div class="form-group">
+        <label>Référence</label>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:var(--accent);background:var(--bg3);padding:8px 12px;border-radius:6px;border:1px solid var(--border);">${p.ref || '—'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group"><label>Quantité</label>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:1.8rem;font-weight:900;color:var(--${level === 'ok' ? 'accent3' : (level === 'warn' ? 'warn' : 'danger')})">${p.qty}</div>
+        </div>
+        <div class="form-group"><label>Seuil alerte</label>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:1.8rem;font-weight:900;color:var(--text2)">${p.thresh}</div>
+        </div>
+      </div>
+      <div class="form-group"><label>Catégorie</label><div style="color:var(--text)">${p.cat}</div></div>
+      ${price ? `<div class="form-group"><label>Prix unitaire</label><div style="font-family:'Share Tech Mono',monospace;color:var(--accent3);">${price.toLocaleString()} DA</div></div>` : ''}
+      ${p.supplier_id ? (() => { const s = suppliers.find(x => x.id === p.supplier_id); return s ? `<div class="form-group"><label>Fournisseur</label><div style="color:var(--text)">${s.name}</div></div>` : ''; })() : ''}
+      ${currentUser?.role === 'admin' ? `
+        <div style="border-top:1px solid var(--border);padding-top:12px;">
+          <label style="font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);display:block;margin-bottom:8px;">Changer la photo</label>
+          <input type="file" id="piecePhotoInput" accept="image/*" capture="environment">
+          <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="uploadPiecePhoto(${p.id})">📸 Mettre à jour</button>
+        </div>` : ''}
+    </div>`;
+
+  // Machines BOM section
+  const machineBOMSection = document.getElementById('pieceMachinesSection');
+  const machineBOMList = document.getElementById('pieceMachinesList');
+  const linkedMachines = Object.entries(machineBOMs)
+    .filter(([, pids]) => pids.includes(id))
+    .map(([mid]) => machines.find(m => m.id === parseInt(mid)))
+    .filter(Boolean);
+
+  if (linkedMachines.length) {
+    machineBOMSection.style.display = '';
+    machineBOMList.innerHTML = linkedMachines.map(m => {
+      const ligne = lignes.find(l => l.id === (m.ligne_id || m.ligneId));
+      return `<div style="display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 14px;margin:4px;">
+        <span>⚙ <strong>${m.name}</strong></span>
+        <span style="font-size:0.72rem;color:var(--text3);">${ligne ? ligne.name : ''}</span>
+        <button class="btn btn-secondary btn-sm" onclick="closeModal('pieceDetailModal'); showMachineInfo(${m.id});">👁 Voir</button>
+      </div>`;
+    }).join('');
+  } else {
+    machineBOMSection.style.display = 'none';
+  }
+
+  openModal('pieceDetailModal');
+}
+
+// ── Upload/update piece photo ──
+async function uploadPiecePhoto(id) {
+  const input = document.getElementById('piecePhotoInput');
+  if (!input.files || !input.files[0]) return alert('Sélectionnez une photo.');
+  showLoader('Envoi de la photo...');
+  try {
+    const p = pieces.find(x => x.id === id);
+    // Remove old photo
+    if (p.photo_url) {
+      const match = p.photo_url.match(/\/photos\/(.+)$/);
+      if (match) await sb.storage.from('photos').remove([match[1]]);
+    }
+    const url = await compressAndUpload(input.files[0], `pieces/${id}`);
+    await sb.from('pieces').update({ photo_url: url }).eq('id', id);
+    p.photo_url = url;
+    addAuditEntry('Photo pièce mise à jour', p.name, '📸');
+    closeModal('pieceDetailModal');
+    renderStock();
+    openPieceDetail(id);
+  } catch (e) { alert('Erreur: ' + e.message); }
+  finally { hideLoader(); }
+}
+
+// ── Show piece QR in stock grid ──
+function showPieceQR(id, event) {
+  if (event) event.stopPropagation();
+  const p = pieces.find(x => x.id === id); if (!p) return;
+  const qrValue = `${window.location.origin}${window.location.pathname}#piece_ref=${encodeURIComponent(p.ref || p.id)}`;
+  document.getElementById('qrModalTitle').textContent = `QR: ${p.name} (${p.ref})`;
+  new QRious({ element: document.getElementById('qrCanvas'), value: qrValue, size: 250, foreground: '#0a0e1a', background: '#ffffff' });
+  openModal('qrModal');
+}
+
+// ── Download piece QR ──
+function downloadPieceQR() {
+  const p = pieces.find(x => x.id === currentPieceDetailId); if (!p) return;
+  const canvas = document.getElementById('pieceDetailQR');
+  const link = document.createElement('a');
+  link.download = `QR_${p.ref || p.name}.png`;
+  link.href = canvas.toDataURL();
+  link.click();
+}
+
+// ── QR Scanner for pieces ──
+function openPieceQRScan() {
+  openModal('pieceQRScanModal');
+  currentPieceQRScanner = new Html5Qrcode("piece-qr-reader");
+  currentPieceQRScanner.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: { width: 250, height: 250 } },
+    (decodedText) => {
+      stopPieceQRScan();
+      // Handle piece_ref hash
+      const refMatch = decodeURIComponent(decodedText).match(/piece_ref=([^&]+)/);
+      if (refMatch) {
+        const ref = decodeURIComponent(refMatch[1]);
+        const p = pieces.find(x => x.ref === ref || String(x.id) === ref);
+        if (p) { openPieceDetail(p.id); return; }
+      }
+      alert("Pièce non trouvée pour ce QR code.");
+    },
+    () => {}
+  ).catch(() => { alert("Erreur caméra."); stopPieceQRScan(); });
+}
+
+function openPieceQRScanForRef(ref) {
+  // Pre-filters stock search by ref as quick alternative
+  const input = document.getElementById('stockSearch');
+  if (input) { input.value = ref; renderStock(); }
+}
+
+function stopPieceQRScan() {
+  if (currentPieceQRScanner) {
+    currentPieceQRScanner.stop()
+      .then(() => { currentPieceQRScanner.clear(); closeModal('pieceQRScanModal'); })
+      .catch(() => closeModal('pieceQRScanModal'));
+    currentPieceQRScanner = null;
+  } else { closeModal('pieceQRScanModal'); }
+}
+
+// ── Search pieces by reference number (called from URL hash too) ──
+function findPieceByRef(ref) {
+  const p = pieces.find(x => (x.ref || '').toLowerCase() === ref.toLowerCase());
+  if (p) { showPage('stock'); openPieceDetail(p.id); }
+}
+
+// ── Hook into checkURLHash to support piece_ref ──
+const _origCheckURLHash = checkURLHash;
+checkURLHash = function() {
+  _origCheckURLHash();
+  if (window.location.hash.startsWith('#piece_ref=')) {
+    const ref = decodeURIComponent(window.location.hash.split('=')[1]);
+    // Delay to ensure data is loaded
+    setTimeout(() => findPieceByRef(ref), 300);
+  }
+};
+
+// ── Enhanced showMachineInfo: inject BOM with availability tags ──
+// Patch renderMachineBOM to add availability tags in the BOM display
+const _origShowMachineInfo = showMachineInfo;
+showMachineInfo = function(mId) {
+  _origShowMachineInfo(mId);
+  // Enhance BOM list with availability tags after modal opens
+  setTimeout(() => {
+    const bomList = document.getElementById('machineBOMList');
+    if (!bomList) return;
+    const bom = machineBOMs[mId] || [];
+    if (!bom.length) return;
+    bomList.innerHTML = bom.map(pid => {
+      const p = pieces.find(x => x.id === pid);
+      if (!p) return '';
+      const level = p.qty === 0 ? 'out' : (p.qty <= p.thresh ? 'low' : 'avail');
+      const label = p.qty === 0 ? '✕ Indisponible' : (p.qty <= p.thresh ? `⚠ Stock faible (${p.qty})` : `✓ Disponible (${p.qty})`);
+      return `<div class="bom-item" onclick="openPieceDetail(${p.id})" style="cursor:pointer;" title="Voir la pièce">
+        <span class="bom-name">${p.name} <span style="color:var(--text3);font-size:0.72rem;">(${p.ref || '—'})</span></span>
+        <span class="bom-avail-tag ${level}">${label}</span>
+      </div>`;
+    }).join('');
+  }, 50);
+};
 </script>
 </body>
 </html>
