@@ -1503,16 +1503,16 @@ function showMachineInfo(mId) {
   const bom = machineBOMs[mId] || [];
   const bomSection = document.getElementById('machineBOMSection');
   const bomList = document.getElementById('machineBOMList');
-  if (bom.length) {
+ if (bom.length) {
     bomSection.style.display = '';
     bomList.innerHTML = bom.map(pid => {
       const p = pieces.find(x => x.id === pid);
       if (!p) return '';
-      const level = p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok');
-      return `<div class="bom-item">
-        <span class="bom-name">${p.name} <span style="color:var(--text3);font-size:0.72rem;">(${p.ref})</span></span>
-        <span class="bom-qty piece-qty ${level}" style="font-size:0.85rem;">${p.qty} u.</span>
-        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}">${level === 'ok' ? 'OK' : (level === 'warn' ? 'ALERTE' : 'RUPTURE')}</span>
+      const level = p.qty === 0 ? 'out' : (p.qty <= p.thresh ? 'low' : 'avail');
+      const label = p.qty === 0 ? '✕ Indisponible' : (p.qty <= p.thresh ? `⚠ Stock faible (${p.qty})` : `✓ Disponible (${p.qty})`);
+      return `<div class="bom-item" onclick="openPieceDetail(${p.id})" style="cursor:pointer;" title="Voir la pièce">
+        <span class="bom-name">${p.name} <span style="color:var(--text3);font-size:0.72rem;">(${p.ref || '—'})</span></span>
+        <span class="bom-avail-tag ${level}">${label}</span>
       </div>`;
     }).join('');
   } else {
@@ -1552,6 +1552,9 @@ function checkURLHash() {
   if (window.location.hash.startsWith('#machine=')) {
     const mId = parseInt(window.location.hash.split('=')[1]);
     if (machines.find(x => x.id === mId)) showMachineInfo(mId);
+  } else if (window.location.hash.startsWith('#piece_ref=')) {
+    const ref = decodeURIComponent(window.location.hash.split('=')[1]);
+    setTimeout(() => findPieceByRef(ref), 300);
   }
 }
 
@@ -2045,41 +2048,6 @@ function findPieceByRef(ref) {
   const p = pieces.find(x => (x.ref || '').toLowerCase() === ref.toLowerCase());
   if (p) { showPage('stock'); openPieceDetail(p.id); }
 }
-
-// ── Hook into checkURLHash to support piece_ref ──
-const _origCheckURLHash = checkURLHash;
-checkURLHash = function() {
-  _origCheckURLHash();
-  if (window.location.hash.startsWith('#piece_ref=')) {
-    const ref = decodeURIComponent(window.location.hash.split('=')[1]);
-    // Delay to ensure data is loaded
-    setTimeout(() => findPieceByRef(ref), 300);
-  }
-};
-
-// ── Enhanced showMachineInfo: inject BOM with availability tags ──
-// Patch renderMachineBOM to add availability tags in the BOM display
-const _origShowMachineInfo = showMachineInfo;
-showMachineInfo = function(mId) {
-  _origShowMachineInfo(mId);
-  // Enhance BOM list with availability tags after modal opens
-  setTimeout(() => {
-    const bomList = document.getElementById('machineBOMList');
-    if (!bomList) return;
-    const bom = machineBOMs[mId] || [];
-    if (!bom.length) return;
-    bomList.innerHTML = bom.map(pid => {
-      const p = pieces.find(x => x.id === pid);
-      if (!p) return '';
-      const level = p.qty === 0 ? 'out' : (p.qty <= p.thresh ? 'low' : 'avail');
-      const label = p.qty === 0 ? '✕ Indisponible' : (p.qty <= p.thresh ? `⚠ Stock faible (${p.qty})` : `✓ Disponible (${p.qty})`);
-      return `<div class="bom-item" onclick="openPieceDetail(${p.id})" style="cursor:pointer;" title="Voir la pièce">
-        <span class="bom-name">${p.name} <span style="color:var(--text3);font-size:0.72rem;">(${p.ref || '—'})</span></span>
-        <span class="bom-avail-tag ${level}">${label}</span>
-      </div>`;
-    }).join('');
-  }, 50);
-};
 </script>
 </body>
 </html>
