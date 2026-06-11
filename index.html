@@ -47,8 +47,7 @@ nav button { background: none; border: none; color: var(--text2); padding: 14px 
 nav button:hover, nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 nav button.admin-only:hover, nav button.admin-only.active { color: var(--accent2); border-bottom-color: var(--accent2); }
 
-main { position: relative; z-index: 1; padding: 24px; max-width: 1400px; margin: 0 auto; }
-.page { display: none; }
+main { position: relative; z-index: 1; padding: 24px; max-width: 1400px; margin: 0 auto; }.page { display: none; }
 .page.active { display: block; }
 
 .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
@@ -75,6 +74,7 @@ tr:hover td { background: rgba(0,200,255,0.03); }
 .badge-warn { background: rgba(255,184,0,0.1); color: var(--warn); border: 1px solid rgba(255,184,0,0.3); }
 .badge-danger { background: rgba(255,59,92,0.1); color: var(--danger); border: 1px solid rgba(255,59,92,0.3); }
 .badge-info { background: rgba(0,200,255,0.1); color: var(--accent); border: 1px solid rgba(0,200,255,0.3); }
+.badge-secondary { background: rgba(136,153,180,0.1); color: var(--text2); border: 1px solid rgba(136,153,180,0.3); }
 
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -96,8 +96,7 @@ input[type="file"]::file-selector-button { background: var(--bg2); color: var(--
 
 .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(5,8,20,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; }
 .modal-overlay.open { display: flex; }
-.modal { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 90%; max-width: 540px; box-shadow: 0 0 60px rgba(0,200,255,0.15); animation: slideIn 0.25s ease; max-height: 90vh; overflow-y: auto; }
-.modal-lg { max-width: 820px; }
+.modal { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 90%; max-width: 540px; box-shadow: 0 0 60px rgba(0,200,255,0.15); animation: slideIn 0.25s ease; max-height: 90vh; overflow-y: auto; }.modal-lg { max-width: 1200px; }
 @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .modal-title { font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
 .modal-close { background: none; border: none; color: var(--text3); font-size: 1.4rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
@@ -146,8 +145,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 .footer-sub { font-size: 0.78rem; color: var(--text3); margin-bottom: 16px; }
 .creator-card { display: inline-flex; align-items: center; gap: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 24px; box-shadow: 0 0 30px rgba(0,200,255,0.08); }
 .creator-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), #7a3000); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; box-shadow: var(--glow2); }
-.creator-info { text-align: left; }
-.creator-name { font-weight: 700; font-size: 0.95rem; color: var(--accent2); }
+.creator-info { text-align: left; }.creator-name { font-weight: 700; font-size: 0.95rem; color: var(--accent2); }
 .creator-contacts { font-size: 0.78rem; color: var(--text2); margin-top: 3px; }
 .creator-contacts a { color: var(--accent); text-decoration: none; }
 .creator-contacts a:hover { text-decoration: underline; }
@@ -164,10 +162,6 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 .pers-chip.selected { background: rgba(0,200,255,0.2); border-color: var(--accent); font-weight: 700; }
 .empty { text-align: center; padding: 40px; color: var(--text3); font-size: 0.9rem; letter-spacing: 1px; }
 .chart-container { position: relative; height: 300px; width: 100%; }
-
-/* ==========================================
-   NEW FEATURE STYLES
-   ========================================== */
 
 /* FAB Button */
 .fab { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 500; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), #aa4400); color: #fff; border: none; font-size: 1.6rem; cursor: pointer; box-shadow: 0 4px 24px rgba(255,107,0,0.5); transition: all 0.2s; align-items: center; justify-content: center; }
@@ -200,8 +194,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 /* Factory map */
 .factory-map { display: grid; gap: 24px; }
 .factory-ligne-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-.factory-ligne-header { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-.factory-ligne-header::before { content: ''; width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--accent2); }
+.factory-ligne-header { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }.factory-ligne-header::before { content: ''; width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--accent2); }
 .factory-machines-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .factory-machine-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: all 0.2s; min-width: 150px; position: relative; }
 .factory-machine-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--glow); }
@@ -232,6 +225,14 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 .bom-avail-tag.low { background: rgba(255,184,0,0.1); color: var(--warn); border: 1px solid rgba(255,184,0,0.3); }
 .bom-avail-tag.out { background: rgba(255,59,92,0.1); color: var(--danger); border: 1px solid rgba(255,59,92,0.3); }
 
+/* Intervention List Styles */
+.intervention-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+.priority-critique { border-left-color: #000; }
+.priority-urgente { border-left-color: var(--danger); }
+.priority-haute { border-left-color: var(--warn); }
+.priority-moyenne { border-left-color: var(--accent); }
+.priority-basse { border-left-color: var(--accent3); }
+
 @media(max-width:768px){
   header { padding: 0 12px; height: 56px; }
   .logo { font-size: 1rem; gap: 8px; }
@@ -242,7 +243,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat-card { padding: 14px; }
   .stat-value { font-size: 1.5rem; }
-  .modal { width: 95%; padding: 18px; margin: 10px; }
+  .modal { width: 95%; padding: 18px; margin: 10px; }  .modal-lg { max-width: 95%; }
   .form-grid { grid-template-columns: 1fr !important; }
   input, select, textarea, button, .pers-chip, .piece-sel-item { font-size: 16px !important; min-height: 48px; }
   .btn { width: 100%; margin-bottom: 8px; }
@@ -279,26 +280,25 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <button onclick="showPage('about')">ℹ À Propos</button>
   <button onclick="showPage('factorymap')">🏭 Plan Atelier</button>
   <button class="admin-only" id="navAudit" style="display:none" onclick="showPage('audit')">📜 Audit</button>
-  <button class="admin-only" id="navAddIntervention" style="display:none" onclick="openAddIntervention()">➕ Intervention</button>
+  <button class="admin-only" id="navAddIntervention" style="display:none" onclick="openInterventionList()">📋 Interventions</button>
   <button class="admin-only" id="navAdmin" style="display:none" onclick="showPage('admin')">⚙ Admin</button>
 </nav>
 
 <main>
-  <!-- DASHBOARD (original) -->
+  <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
     <div class="stats-grid" id="statsGrid"></div>
     <div class="card">
       <div class="card-title">Dernières Interventions</div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th><th>Coût Est.</th></tr></thead>
-          <tbody id="dashInterventions"></tbody>
+          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th><th>Coût Est.</th></tr></thead>          <tbody id="dashInterventions"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- WORK ORDERS (original) -->
+  <!-- WORK ORDERS -->
   <div class="page" id="page-workorders">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">📋 Ordres de Travail</div>
@@ -325,7 +325,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="pieces-grid" id="piecesGrid"></div>
   </div>
 
-  <!-- HISTORIQUE (original) -->
+  <!-- HISTORIQUE -->
   <div class="page" id="page-historique">
     <div class="search-bar">
       <input type="date" id="filterDate" placeholder="Date" oninput="renderHistorique()">
@@ -337,12 +337,11 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div id="historiqueContainer"></div>
   </div>
 
-  <!-- ANALYTICS (original + enhanced) -->
+  <!-- ANALYTICS -->
   <div class="page" id="page-analytics">
     <div class="card-title">📈 Analytiques & Tableaux de Bord</div>
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Interventions (7j)</div><div class="stat-value" id="statWeek">0</div></div>
-      <div class="stat-card"><div class="stat-label">Temps d'arrêt total</div><div class="stat-value" id="statDowntime">0h</div></div>
+      <div class="stat-card"><div class="stat-label">Interventions (7j)</div><div class="stat-value" id="statWeek">0</div></div>      <div class="stat-card"><div class="stat-label">Temps d'arrêt total</div><div class="stat-value" id="statDowntime">0h</div></div>
       <div class="stat-card"><div class="stat-label">MTTR Moyen</div><div class="stat-value" id="statMTTR">--</div><div class="stat-sub">Mean Time To Repair</div></div>
       <div class="stat-card"><div class="stat-label">MTBF Estimé</div><div class="stat-value" id="statMTBF">--</div><div class="stat-sub">Mean Time Between Failures</div></div>
       <div class="stat-card"><div class="stat-label">Coût total estimé</div><div class="stat-value" id="statTotalCost" style="color:var(--warn)">0</div><div class="stat-sub">DA (Dinars)</div></div>
@@ -356,10 +355,10 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- EMPLOYEES (original) -->
+  <!-- EMPLOYEES -->
   <div class="page" id="page-employees"><div class="emp-grid" id="empGrid"></div></div>
 
-  <!-- PLANNED MAINTENANCE (original) -->
+  <!-- PLANNED MAINTENANCE -->
   <div class="page" id="page-planned">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🗓 Maintenance Préventive</div>
@@ -373,7 +372,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- SUPPLIERS (original) -->
+  <!-- SUPPLIERS -->
   <div class="page" id="page-suppliers">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🛒 Fournisseurs</div>
@@ -387,12 +386,11 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- FACTORY MAP (NEW) -->
+  <!-- FACTORY MAP -->
   <div class="page" id="page-factorymap">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🏭 Plan de l'Atelier</div>
-      <div style="font-size:0.75rem;color:var(--text3);display:flex;gap:16px;align-items:center;">
-        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent3);margin-right:4px;"></span>OK</span>
+      <div style="font-size:0.75rem;color:var(--text3);display:flex;gap:16px;align-items:center;">        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent3);margin-right:4px;"></span>OK</span>
         <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn);margin-right:4px;"></span>Alerte BOM</span>
         <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--danger);margin-right:4px;"></span>Rupture BOM</span>
       </div>
@@ -400,7 +398,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="factory-map" id="factoryMap"></div>
   </div>
 
-  <!-- AUDIT (NEW) -->
+  <!-- AUDIT -->
   <div class="page" id="page-audit">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">📜 Journal d'Audit (ISO)</div>
@@ -411,7 +409,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- ADMIN (original) -->
+  <!-- ADMIN -->
   <div class="page" id="page-admin">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex-wrap:wrap;">
       <div class="card">
@@ -441,8 +439,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       </div>
       <div class="card">
         <div class="card-title">Gérer les Catégories</div>
-        <div class="form-grid" style="grid-template-columns:1fr;margin-bottom:10px;">
-          <div class="form-group"><label>Nouvelle catégorie</label><input id="newCatName" placeholder="Ex: Électrique..."></div>
+        <div class="form-grid" style="grid-template-columns:1fr;margin-bottom:10px;">          <div class="form-group"><label>Nouvelle catégorie</label><input id="newCatName" placeholder="Ex: Électrique..."></div>
         </div>
         <button class="btn btn-primary" onclick="addCategory()" style="margin-bottom:12px;">Créer</button>
         <div id="catList"></div>
@@ -463,7 +460,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 
-  <!-- ABOUT (original) -->
+  <!-- ABOUT -->
   <div class="page" id="page-about">
     <div class="card" style="max-width:600px;margin:0 auto;text-align:center;">
       <div style="font-size:3rem;margin-bottom:16px;">⚙</div>
@@ -489,13 +486,12 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="creator-avatar">HI</div>
     <div class="creator-info">
       <div class="creator-name">Créé par Hammia Islam</div>
-      <div class="creator-contacts">📞 <a href="tel:+213559096105">+213 559 096 105</a> &nbsp;|&nbsp; ✉️ <a href="mailto:islam.hammia1995@gmail.com">islam.hammia1995@gmail.com</a></div>
+      <div class="creator-contacts">📞 <a href="tel:+213559096105">+213 559 096 105</a>  |  ✉️ <a href="mailto:islam.hammia1995@gmail.com">islam.hammia1995@gmail.com</a></div>
     </div>
-  </div>
-  <div class="footer-copy">© 2026 HAMMIA Islam — Tous droits réservés</div>
+  </div>  <div class="footer-copy">© 2026 HAMMIA Islam — Tous droits réservés</div>
 </footer>
 
-<!-- ==================== MODALS (original) ==================== -->
+<!-- ==================== MODALS ==================== -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
     <div class="modal-title">🔒 Connexion <button class="modal-close" onclick="closeModal('loginModal')">✕</button></div>
@@ -520,50 +516,224 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </div>
 
-<!-- INTERVENTION MODAL (original + voice + chrono) -->
+<!-- ENHANCED INTERVENTION MODAL -->
 <div class="modal-overlay" id="interventionModal">
   <div class="modal modal-lg">
-    <div class="modal-title">➕ Nouvelle Intervention <button class="modal-close" onclick="closeModal('interventionModal')">✕</button></div>
-    <div class="form-grid">
-      <div class="form-group"><label>Date</label><input type="date" id="intDate"></div>
-      <div class="form-group"><label>Heure</label><input type="time" id="intTime"></div>
-      <div class="form-group">
-        <label>Durée (min)</label>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <input type="number" id="intDuration" min="1" placeholder="Ex: 90" style="flex:1;">
-          <div id="chronoDisplay" class="chrono-display" style="display:none;">00:00:00</div>
+    <div class="modal-title">
+      <span>➕ Nouvelle Intervention</span>
+      <button class="modal-close" onclick="closeModal('interventionModal')">✕</button>
+    </div>
+    
+    <!-- Request Info Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">📋 Informations de la Demande</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date de la demande</label>
+          <input type="date" id="intRequestDate">
         </div>
-        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">
-          <button type="button" class="chrono-btn chrono-start" id="chronoStartBtn" onclick="chronoStart()">▶ Chrono</button>
-          <button type="button" class="chrono-btn chrono-stop" id="chronoStopBtn" onclick="chronoStop()" style="display:none;">⏹ Stop</button>
-          <button type="button" class="chrono-btn chrono-reset" id="chronoResetBtn" onclick="chronoReset()" style="display:none;">↺ Reset</button>
+        <div class="form-group">
+          <label>Heure</label>
+          <input type="time" id="intTime">
+        </div>
+        <div class="form-group">
+          <label>Demandeur</label>          <select id="intRequester">
+            <option value="">— Sélectionner —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>État de la demande</label>
+          <select id="intRequestStatus">
+            <option value="Nouvelle">🔵 Nouvelle</option>
+            <option value="En cours">🟡 En cours</option>
+            <option value="Planifiée">🟢 Planifiée</option>
+            <option value="Terminée">✅ Terminée</option>
+            <option value="Annulée">🔴 Annulée</option>
+          </select>
         </div>
       </div>
-      <div class="form-group"><label>Arrêt (min)</label><input type="number" id="intDowntime" min="0" placeholder="Ex: 45"></div>
-      <div class="form-group"><label>Ligne</label><select id="intLigne" onchange="updateMachineSelect()"><option value="">— Choisir —</option></select></div>
-      <div class="form-group"><label>Machine</label><select id="intMachine"><option value="">— Choisir —</option></select></div>
     </div>
-    <div class="form-group" style="margin-top:14px;">
-      <label>Description</label>
-      <div style="display:flex;gap:8px;align-items:flex-start;">
-        <textarea id="intDesc" placeholder="Décrire l'intervention..." style="flex:1;"></textarea>
-        <button type="button" id="micBtn" class="mic-btn" onclick="toggleVoice()" title="Dictée vocale">🎤</button>
+
+    <!-- Machine & Breakdown Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">⚙ Machine & Panne</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Secteur / Machine</label>
+          <select id="intLigne" onchange="updateMachineSelect()">
+            <option value="">— Choisir secteur —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Machine</label>
+          <select id="intMachine">
+            <option value="">— Choisir machine —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Type de machine</label>
+          <input type="text" id="intMachineType" placeholder="Ex: Convoyeur, Pompe...">
+        </div>
+        <div class="form-group">
+          <label>Type de panne</label>
+          <select id="intBreakdownType">
+            <option value="">— Sélectionner —</option>
+            <option value="Mécanique">⚙ Mécanique</option>
+            <option value="Électrique">⚡ Électrique</option>
+            <option value="Hydraulique">💧 Hydraulique</option>
+            <option value="Pneumatique">💨 Pneumatique</option>
+            <option value="Automatisme">🤖 Automatisme</option>
+            <option value="Autre">📋 Autre</option>
+          </select>
+        </div>
+      </div>    </div>
+
+    <!-- Intervention Details Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">🔧 Détails de l'Intervention</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Description / Travaux à réaliser</label>
+          <textarea id="intDesc" placeholder="Décrire l'intervention..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Cause de la panne</label>
+          <textarea id="intCause" placeholder="Cause identifiée..." rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Priorité</label>
+          <select id="intPriority">
+            <option value="Basse">🟢 Basse</option>
+            <option value="Moyenne" selected>🟡 Moyenne</option>
+            <option value="Haute">🟠 Haute</option>
+            <option value="Urgente">🔴 Urgente</option>
+            <option value="Critique">⚫ Critique</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>A réaliser par</label>
+          <select id="intAssignedTo">
+            <option value="Interne">👷 Équipe Interne</option>
+            <option value="Sous-traitant">🏢 Sous-traitant</option>
+            <option value="Mixte">🔄 Mixte</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="form-group" style="margin-top:14px;"><label>📸 Photo</label><input type="file" id="intPhoto" accept="image/*" capture="environment"></div>
-    <div class="form-group" style="margin-top:14px;"><label>Personnel</label><div class="personnel-multi" id="personnelMulti"></div></div>
-    <div class="form-group" style="margin-top:14px;"><label>Pièces utilisées</label>
+
+    <!-- Timing Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">⏱ Durées & Planning</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date souhaitée</label>
+          <input type="date" id="intDesiredDate">
+        </div>
+        <div class="form-group">
+          <label>Durée estimée (min)</label>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="number" id="intDuration" min="1" placeholder="Ex: 90" style="flex:1;">
+            <div id="chronoDisplay" class="chrono-display" style="display:none;">00:00:00</div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">            <button type="button" class="chrono-btn chrono-start" id="chronoStartBtn" onclick="chronoStart()">▶ Chrono</button>
+            <button type="button" class="chrono-btn chrono-stop" id="chronoStopBtn" onclick="chronoStop()" style="display:none;">⏹ Stop</button>
+            <button type="button" class="chrono-btn chrono-reset" id="chronoResetBtn" onclick="chronoReset()" style="display:none;">↺ Reset</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Durée arrêt machine (min)</label>
+          <input type="number" id="intDowntime" min="0" placeholder="Ex: 45">
+        </div>
+        <div class="form-group">
+          <label>Date de réalisation</label>
+          <input type="date" id="intCompletionDate">
+        </div>
+      </div>
+    </div>
+
+    <!-- Personnel & Photos Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">👷 Personnel & Documentation</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Personnel assigné</label>
+          <div class="personnel-multi" id="personnelMulti"></div>
+        </div>
+        <div class="form-group">
+          <label>📸 Photos</label>
+          <input type="file" id="intPhoto" accept="image/*" capture="environment" multiple>
+        </div>
+        <div class="form-group">
+          <label>🎤 Description vocale</label>
+          <button type="button" id="micBtn" class="mic-btn" onclick="toggleVoice()" title="Dictée vocale">🎤 Démarrer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parts Section -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">🔩 Pièces utilisées</div>
       <div class="piece-selector">
         <div class="piece-selector-list" id="pieceSelectorList"></div>
         <div id="selectedPiecesQty"></div>
       </div>
     </div>
-    <div class="modal-footer-btns" style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="saveIntervention()">Enregistrer</button>
-      <button class="btn btn-secondary" onclick="closeModal('interventionModal')">Annuler</button>
-    </div>
-  </div>
+
+    <!-- Actions -->
+    <div class="modal-footer-btns" style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="saveIntervention()">💾 Enregistrer</button>
+      <button class="btn btn-secondary" onclick="closeModal('interventionModal')">❌ Annuler</button>
+      <button class="btn btn-orange" onclick="saveAsDraft()">💭 Sauvegarder brouillon</button>
+    </div>  </div>
 </div>
+
+<!-- Intervention Requests List Modal -->
+<div class="modal-overlay" id="interventionListModal">
+  <div class="modal modal-lg">
+    <div class="modal-title">
+      <span>📋 Demandes d'Intervention</span>
+      <button class="modal-close" onclick="closeModal('interventionListModal')">✕</button>
+    </div>
+    
+    <!-- Filters -->
+    <div class="search-bar" style="margin-bottom:16px;">
+      <input type="text" id="filterIntMachine" placeholder="Machine..." oninput="renderInterventionList()">
+      <select id="filterIntStatus" onchange="renderInterventionList()">
+        <option value="">Tous les états</option>
+        <option value="Nouvelle">Nouvelle</option>
+        <option value="En cours">En cours</option>
+        <option value="Planifiée">Planifiée</option>
+        <option value="Terminée">Terminée</option>
+      </select>
+      <select id="filterIntPriority" onchange="renderInterventionList()">
+        <option value="">Toutes priorités</option>
+        <option value="Basse">Basse</option>
+        <option value="Moyenne">Moyenne</option>
+        <option value="Haute">Haute</option>
+        <option value="Urgente">Urgente</option>
+      </select>
+      <button class="btn btn-primary btn-sm" onclick="openAddIntervention()">➕ Nouvelle</button>
+    </div>
+
+    <!-- List -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Date</th>
+            <th>Machine</th>
+            <th>Type panne</th>
+            <th>Demandeur</th>
+            <th>Priorité</th>
+            <th>État</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="interventionListBody"></tbody>
+      </table>
+    </div>
+  </div></div>
 
 <div class="modal-overlay" id="managePiecesModal">
   <div class="modal modal-lg">
@@ -612,8 +782,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="form-group" style="margin-bottom:14px;"><label>Machine</label><select id="pmMachine"></select></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Tâche</label><input type="text" id="pmDesc" placeholder="Ex: Vidange huile"></div>
     <div class="form-group" style="margin-bottom:20px;"><label>Intervalle (Jours)</label><input type="number" id="pmInterval" value="90" min="1"></div>
-    <div class="modal-footer-btns" style="display:flex;gap:10px;">
-      <button class="btn btn-primary" onclick="savePlanned()">Planifier</button>
+    <div class="modal-footer-btns" style="display:flex;gap:10px;">      <button class="btn btn-primary" onclick="savePlanned()">Planifier</button>
       <button class="btn btn-secondary" onclick="closeModal('plannedModal')">Annuler</button>
     </div>
   </div>
@@ -632,7 +801,6 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </div>
 
-<!-- EDIT MACHINE (original + BOM tab) -->
 <div class="modal-overlay" id="editMachineModal">
   <div class="modal modal-lg">
     <div class="modal-title">⚙ Informations Machine <button class="modal-close" onclick="closeModal('editMachineModal')">✕</button></div>
@@ -648,7 +816,6 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       <label style="margin-top:10px; display:block;">Changer / Ajouter une photo</label>
       <input type="file" id="editMachinePhoto" accept="image/*" capture="environment">
     </div>
-    <!-- BOM Section -->
     <div style="margin-top:16px; border-top:1px solid var(--border); padding-top:14px;">
       <div class="card-title" style="margin-bottom:12px;">🔩 Nomenclature (BOM) — Pièces recommandées</div>
       <div id="bomEditorList" style="margin-bottom:10px;"></div>
@@ -665,12 +832,10 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="machineInfoModal">
   <div class="modal modal-lg">
     <div class="modal-title" id="machineInfoTitle">🏭 Info Machine <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button></div>
     <div id="machineInfoContent"></div>
-    <!-- BOM display section -->
     <div id="machineBOMSection" style="margin-top:16px;border-top:1px solid var(--border);padding-top:16px;display:none;">
       <div class="card-title">🔩 Nomenclature (BOM)</div>
       <div id="machineBOMList"></div>
@@ -682,28 +847,56 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </div>
 
+<div class="modal-overlay" id="pieceDetailModal">
+  <div class="modal modal-lg">
+    <div class="modal-title"><span id="pieceDetailTitle">🔩 Pièce</span><button class="modal-close" onclick="closeModal('pieceDetailModal')">✕</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
+      <div>
+        <img id="pieceDetailImg" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:none;">
+        <div id="pieceDetailImgPh" style="width:100%;height:160px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:3rem;">🔩</div>
+        <div style="text-align:center;margin-top:14px;">
+          <canvas id="pieceDetailQR" style="background:#fff;padding:10px;border-radius:8px;display:block;margin:0 auto;"></canvas>
+          <div style="font-size:0.7rem;color:var(--text3);margin-top:5px;">QR Code — Scan pour localiser</div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="downloadPieceQR()">⬇ Télécharger QR</button>
+        </div>
+      </div>
+      <div id="pieceDetailInfo"></div>
+    </div>
+    <div id="pieceMachinesSection" style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;display:none;">
+      <div class="card-title">🏭 Machines liées (BOM)</div>
+      <div id="pieceMachinesList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="pieceQRScanModal">
+  <div class="modal">
+    <div class="modal-title">🔍 Scanner QR Pièce <button class="modal-close" onclick="stopPieceQRScan()">✕</button></div>
+    <div id="piece-qr-reader" style="width:100%;border-radius:8px;overflow:hidden;"></div>
+    <p style="text-align:center;color:var(--text3);margin-top:10px;font-size:0.8rem;">Pointez vers le QR code d'une pièce.</p>
+  </div>
+</div>
+
 <script>
 // ==========================================
-// 1. CONSTANTS & STATE (original)
-// ==========================================
-const sb = supabase.createClient('https://cuctsokaivauyulgpvfg.supabase.co', 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL');
+// 1. CONSTANTS & STATE
+// ==========================================const sb = supabase.createClient('https://cuctsokaivauyulgpvfg.supabase.co', 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL');
 let currentUser = null;
 let categories = [], pieces = [], employees = [], interventions = [], lignes = [], machines = [], suppliers = [], workOrders = [], plannedMaint = [];
 let charts = {}, selectedPiecesMap = {}, selectedPersonnel = [];
 let machinePhotoToDelete = false, currentMachinePhotoPath = '', currentMachineInfoId = null, html5QrcodeScanner;
-
-// NEW STATE
 let auditLog = JSON.parse(localStorage.getItem('gmao_audit_log') || '[]');
-let machineBOMs = JSON.parse(localStorage.getItem('gmao_machine_boms') || '{}'); // { machineId: [pieceId, ...] }
-let currentEditBOM = []; // temp BOM during edit
+let machineBOMs = JSON.parse(localStorage.getItem('gmao_machine_boms') || '{}');
+let currentEditBOM = [];
 let chronoInterval = null, chronoStart_ts = 0, chronoElapsed = 0, chronoRunning = false;
 let voiceRecognition = null, voiceActive = false;
-// Hourly rate fallback
-const DEFAULT_HOURLY_RATE = 500; // DA/h
+const DEFAULT_HOURLY_RATE = 500;
 const DEFAULT_PART_PRICE = 0;
+let currentPieceDetailId = null;
+let pieceQRScanner = null;
 
 // ==========================================
-// 2. UTILITIES (original)
+// 2. UTILITIES
 // ==========================================
 function showLoader(msg) {
   let el = document.getElementById('globalLoader');
@@ -736,8 +929,7 @@ async function compressAndUpload(file, folder) {
         const MAX_WIDTH = 1024;
         const scale = MAX_WIDTH / img.width;
         canvas.width = MAX_WIDTH; canvas.height = img.height * scale;
-        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob(async (blob) => {
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);        canvas.toBlob(async (blob) => {
           if (!blob) return reject('Compression failed');
           const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2, 9)}.jpg`;
           const { error: uploadError } = await sb.storage.from('photos').upload(fileName, blob, { contentType: 'image/jpeg', upsert: false });
@@ -753,11 +945,10 @@ async function compressAndUpload(file, folder) {
 }
 
 // ==========================================
-// NEW FEATURE: COST CALCULATION
+// COST CALCULATION
 // ==========================================
 function calcInterventionCost(intervention) {
   const durationH = (parseInt(intervention.duration) || 0) / 60;
-  // Average hourly rate from involved personnel
   const personnelNames = intervention.personnel || [];
   let totalRate = 0;
   personnelNames.forEach(name => {
@@ -767,7 +958,6 @@ function calcInterventionCost(intervention) {
   const avgRate = personnelNames.length ? totalRate / personnelNames.length : DEFAULT_HOURLY_RATE;
   const laborCost = durationH * avgRate * personnelNames.length;
   
-  // Parts cost
   const partsCost = (intervention.piecesUsed || intervention.pieces_used || []).reduce((sum, u) => {
     const p = pieces.find(x => x.name === u.name);
     return sum + (u.qty * (p?.prix_unitaire || p?.unit_price || DEFAULT_PART_PRICE));
@@ -777,7 +967,7 @@ function calcInterventionCost(intervention) {
 }
 
 // ==========================================
-// NEW FEATURE: AUDIT LOG
+// AUDIT LOG
 // ==========================================
 function addAuditEntry(action, detail, icon = '📝') {
   const entry = {
@@ -789,7 +979,6 @@ function addAuditEntry(action, detail, icon = '📝') {
   if (auditLog.length > 500) auditLog = auditLog.slice(0, 500);
   localStorage.setItem('gmao_audit_log', JSON.stringify(auditLog));
 }
-
 function renderAudit() {
   const container = document.getElementById('auditLogContainer');
   if (!auditLog.length) { container.innerHTML = '<div class="empty">Aucun événement enregistré.</div>'; return; }
@@ -811,7 +1000,7 @@ function clearAuditLog() {
 }
 
 // ==========================================
-// NEW FEATURE: CHRONOMETER
+// CHRONOMETER
 // ==========================================
 function chronoStart() {
   if (chronoRunning) return;
@@ -833,13 +1022,11 @@ function chronoStop() {
   if (!chronoRunning) return;
   chronoRunning = false;
   clearInterval(chronoInterval);
-  // Auto-fill duration in minutes
   const minutes = Math.round(chronoElapsed / 60000);
   document.getElementById('intDuration').value = minutes || 1;
   document.getElementById('chronoStartBtn').style.display = '';
   document.getElementById('chronoStopBtn').style.display = 'none';
 }
-
 function chronoReset() {
   clearInterval(chronoInterval);
   chronoRunning = false; chronoElapsed = 0;
@@ -851,7 +1038,7 @@ function chronoReset() {
 }
 
 // ==========================================
-// NEW FEATURE: VOICE TO TEXT
+// VOICE TO TEXT
 // ==========================================
 function toggleVoice() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -862,7 +1049,7 @@ function toggleVoice() {
     voiceRecognition && voiceRecognition.stop();
     voiceActive = false;
     document.getElementById('micBtn').classList.remove('recording');
-    document.getElementById('micBtn').textContent = '🎤';
+    document.getElementById('micBtn').textContent = '🎤 Démarrer';
     return;
   }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -878,10 +1065,10 @@ function toggleVoice() {
   voiceRecognition.onerror = () => {
     voiceActive = false;
     document.getElementById('micBtn').classList.remove('recording');
-    document.getElementById('micBtn').textContent = '🎤';
+    document.getElementById('micBtn').textContent = '🎤 Démarrer';
   };
   voiceRecognition.onend = () => {
-    if (voiceActive) voiceRecognition.start(); // keep going until user stops
+    if (voiceActive) voiceRecognition.start();
   };
   voiceRecognition.start();
   voiceActive = true;
@@ -889,8 +1076,7 @@ function toggleVoice() {
   document.getElementById('micBtn').textContent = '🔴';
 }
 
-// ==========================================
-// NEW FEATURE: LOW-STOCK EMAIL ALERT
+// ==========================================// LOW-STOCK EMAIL ALERT
 // ==========================================
 function sendLowStockEmail() {
   const low = pieces.filter(p => p.qty <= p.thresh);
@@ -905,7 +1091,7 @@ function sendLowStockEmail() {
 }
 
 // ==========================================
-// NEW FEATURE: BOM (NOMENCLATURE)
+// BOM (NOMENCLATURE)
 // ==========================================
 function saveBOMs() {
   localStorage.setItem('gmao_machine_boms', JSON.stringify(machineBOMs));
@@ -924,7 +1110,6 @@ function openEditMachine(id) {
   } else { img.style.display = 'none'; delBtn.style.display = 'none'; }
   document.getElementById('editMachinePhoto').value = '';
 
-  // BOM
   currentEditBOM = [...(machineBOMs[id] || [])];
   const bomSel = document.getElementById('bomPieceSelect');
   bomSel.innerHTML = '<option value="">— Sélectionner une pièce —</option>' + pieces.map(p => `<option value="${p.id}">${p.name} (${p.ref})</option>`).join('');
@@ -940,8 +1125,7 @@ function renderBOMEditor() {
     if (!p) return '';
     return `<div class="bom-item">
       <span class="bom-name">${p.name}</span>
-      <span class="bom-qty ${p.qty === 0 ? 'piece-qty danger' : (p.qty <= p.thresh ? 'piece-qty warn' : 'piece-qty ok')}" style="font-size:0.85rem;">${p.qty}</span>
-      <button type="button" onclick="removeBOMItem(${pid})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.9rem;">✕</button>
+      <span class="bom-qty ${p.qty === 0 ? 'piece-qty danger' : (p.qty <= p.thresh ? 'piece-qty warn' : 'piece-qty ok')}" style="font-size:0.85rem;">${p.qty}</span>      <button type="button" onclick="removeBOMItem(${pid})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.9rem;">✕</button>
     </div>`;
   }).join('');
 }
@@ -967,7 +1151,7 @@ function getMachineBOMStatus(id) {
 }
 
 // ==========================================
-// NEW FEATURE: FACTORY MAP
+// FACTORY MAP
 // ==========================================
 function renderFactoryMap() {
   const container = document.getElementById('factoryMap');
@@ -991,9 +1175,8 @@ function renderFactoryMap() {
     </div>`;
   }).join('');
 }
-
 // ==========================================
-// 3. DATA FETCHING & SEEDING (original)
+// 3. DATA FETCHING & SEEDING
 // ==========================================
 async function loadAllData() {
   showLoader('Connexion à la base de données...');
@@ -1029,7 +1212,7 @@ async function seedIfEmpty() {
 }
 
 // ==========================================
-// 4. AUTHENTICATION (original)
+// 4. AUTHENTICATION
 // ==========================================
 sb.auth.onAuthStateChange((event, session) => {
   currentUser = session ? { id: session.user.id, email: session.user.email, name: session.user.user_metadata?.name || session.user.email, role: session.user.user_metadata?.role || 'read_only' } : null;
@@ -1040,8 +1223,7 @@ sb.auth.onAuthStateChange((event, session) => {
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPass').value.trim();
-  if (!email || !password) { document.getElementById('loginError').style.display = 'block'; return; }
-  showLoader('Connexion...');
+  if (!email || !password) { document.getElementById('loginError').style.display = 'block'; return; }  showLoader('Connexion...');
   const { error } = await sb.auth.signInWithPassword({ email, password });
   hideLoader();
   if (error) { document.getElementById('loginError').textContent = "Email ou mot de passe incorrect."; document.getElementById('loginError').style.display = 'block'; }
@@ -1069,12 +1251,11 @@ function updateAuthUI() {
   document.querySelectorAll('.admin-only').forEach(el => { el.style.display = isAdmin ? '' : 'none'; });
   toggle('navAddIntervention', isAdmin || isTech);
   document.querySelectorAll('.login-required').forEach(el => { el.style.display = isLogged ? '' : 'none'; });
-  // FAB only shows on mobile (CSS handles that), but also needs login
   document.querySelector('.fab').style.display = (isLogged && window.innerWidth <= 768) ? 'flex' : '';
 }
 
 // ==========================================
-// 5. NAVIGATION & RENDERING (original)
+// 5. NAVIGATION & RENDERING
 // ==========================================
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1091,8 +1272,7 @@ function renderDashboard() {
   updateAlertBadge();
   const totalPieces = pieces.reduce((s, p) => s + p.qty, 0);
   const lowCount = pieces.filter(p => p.qty <= p.thresh).length;
-  const intToday = interventions.filter(i => i.date === new Date().toISOString().slice(0, 10)).length;
-  const totalDowntime = interventions.reduce((sum, i) => sum + (parseInt(i.downtime_minutes) || 0), 0);
+  const intToday = interventions.filter(i => i.date === new Date().toISOString().slice(0, 10)).length;  const totalDowntime = interventions.reduce((sum, i) => sum + (parseInt(i.downtime_minutes) || 0), 0);
   const totalCost = interventions.reduce((sum, i) => sum + calcInterventionCost(i), 0);
   
   document.getElementById('statsGrid').innerHTML = `
@@ -1141,8 +1321,7 @@ function renderStock() {
         <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openPieceDetail(${p.id})">🔍 Détails</button>
         <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();showPieceQRModal(${p.id})">📷 QR</button>
       </div>
-    </div>`;
-  }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
+    </div>`;  }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
 }
 
 function renderHistorique() {
@@ -1192,7 +1371,6 @@ function renderEmployees() {
 function renderAdmin() {
   refreshCatSelects(); renderCatList(); refreshLigneSelects(); renderLigneList(); refreshSupplierSelects();
 }
-
 function renderWorkOrders() {
   document.getElementById('woTableBody').innerHTML = workOrders.length ? workOrders.map(wo => {
     const statusClass = wo.status === 'done' ? 'badge-ok' : (wo.status === 'in_progress' ? 'badge-warn' : 'badge-info');
@@ -1225,17 +1403,14 @@ function renderAnalytics() {
   const weekInts = interventions.filter(i => new Date(i.date) >= weekAgo).length;
   const totalDowntime = interventions.reduce((s, i) => s + (parseInt(i.downtime_minutes) || 0), 0);
 
-  // TRUE MTTR: average repair duration
   const avgRepair = interventions.length ? Math.round(interventions.reduce((s, i) => s + (parseInt(i.duration) || 0), 0) / interventions.length) : 0;
-  // Estimated MTBF: simple heuristic (period / number of failures per machine)
   const uniqueMachines = [...new Set(interventions.map(i => i.machine).filter(Boolean))];
   let avgMTBF = '--';
   if (uniqueMachines.length && interventions.length) {
-    const totalH = (365 * 8) - totalDowntime / 60; // assume 8h/day working year
+    const totalH = (365 * 8) - totalDowntime / 60;
     avgMTBF = Math.round(totalH / (interventions.length / Math.max(uniqueMachines.length, 1))) + 'h';
   }
 
-  // Cost per machine
   const machineCosts = {};
   interventions.forEach(i => { machineCosts[i.machine] = (machineCosts[i.machine] || 0) + calcInterventionCost(i); });
   const totalCost = Object.values(machineCosts).reduce((s, v) => s + v, 0);
@@ -1245,7 +1420,6 @@ function renderAnalytics() {
   document.getElementById('statMTTR').textContent = avgRepair ? avgRepair + 'min' : '--';
   document.getElementById('statMTBF').textContent = avgMTBF;
   document.getElementById('statTotalCost').textContent = totalCost.toLocaleString() + ' DA';
-
   const machineCounts = {}, machineDowntime = {}, partCounts = {};
   interventions.forEach(i => {
     machineCounts[i.machine] = (machineCounts[i.machine] || 0) + 1;
@@ -1263,7 +1437,6 @@ function renderAnalytics() {
   createChart('chartDowntime', 'bar', Object.keys(machineDowntime), Object.values(machineDowntime), 'Minutes d\'arrêt', '#ff3b5c');
   createChart('chartParts', 'doughnut', Object.keys(partCounts).slice(0, 5), Object.values(partCounts).slice(0, 5), 'Pièces', ['#00c8ff', '#ff6b00', '#00ff9d', '#ffb800', '#ff3b5c']);
   createChart('chartWeek', 'line', ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'], [2, 4, 3, 5, 2, 1, 0], 'Interventions', '#00ff9d');
-  // Cost per machine chart (doughnut)
   if (Object.keys(machineCosts).length) {
     charts['chartCostMachine'] = new Chart(document.getElementById('chartCostMachine'), {
       type: 'doughnut',
@@ -1274,7 +1447,7 @@ function renderAnalytics() {
 }
 
 // ==========================================
-// 6. CRUD OPERATIONS (original)
+// 6. CRUD OPERATIONS
 // ==========================================
 async function addPiece() {
   const name = document.getElementById('newPieceName').value.trim(), cat = document.getElementById('newPieceCat').value;
@@ -1295,8 +1468,7 @@ async function addPiece() {
 
 function openManagePieces() {
   document.getElementById('managePiecesBody').innerHTML = pieces.map(p => {
-    const price = p.prix_unitaire || p.unit_price || 0;
-    return `<tr>
+    const price = p.prix_unitaire || p.unit_price || 0;    return `<tr>
       <td><strong>${p.name}</strong></td><td>${p.cat}</td>
       <td><span class="piece-qty ${p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok')}" style="font-size:1rem">${p.qty}</span></td><td>${p.thresh}</td>
       <td style="font-family:'Share Tech Mono',monospace;color:var(--accent3);">${price.toLocaleString()}</td>
@@ -1345,8 +1517,7 @@ async function addEmployee() {
 async function deleteEmployee(id) {
   if (!confirm('Supprimer cet employé ?')) return;
   const e = employees.find(x => x.id === id);
-  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id);
-  addAuditEntry('Employé supprimé', e?.name || id, '🗑');
+  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id);  addAuditEntry('Employé supprimé', e?.name || id, '🗑');
   renderEmployees();
 }
 
@@ -1395,8 +1566,7 @@ function renderLigneList() {
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><strong>${l.name}</strong><button class="btn btn-danger btn-sm" onclick="deleteLigne(${l.id})">✕</button></div>
       ${macs.length ? macs.map(m => `<span style="background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-size:0.78rem;margin:2px;display:inline-flex;align-items:center;gap:6px;">
         ${m.name} 
-        <button onclick="openEditMachine(${m.id})" style="background:var(--accent3);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Modifier infos">⚙</button>
-        <button onclick="showMachineQR(${m.id}, '${m.name.replace(/'/g, "\\'")}')" style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;">QR</button>
+        <button onclick="openEditMachine(${m.id})" style="background:var(--accent3);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Modifier infos">⚙</button>        <button onclick="showMachineQR(${m.id}, '${m.name.replace(/'/g, "\\'")}')" style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;">QR</button>
         <button onclick="showMachineInfo(${m.id})" style="background:var(--accent2);color:#fff;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Voir fiche">👁</button>
         <button onclick="deleteMachine(${m.id})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.7rem;">✕</button>
       </span>`).join('') : '<span style="color:var(--text3);font-size:0.8rem;">Aucune machine</span>'}
@@ -1445,8 +1615,7 @@ async function saveSupplier() {
 
 async function deleteSupplier(id) {
   if (!confirm('Supprimer ?')) return;
-  const s = suppliers.find(x => x.id === id);
-  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id);
+  const s = suppliers.find(x => x.id === id);  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id);
   addAuditEntry('Fournisseur supprimé', s?.name || id, '🗑');
   renderSuppliers(); refreshSupplierSelects();
 }
@@ -1458,7 +1627,7 @@ function refreshSupplierSelects() {
 }
 
 // ==========================================
-// 7. MACHINE INFO & PHOTOS (original + BOM display)
+// 7. MACHINE INFO & PHOTOS
 // ==========================================
 function deleteMachinePhotoUI() {
   document.getElementById('editMachineCurrentPhoto').style.display = 'none';
@@ -1486,7 +1655,6 @@ async function saveMachineInfo() {
     if (error) throw error;
     const idx = machines.findIndex(m => m.id === id);
     if (idx !== -1) machines[idx] = { ...machines[idx], ...data };
-    // Save BOM
     machineBOMs[id] = [...currentEditBOM];
     saveBOMs();
     addAuditEntry('Machine modifiée', machines[idx]?.name || id, '⚙');
@@ -1496,8 +1664,7 @@ async function saveMachineInfo() {
 
 function showMachineInfo(mId) {
   currentMachineInfoId = mId;
-  const m = machines.find(x => x.id === mId); if (!m) return alert("Machine non trouvée.");
-  document.getElementById('machineInfoTitle').innerHTML = `🏭 ${m.name} <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button>`;
+  const m = machines.find(x => x.id === mId); if (!m) return alert("Machine non trouvée.");  document.getElementById('machineInfoTitle').innerHTML = `🏭 ${m.name} <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button>`;
   
   let content = '';
   if (currentUser && (currentUser.role === 'admin' || currentUser.role === 'technician')) {
@@ -1507,7 +1674,6 @@ function showMachineInfo(mId) {
   content += m.description ? `<div style="background:var(--bg2);padding:16px;border-radius:10px;border:1px solid var(--border);margin-bottom:16px;white-space:pre-wrap;line-height:1.6;">${m.description}</div>` : `<div style="color:var(--text3);text-align:center;padding:20px;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">Aucune description fournie.</div>`;
   document.getElementById('machineInfoContent').innerHTML = content;
 
-  // BOM display
   const bom = machineBOMs[mId] || [];
   const bomSection = document.getElementById('machineBOMSection');
   const bomList = document.getElementById('machineBOMList');
@@ -1547,8 +1713,7 @@ function openAddInterventionForMachine(mId) {
   openAddIntervention();
   const ligne = lignes.find(l => l.id === (m.ligne_id || m.ligneId));
   if (ligne) { document.getElementById('intLigne').value = ligne.name; updateMachineSelect(); }
-  document.getElementById('intMachine').value = m.name;
-}
+  document.getElementById('intMachine').value = m.name;}
 
 function showMachineQR(id, name) {
   document.getElementById('qrModalTitle').textContent = `QR: ${name}`;
@@ -1570,44 +1735,104 @@ function checkURLHash() {
 }
 
 // ==========================================
-// 8. INTERVENTIONS & OFFLINE QUEUE (original)
+// 8. ENHANCED INTERVENTIONS
 // ==========================================
+function openInterventionList() {
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { 
+    openLogin(); 
+    return; 
+  }
+  renderInterventionList();
+  openModal('interventionListModal');
+}
 
 function openAddIntervention() {
-  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { openLogin(); return; }
-  selectedPiecesMap = {}; selectedPersonnel = [];
+  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { 
+    openLogin(); 
+    return; 
+  }
+  
+  selectedPiecesMap = {}; 
+  selectedPersonnel = [];
   chronoReset();
+  
   const now = new Date();
-  document.getElementById('intDate').value = now.toISOString().slice(0, 10);
+  const today = now.toISOString().slice(0, 10);
+  
+  document.getElementById('intRequestDate').value = today;
   document.getElementById('intTime').value = now.toTimeString().slice(0, 5);
-  ['intDuration', 'intDowntime', 'intDesc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('intDesiredDate').value = today;
+    ['intDuration', 'intDowntime', 'intDesc', 'intCause', 'intMachineType'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  
   document.getElementById('intPhoto').value = '';
-  // Stop any active voice
-  if (voiceActive) { voiceRecognition && voiceRecognition.stop(); voiceActive = false; document.getElementById('micBtn').classList.remove('recording'); document.getElementById('micBtn').textContent = '🎤'; }
-  document.getElementById('personnelMulti').innerHTML = employees.map(e => `<div class="pers-chip" data-name="${e.name}" onclick="togglePersonnel(this,'${e.name}')">${e.name}</div>`).join('');
+  
+  if (voiceActive) { 
+    voiceRecognition && voiceRecognition.stop(); 
+    voiceActive = false; 
+    document.getElementById('micBtn').classList.remove('recording'); 
+    document.getElementById('micBtn').textContent = '🎤 Démarrer'; 
+  }
+  
+  const requesterSelect = document.getElementById('intRequester');
+  requesterSelect.innerHTML = '<option value="">— Sélectionner —</option>' +
+    employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('') +
+    '<option value="Externe">👤 Externe</option>';
+  
+  document.getElementById('personnelMulti').innerHTML = employees.map(e => 
+    `<div class="pers-chip" data-name="${e.name}" onclick="togglePersonnel(this,'${e.name}')">${e.name}</div>`
+  ).join('');
+  
   refreshLigneSelects();
-  document.getElementById('pieceSelectorList').innerHTML = pieces.filter(p => p.qty > 0).map(p => `<div class="piece-sel-item" data-id="${p.id}" onclick="togglePiece(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.qty})"><span>${p.name}</span><span style="color:var(--text3);font-size:0.72rem">[${p.qty}]</span></div>`).join('');
-  renderSelectedPiecesQty(); openModal('interventionModal');
+  
+  document.getElementById('pieceSelectorList').innerHTML = 
+    pieces.filter(p => p.qty > 0).map(p => 
+      `<div class="piece-sel-item" data-id="${p.id}" onclick="togglePiece(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.qty})">
+        <span>${p.name}</span>
+        <span style="color:var(--text3);font-size:0.72rem">[${p.qty}]</span>
+      </div>`
+    ).join('');
+  
+  renderSelectedPiecesQty();
+  closeModal('interventionListModal');
+  openModal('interventionModal');
 }
 
 function togglePersonnel(el, name) {
-  if (el.classList.contains('selected')) { el.classList.remove('selected'); selectedPersonnel = selectedPersonnel.filter(n => n !== name); }
-  else { el.classList.add('selected'); selectedPersonnel.push(name); }
+  if (el.classList.contains('selected')) { 
+    el.classList.remove('selected'); 
+    selectedPersonnel = selectedPersonnel.filter(n => n !== name); 
+  } else { 
+    el.classList.add('selected'); 
+    selectedPersonnel.push(name); 
+  }
 }
 
 function togglePiece(id, name, maxQty) {
-  const el = document.querySelector(`.piece-sel-item[data-id="${id}"]`);
-  if (selectedPiecesMap[id]) { delete selectedPiecesMap[id]; el.classList.remove('selected'); }
-  else { selectedPiecesMap[id] = { name, qty: 1, maxQty }; el.classList.add('selected'); }
+  const el = document.querySelector(`.piece-sel-item[data-id="${id}"]`);  if (selectedPiecesMap[id]) { 
+    delete selectedPiecesMap[id]; 
+    el.classList.remove('selected'); 
+  } else { 
+    selectedPiecesMap[id] = { name, qty: 1, maxQty }; 
+    el.classList.add('selected'); 
+  }
   renderSelectedPiecesQty();
 }
 
 function renderSelectedPiecesQty() {
   const selected = Object.entries(selectedPiecesMap);
-  document.getElementById('selectedPiecesQty').innerHTML = selected.length ? `<div style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px;">` + selected.map(([id, { name, qty, maxQty }]) => `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-    <span class="piece-chip" style="flex:1">${name}</span><label style="font-size:0.75rem;color:var(--text2)">Qté:</label>
-    <input type="number" min="1" max="${maxQty}" value="${qty}" style="width:60px;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-family:'Exo 2',sans-serif;" onchange="updatePieceQty(${id},this.value,${maxQty})">
-    <span style="font-size:0.72rem;color:var(--text3)">/ ${maxQty}</span></div>`).join('') + `</div>` : '';
+  document.getElementById('selectedPiecesQty').innerHTML = selected.length ? 
+    `<div style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px;">` + 
+    selected.map(([id, { name, qty, maxQty }]) => 
+      `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="piece-chip" style="flex:1">${name}</span>
+        <label style="font-size:0.75rem;color:var(--text2)">Qté:</label>
+        <input type="number" min="1" max="${maxQty}" value="${qty}" style="width:60px;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-family:'Exo 2',sans-serif;" onchange="updatePieceQty(${id},this.value,${maxQty})">
+        <span style="font-size:0.72rem;color:var(--text3)">/ ${maxQty}</span>
+      </div>`
+    ).join('') + `</div>` : '';
 }
 
 function updatePieceQty(id, val, max) {
@@ -1615,27 +1840,48 @@ function updatePieceQty(id, val, max) {
   if (selectedPiecesMap[id]) selectedPiecesMap[id].qty = q;
 }
 
-async function saveIntervention() {
-  const date = document.getElementById('intDate').value, time = document.getElementById('intTime').value;
-  const duration = parseInt(document.getElementById('intDuration').value) || 0, downtime = parseInt(document.getElementById('intDowntime').value) || 0;
-  const description = document.getElementById('intDesc').value.trim(), ligne = document.getElementById('intLigne').value, machine = document.getElementById('intMachine').value;
+async function saveIntervention(draft = false) {
+  const requestDate = document.getElementById('intRequestDate').value;
+  const time = document.getElementById('intTime').value;
+  const requester = document.getElementById('intRequester').value;
+  const status = draft ? 'Brouillon' : document.getElementById('intRequestStatus').value;
+  const ligne = document.getElementById('intLigne').value;
+  const machine = document.getElementById('intMachine').value;
+  const machineType = document.getElementById('intMachineType').value;
+  const breakdownType = document.getElementById('intBreakdownType').value;
+  const description = document.getElementById('intDesc').value.trim();
+  const cause = document.getElementById('intCause').value.trim();
+  const priority = document.getElementById('intPriority').value;
+  const assignedTo = document.getElementById('intAssignedTo').value;
+  const desiredDate = document.getElementById('intDesiredDate').value;
+  const duration = parseInt(document.getElementById('intDuration').value) || 0;
+  const downtime = parseInt(document.getElementById('intDowntime').value) || 0;
+  const completionDate = document.getElementById('intCompletionDate').value;
   const photoInput = document.getElementById('intPhoto');
 
-  if (!date || !time) return alert('Renseignez la date et l\'heure.');
-  if (!selectedPersonnel.length) return alert('Sélectionnez au moins un technicien.');
+  if (!requestDate || !time) return alert('Renseignez la date et l\'heure.');
+  if (!requester) return alert('Sélectionnez un demandeur.');  if (!machine) return alert('Sélectionnez une machine.');
+  if (!selectedPersonnel.length && !draft) return alert('Sélectionnez au moins un technicien.');
 
-  // Stop chrono if running
   if (chronoRunning) chronoStop();
-  // Stop voice if active
-  if (voiceActive) { voiceRecognition && voiceRecognition.stop(); voiceActive = false; document.getElementById('micBtn').classList.remove('recording'); document.getElementById('micBtn').textContent = '🎤'; }
+  if (voiceActive) { 
+    voiceRecognition && voiceRecognition.stop(); 
+    voiceActive = false; 
+    document.getElementById('micBtn').classList.remove('recording'); 
+    document.getElementById('micBtn').textContent = '🎤 Démarrer'; 
+  }
 
   showLoader('Traitement...');
-  let photoUrl = '';
-  if (photoInput.files && photoInput.files[0]) {
-    try { photoUrl = await compressAndUpload(photoInput.files[0], 'interventions'); }
-    catch (e) {
-      console.error("Photo upload failed, saving base64", e);
-      photoUrl = await new Promise(r => { const reader = new FileReader(); reader.onload = ev => r(ev.target.result); reader.readAsDataURL(photoInput.files[0]); });
+  
+  let photoUrls = [];
+  if (photoInput.files && photoInput.files.length > 0) {
+    for (let file of photoInput.files) {
+      try {
+        const url = await compressAndUpload(file, 'interventions');
+        photoUrls.push(url);
+      } catch (e) {
+        console.error("Photo upload failed", e);
+      }
     }
   }
 
@@ -1643,37 +1889,166 @@ async function saveIntervention() {
   for (const [id, { name, qty }] of Object.entries(selectedPiecesMap)) {
     const piece = pieces.find(p => p.id === parseInt(id));
     if (piece) {
-      if (piece.qty < qty) { hideLoader(); return alert(`Stock insuffisant pour : ${name}`); }
-      piece.qty -= qty; piecesUsed.push({ name, qty });
+      if (piece.qty < qty && !draft) { 
+        hideLoader(); 
+        return alert(`Stock insuffisant pour : ${name}`); 
+      }
+      if (!draft) {
+        piece.qty -= qty;
+      }
+      piecesUsed.push({ name, qty });
     }
   }
 
-  const newInt = { id: 'int_' + Date.now(), date, time, duration, downtime_minutes: downtime, description, ligne, machine, personnel: selectedPersonnel, pieces_used: piecesUsed, photo_url: photoUrl };
+  const newInt = {
+    id: 'int_' + Date.now(),
+    request_date: requestDate,
+    date: completionDate || requestDate,
+    time,
+    requester,
+    status,
+    ligne,
+    machine,
+    machine_type: machineType,    breakdown_type: breakdownType,
+    description,
+    cause,
+    priority,
+    assigned_to: assignedTo,
+    desired_date: desiredDate,
+    duration,
+    downtime_minutes: downtime,
+    personnel: selectedPersonnel,
+    pieces_used: piecesUsed,
+    photo_urls: photoUrls,
+    created_at: new Date().toISOString(),
+    is_draft: draft
+  };
 
-  if (!navigator.onLine) {
+  if (!navigator.onLine || draft) {
     const queue = JSON.parse(localStorage.getItem('gmao_offline_interventions') || '[]');
-    queue.push(newInt); localStorage.setItem('gmao_offline_interventions', JSON.stringify(queue));
-    interventions.unshift(newInt); hideLoader(); closeModal('interventionModal'); showPage('historique');
-    addAuditEntry('Intervention (hors ligne)', `${machine} — ${date}`, '📋');
-    return alert("✅ Mode Hors Ligne : Sauvegardé localement.");
+    queue.push(newInt);
+    localStorage.setItem('gmao_offline_interventions', JSON.stringify(queue));
+    interventions.unshift(newInt);
+    hideLoader();
+    closeModal('interventionModal');
+    showPage('historique');
+    addAuditEntry('Intervention ' + (draft ? 'brouillon' : 'hors ligne'), 
+      `${machine} — ${requestDate}`, '📋');
+    return alert("✅ " + (draft ? "Brouillon sauvegardé" : "Mode Hors Ligne : Sauvegardé localement"));
   }
 
   try {
-    for (const p of pieces) await sb.from('pieces').update({ qty: p.qty }).eq('id', p.id);
+    if (!draft) {
+      for (const p of pieces) {
+        await sb.from('pieces').update({ qty: p.qty }).eq('id', p.id);
+      }
+    }
+    
     const { data, error } = await sb.from('interventions').insert([newInt]).select().single();
     if (error) throw error;
-    interventions.unshift(data); updateAlertBadge();
-    addAuditEntry('Intervention enregistrée', `${machine} — ${date} — ${selectedPersonnel.join(', ')}`, '📋');
-    closeModal('interventionModal'); showPage('historique');
-  } catch (e) { alert("Erreur lors de l'enregistrement: " + e.message); } finally { hideLoader(); }
+    
+    interventions.unshift(data);
+    updateAlertBadge();
+    addAuditEntry('Intervention enregistrée', 
+      `${machine} — ${requestDate} — ${selectedPersonnel.join(', ')}`, '📋');
+    
+    closeModal('interventionModal');
+    showPage('historique');
+    alert("✅ Intervention enregistrée avec succès!");
+  } catch (e) {
+    alert("Erreur lors de l'enregistrement: " + e.message);
+  } finally {
+    hideLoader();  }
+}
+
+function saveAsDraft() {
+  saveIntervention(true);
+}
+
+function renderInterventionList() {
+  const filterMachine = document.getElementById('filterIntMachine').value.toLowerCase();
+  const filterStatus = document.getElementById('filterIntStatus').value;
+  const filterPriority = document.getElementById('filterIntPriority').value;
+  
+  let filtered = interventions.filter(i => {
+    const matchMachine = !filterMachine || (i.machine || '').toLowerCase().includes(filterMachine);
+    const matchStatus = !filterStatus || i.status === filterStatus;
+    const matchPriority = !filterPriority || i.priority === filterPriority;
+    return matchMachine && matchStatus && matchPriority;
+  });
+  
+  const priorityOrder = { 'Critique': 5, 'Urgente': 4, 'Haute': 3, 'Moyenne': 2, 'Basse': 1 };
+  filtered.sort((a, b) => {
+    const dateCompare = b.request_date.localeCompare(a.request_date);
+    if (dateCompare !== 0) return dateCompare;
+    return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
+  });
+  
+  const tbody = document.getElementById('interventionListBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucune intervention trouvée</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = filtered.map((i, idx) => {
+    const statusColors = {
+      'Nouvelle': 'badge-info',
+      'En cours': 'badge-warn',
+      'Planifiée': 'badge-ok',
+      'Terminée': 'badge-ok',
+      'Annulée': 'badge-danger',
+      'Brouillon': 'badge-secondary'
+    };
+    
+    const priorityIcons = {
+      'Basse': '🟢',
+      'Moyenne': '🟡',
+      'Haute': '🟠',
+      'Urgente': '🔴',
+      'Critique': '⚫'
+    };
+        return `<tr>
+      <td>${idx + 1}</td>
+      <td>${i.request_date}</td>
+      <td><strong>${i.machine || '—'}</strong></td>
+      <td>${i.breakdown_type || '—'}</td>
+      <td>${i.requester || '—'}</td>
+      <td>${priorityIcons[i.priority] || '⚪'} ${i.priority || '—'}</td>
+      <td><span class="badge ${statusColors[i.status] || 'badge-secondary'}">${i.status || '—'}</span></td>
+      <td>
+        <button class="btn btn-primary btn-sm" onclick="viewIntervention('${i.id}')">👁 Voir</button>
+        ${i.is_draft ? `<button class="btn btn-orange btn-sm" onclick="completeIntervention('${i.id}')">✓ Compléter</button>` : ''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function viewIntervention(id) {
+  const intervention = interventions.find(i => i.id === id);
+  if (!intervention) return;
+  
+  alert(`Intervention #${id}\nMachine: ${intervention.machine}\nDate: ${intervention.request_date}\nStatut: ${intervention.status}\nPriorité: ${intervention.priority}`);
+}
+
+function completeIntervention(id) {
+  const intervention = interventions.find(i => i.id === id);
+  if (!intervention) return;
+  
+  intervention.is_draft = false;
+  intervention.status = 'En cours';
+  
+  alert(`Intervention ${id} activée et prête à être complétée!`);
+  renderInterventionList();
 }
 
 async function deleteIntervention(id) {
   if (!confirm('Supprimer cette intervention ?')) return;
   const i = interventions.find(x => x.id === id);
-  await sb.from('interventions').delete().eq('id', id); interventions = interventions.filter(i => i.id !== id);
+  await sb.from('interventions').delete().eq('id', id); 
+  interventions = interventions.filter(i => i.id !== id);
   addAuditEntry('Intervention supprimée', `${i?.machine || id} — ${i?.date || ''}`, '🗑');
-  renderHistorique(); renderDashboard();
+  renderHistorique(); 
+  renderDashboard();
 }
 
 async function syncOfflineData() {
@@ -1681,8 +2056,7 @@ async function syncOfflineData() {
   const queue = JSON.parse(localStorage.getItem('gmao_offline_interventions') || '[]');
   if (queue.length === 0) return;
   showLoader('Synchronisation...');
-  let successCount = 0;
-  for (const item of queue) {
+  let successCount = 0;  for (const item of queue) {
     const { data, error } = await sb.from('interventions').insert([item]).select().single();
     if (!error) { interventions.unshift(data); successCount++; }
   }
@@ -1695,7 +2069,7 @@ async function syncOfflineData() {
 }
 
 // ==========================================
-// 9. WORK ORDERS & PLANNED MAINTENANCE (original)
+// 9. WORK ORDERS & PLANNED MAINTENANCE
 // ==========================================
 function openAddWO() {
   if (!currentUser || currentUser.role !== 'admin') { openLogin(); return; }
@@ -1731,8 +2105,7 @@ async function savePlanned() {
   const machine = document.getElementById('pmMachine').value, desc = document.getElementById('pmDesc').value.trim(), interval = parseInt(document.getElementById('pmInterval').value);
   if (!desc || !machine || !interval || interval < 1) return alert('Champs requis et intervalle > 0');
   const next = new Date(); next.setDate(next.getDate() + interval);
-  const { data, error } = await sb.from('planned_maintenance').insert([{ machine_name: machine, description: desc, interval_days: interval, next_due: next.toISOString().split('T')[0] }]).select().single();
-  if (error) { alert("Erreur: " + error.message); return; }
+  const { data, error } = await sb.from('planned_maintenance').insert([{ machine_name: machine, description: desc, interval_days: interval, next_due: next.toISOString().split('T')[0] }]).select().single();  if (error) { alert("Erreur: " + error.message); return; }
   plannedMaint.push(data); closeModal('plannedModal'); renderPlanned();
   addAuditEntry('Maintenance planifiée', `${machine} — ${desc}`, '🗓');
   alert("✅ Planifié !");
@@ -1744,7 +2117,7 @@ async function deletePlanned(id) {
 }
 
 // ==========================================
-// 10. QR CODE SCANNER (original)
+// 10. QR CODE SCANNER
 // ==========================================
 function openQRScanner() {
   if (!currentUser) { openLogin(); return; }
@@ -1769,7 +2142,7 @@ function stopQRScanner() {
 }
 
 // ==========================================
-// 11. EXPORTS & FILTERS (original)
+// 11. EXPORTS & FILTERS
 // ==========================================
 function clearFilters() { ['filterDate', 'filterPers', 'filterMachine'].forEach(id => document.getElementById(id).value = ''); renderHistorique(); }
 
@@ -1804,21 +2177,8 @@ function exportHistoriquePDF() {
 }
 
 // ==========================================
-// 12. INITIALIZATION
+// PIECE DETAIL FUNCTIONS
 // ==========================================
-window.addEventListener('online', syncOfflineData);
-window.addEventListener('load', () => {
-  if (navigator.onLine) syncOfflineData();
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('https://bosscostumes.com/sw.js').catch(console.log);
-  }
-  loadAllData();
-});
-
-
-let currentPieceDetailId = null;
-let pieceQRScanner = null;
-
 function openPieceDetail(id) {
   const p = pieces.find(x => x.id === id); if (!p) return;
   currentPieceDetailId = id;
@@ -1839,8 +2199,7 @@ function openPieceDetail(id) {
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div>
         <div style="font-size:0.7rem;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:5px;">Statut</div>
-        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}" style="font-size:0.85rem;padding:5px 14px;">${p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE STOCK' : 'DISPONIBLE')}</span>
-      </div>
+        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}" style="font-size:0.85rem;padding:5px 14px;">${p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE STOCK' : 'DISPONIBLE')}</span>      </div>
       <div class="form-group"><label>Référence</label>
         <div style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:var(--accent);background:var(--bg3);padding:8px 12px;border-radius:6px;border:1px solid var(--border);">${p.ref || '—'}</div>
       </div>
@@ -1889,8 +2248,7 @@ async function uploadPiecePhoto(id) {
       const match = p.photo_url.match(/\/photos\/(.+)$/);
       if (match) await sb.storage.from('photos').remove([match[1]]);
     }
-    const url = await compressAndUpload(input.files[0], 'pieces/' + id);
-    await sb.from('pieces').update({ photo_url: url }).eq('id', id);
+    const url = await compressAndUpload(input.files[0], 'pieces/' + id);    await sb.from('pieces').update({ photo_url: url }).eq('id', id);
     p.photo_url = url;
     addAuditEntry('Photo pièce', p.name, '📸');
     closeModal('pieceDetailModal');
@@ -1939,39 +2297,17 @@ function stopPieceQRScan() {
     pieceQRScanner = null;
   } else { closeModal('pieceQRScanModal'); }
 }
-
+// ==========================================
+// 12. INITIALIZATION
+// ==========================================
+window.addEventListener('online', syncOfflineData);
+window.addEventListener('load', () => {
+  if (navigator.onLine) syncOfflineData();
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('https://bosscostumes.com/sw.js').catch(console.log);
+  }
+  loadAllData();
+});
 </script>
-<!-- PIECE DETAIL MODAL -->
-<div class="modal-overlay" id="pieceDetailModal">
-  <div class="modal modal-lg">
-    <div class="modal-title"><span id="pieceDetailTitle">🔩 Pièce</span><button class="modal-close" onclick="closeModal('pieceDetailModal')">✕</button></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
-      <div>
-        <img id="pieceDetailImg" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;border:1px solid var(--border);display:none;">
-        <div id="pieceDetailImgPh" style="width:100%;height:160px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:3rem;">🔩</div>
-        <div style="text-align:center;margin-top:14px;">
-          <canvas id="pieceDetailQR" style="background:#fff;padding:10px;border-radius:8px;display:block;margin:0 auto;"></canvas>
-          <div style="font-size:0.7rem;color:var(--text3);margin-top:5px;">QR Code — Scan pour localiser</div>
-          <button class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="downloadPieceQR()">⬇ Télécharger QR</button>
-        </div>
-      </div>
-      <div id="pieceDetailInfo"></div>
-    </div>
-    <div id="pieceMachinesSection" style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;display:none;">
-      <div class="card-title">🏭 Machines liées (BOM)</div>
-      <div id="pieceMachinesList"></div>
-    </div>
-  </div>
-</div>
-
-<!-- PIECE QR SCANNER -->
-<div class="modal-overlay" id="pieceQRScanModal">
-  <div class="modal">
-    <div class="modal-title">🔍 Scanner QR Pièce <button class="modal-close" onclick="stopPieceQRScan()">✕</button></div>
-    <div id="piece-qr-reader" style="width:100%;border-radius:8px;overflow:hidden;"></div>
-    <p style="text-align:center;color:var(--text3);margin-top:10px;font-size:0.8rem;">Pointez vers le QR code d'une pièce.</p>
-  </div>
-</div>
-
 </body>
 </html>
