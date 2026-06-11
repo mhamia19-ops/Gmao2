@@ -47,7 +47,8 @@ nav button { background: none; border: none; color: var(--text2); padding: 14px 
 nav button:hover, nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 nav button.admin-only:hover, nav button.admin-only.active { color: var(--accent2); border-bottom-color: var(--accent2); }
 
-main { position: relative; z-index: 1; padding: 24px; max-width: 1400px; margin: 0 auto; }.page { display: none; }
+main { position: relative; z-index: 1; padding: 24px; max-width: 1400px; margin: 0 auto; }
+.page { display: none; }
 .page.active { display: block; }
 
 .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
@@ -74,7 +75,6 @@ tr:hover td { background: rgba(0,200,255,0.03); }
 .badge-warn { background: rgba(255,184,0,0.1); color: var(--warn); border: 1px solid rgba(255,184,0,0.3); }
 .badge-danger { background: rgba(255,59,92,0.1); color: var(--danger); border: 1px solid rgba(255,59,92,0.3); }
 .badge-info { background: rgba(0,200,255,0.1); color: var(--accent); border: 1px solid rgba(0,200,255,0.3); }
-.badge-secondary { background: rgba(136,153,180,0.1); color: var(--text2); border: 1px solid rgba(136,153,180,0.3); }
 
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -96,142 +96,417 @@ input[type="file"]::file-selector-button { background: var(--bg2); color: var(--
 
 .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(5,8,20,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; }
 .modal-overlay.open { display: flex; }
-.modal { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 90%; max-width: 540px; box-shadow: 0 0 60px rgba(0,200,255,0.15); animation: slideIn 0.25s ease; max-height: 90vh; overflow-y: auto; }.modal-lg { max-width: 1200px; }
+.modal { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 90%; max-width: 540px; box-shadow: 0 0 60px rgba(0,200,255,0.15); animation: slideIn 0.25s ease; max-height: 90vh; overflow-y: auto; }
+.modal-lg { max-width: 1200px; }
+.modal-xl { max-width: 95vw; width: 95vw; max-height: 95vh; }
 @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .modal-title { font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
 .modal-close { background: none; border: none; color: var(--text3); font-size: 1.4rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
 .modal-close:hover { color: var(--danger); }
 
-.intervention-day { margin-bottom: 28px; }
-.day-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.day-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.2); padding: 5px 14px; border-radius: 20px; }
-.day-line { flex: 1; height: 1px; background: var(--border); }
-.intervention-card { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 10px; padding: 16px; margin-bottom: 10px; transition: border-color 0.2s; }
-.intervention-card:hover { border-left-color: var(--accent); }
-.intervention-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-.meta-tag { display: flex; align-items: center; gap: 5px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.78rem; color: var(--text2); }
-.meta-tag strong { color: var(--text); }
-.pieces-used { margin-top: 8px; }
-.piece-chip { display: inline-block; background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.3); color: var(--accent2); border-radius: 5px; padding: 2px 9px; font-size: 0.75rem; margin: 2px; }
-.personnel-chip { display: inline-block; background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.2); color: var(--accent); border-radius: 5px; padding: 2px 9px; font-size: 0.75rem; margin: 2px; }
-.intervention-photo { margin-top: 12px; max-width: 200px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: transform 0.2s; }
-.intervention-photo:hover { transform: scale(1.05); }
+/* Intervention Dual Panel Layout */
+.intervention-dual-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
 
-.search-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-.search-bar input, .search-bar select { background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 9px 14px; border-radius: 8px; font-family: 'Exo 2', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; flex: 1; min-width: 160px; }
-.search-bar input:focus, .search-bar select:focus { border-color: var(--accent); }
+.intervention-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-.pieces-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
-.piece-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
-.piece-card:hover { transform: translateY(-2px); }
-.piece-card.warn { border-color: rgba(255,184,0,0.4); }
-.piece-card.danger { border-color: rgba(255,59,92,0.4); }
-.piece-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-.piece-cat { font-size: 0.72rem; letter-spacing: 1px; color: var(--text3); text-transform: uppercase; margin-bottom: 8px; }
-.piece-qty { font-family: 'Share Tech Mono', monospace; font-size: 1.6rem; font-weight: 700; }
-.piece-qty.ok { color: var(--accent3); }
-.piece-qty.warn { color: var(--warn); }
-.piece-qty.danger { color: var(--danger); }
+.intervention-panel-header {
+  background: var(--bg3);
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-.emp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
-.emp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; transition: transform 0.2s; }
-.emp-card:hover { transform: translateY(-2px); }
-.emp-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #005f88); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; margin: 0 auto 10px; box-shadow: var(--glow); }
-.emp-name { font-weight: 700; font-size: 0.95rem; }
-.emp-role { font-size: 0.75rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+.intervention-panel-header::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent);
+}
 
-footer { position: relative; z-index: 1; border-top: 1px solid var(--border); margin-top: 40px; padding: 28px 24px; text-align: center; }
-.footer-brand { font-size: 1rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-.footer-sub { font-size: 0.78rem; color: var(--text3); margin-bottom: 16px; }
-.creator-card { display: inline-flex; align-items: center; gap: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 24px; box-shadow: 0 0 30px rgba(0,200,255,0.08); }
-.creator-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), #7a3000); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; box-shadow: var(--glow2); }
-.creator-info { text-align: left; }.creator-name { font-weight: 700; font-size: 0.95rem; color: var(--accent2); }
-.creator-contacts { font-size: 0.78rem; color: var(--text2); margin-top: 3px; }
-.creator-contacts a { color: var(--accent); text-decoration: none; }
-.creator-contacts a:hover { text-decoration: underline; }
-.footer-copy { font-size: 0.72rem; color: var(--text3); margin-top: 16px; letter-spacing: 1px; }
+.intervention-panel-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
 
-.piece-selector { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 6px; }
-.piece-selector-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; max-height: 140px; overflow-y: auto; }
-.piece-sel-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
-.piece-sel-item:hover { border-color: var(--accent2); color: var(--accent2); }
-.piece-sel-item.selected { background: rgba(255,107,0,0.12); border-color: var(--accent2); color: var(--accent2); }
+/* Filter Bar */
+.filter-bar {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
 
-.personnel-multi { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; min-height: 44px; }
-.pers-chip { background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.2); color: var(--accent); border-radius: 6px; padding: 4px 12px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
-.pers-chip.selected { background: rgba(0,200,255,0.2); border-color: var(--accent); font-weight: 700; }
-.empty { text-align: center; padding: 40px; color: var(--text3); font-size: 0.9rem; letter-spacing: 1px; }
-.chart-container { position: relative; height: 300px; width: 100%; }
+.filter-bar .form-group {
+  margin-bottom: 0;
+}
 
-/* FAB Button */
-.fab { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 500; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), #aa4400); color: #fff; border: none; font-size: 1.6rem; cursor: pointer; box-shadow: 0 4px 24px rgba(255,107,0,0.5); transition: all 0.2s; align-items: center; justify-content: center; }
-.fab:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(255,107,0,0.7); }
+.filter-bar label {
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text2);
+  font-weight: 600;
+}
 
-/* Chrono button */
-.chrono-display { font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; color: var(--accent3); background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 10px; }
-.chrono-btn { padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; font-family: 'Exo 2', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
-.chrono-start { background: rgba(0,255,157,0.15); color: var(--accent3); border: 1px solid var(--accent3); }
-.chrono-stop { background: rgba(255,59,92,0.15); color: var(--danger); border: 1px solid var(--danger); }
-.chrono-reset { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+.filter-bar input, .filter-bar select {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.82rem;
+  outline: none;
+  width: 100%;
+}
 
-/* Voice button */
-.mic-btn { background: rgba(0,200,255,0.1); border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; padding: 10px 14px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
-.mic-btn:hover { background: rgba(0,200,255,0.2); }
-.mic-btn.recording { background: rgba(255,59,92,0.2); border-color: var(--danger); color: var(--danger); animation: pulse-mic 0.8s infinite; }
-@keyframes pulse-mic { 0%,100%{ box-shadow: 0 0 0 0 rgba(255,59,92,0.4); } 50%{ box-shadow: 0 0 0 8px rgba(255,59,92,0); } }
+.filter-bar input:focus, .filter-bar select:focus {
+  border-color: var(--accent);
+}
 
-/* Cost display */
-.cost-tag { display: inline-flex; align-items: center; gap: 5px; background: rgba(0,255,157,0.08); border: 1px solid rgba(0,255,157,0.2); color: var(--accent3); border-radius: 6px; padding: 3px 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; }
+/* Toolbar */
+.toolbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  padding: 6px;
+  background: var(--bg3);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
 
-/* Audit log */
-.audit-entry { display: flex; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(30,45,77,0.5); font-size: 0.83rem; align-items: flex-start; }
-.audit-entry:last-child { border-bottom: none; }
-.audit-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
-.audit-time { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--text3); white-space: nowrap; }
-.audit-action { color: var(--text); flex: 1; }
-.audit-user { font-size: 0.72rem; color: var(--accent); }
+.toolbar-btn {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
 
-/* Factory map */
-.factory-map { display: grid; gap: 24px; }
-.factory-ligne-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-.factory-ligne-header { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }.factory-ligne-header::before { content: ''; width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--accent2); }
-.factory-machines-row { display: flex; flex-wrap: wrap; gap: 12px; }
-.factory-machine-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: all 0.2s; min-width: 150px; position: relative; }
-.factory-machine-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--glow); }
-.factory-machine-card .machine-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
-.factory-machine-card .machine-stats { font-size: 0.72rem; color: var(--text3); }
-.factory-machine-card .machine-dot { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; border-radius: 50%; }
-.factory-machine-card .machine-dot.ok { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
-.factory-machine-card .machine-dot.warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
-.factory-machine-card .machine-dot.danger { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+.toolbar-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
 
-/* BOM section */
-.bom-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--bg3); border-radius: 6px; margin-bottom: 6px; border: 1px solid var(--border); }
-.bom-item .bom-name { flex: 1; font-size: 0.85rem; }
-.bom-item .bom-qty { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
+.toolbar-btn.active {
+  background: var(--accent2);
+  color: #fff;
+  border-color: var(--accent2);
+}
 
-/* PIECE DETAIL CARDS */
-.pieces-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-.piece-detail-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; cursor: pointer; }
-.piece-detail-card:hover { transform: translateY(-2px); border-color: var(--accent); }
-.piece-detail-card.warn { border-color: rgba(255,184,0,0.5); }
-.piece-detail-card.danger { border-color: rgba(255,59,92,0.5); }
-.piece-detail-photo { width: 100%; height: 120px; object-fit: cover; display: block; }
-.piece-detail-photo-ph { width: 100%; height: 120px; display: flex; align-items: center; justify-content: center; background: var(--bg3); color: var(--text3); font-size: 2.2rem; }
-.piece-detail-body { padding: 12px 14px; }
-.piece-detail-actions { display: flex; gap: 6px; padding: 8px 14px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.1); }
-.bom-avail-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 0.73rem; font-weight: 700; }
-.bom-avail-tag.avail { background: rgba(0,255,157,0.1); color: var(--accent3); border: 1px solid rgba(0,255,157,0.3); }
-.bom-avail-tag.low { background: rgba(255,184,0,0.1); color: var(--warn); border: 1px solid rgba(255,184,0,0.3); }
-.bom-avail-tag.out { background: rgba(255,59,92,0.1); color: var(--danger); border: 1px solid rgba(255,59,92,0.3); }
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
 
-/* Intervention List Styles */
-.intervention-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-.priority-critique { border-left-color: #000; }
-.priority-urgente { border-left-color: var(--danger); }
-.priority-haute { border-left-color: var(--warn); }
-.priority-moyenne { border-left-color: var(--accent); }
-.priority-basse { border-left-color: var(--accent3); }
+.tab {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  color: var(--text2);
+  padding: 8px 14px;
+  cursor: pointer;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Personnel Table */
+.personnel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.82rem;
+}
+
+.personnel-table th {
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.personnel-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(30,45,77,0.5);
+  font-size: 0.82rem;
+}
+
+.personnel-table tr:hover td {
+  background: rgba(0,200,255,0.03);
+}
+
+.personnel-row {
+  background: var(--bg3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.82rem;
+}
+
+.personnel-row .pers-duration {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent2);
+  font-weight: 700;
+}
+
+.personnel-row .pers-name {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.personnel-row .pers-fonction {
+  color: var(--text2);
+  font-size: 0.78rem;
+}
+
+.personnel-row .pers-remove {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+}
+
+.personnel-row .pers-remove:hover {
+  color: #ff6b7a;
+}
+
+/* Sous-traitants */
+.sous-traitants-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.sous-traitants-section h4 {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 10px;
+}
+
+/* Pièces Section */
+.pieces-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.pieces-section h4 {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 10px;
+}
+
+/* Intervention Form Fields */
+.intervention-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.intervention-fields .full-width {
+  grid-column: 1 / -1;
+}
+
+.intervention-fields .form-group {
+  margin-bottom: 0;
+}
+
+.intervention-fields label {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text2);
+  font-weight: 600;
+}
+
+.intervention-fields input,
+.intervention-fields select,
+.intervention-fields textarea {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  width: 100%;
+}
+
+.intervention-fields input:focus,
+.intervention-fields select:focus,
+.intervention-fields textarea:focus {
+  border-color: var(--accent);
+}
+
+.intervention-fields textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.intervention-fields input[readonly] {
+  background: var(--bg2);
+  color: var(--accent);
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+}
+
+/* Status indicator */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.status-indicator.terminated {
+  background: rgba(0,255,157,0.1);
+  color: var(--accent3);
+  border: 1px solid rgba(0,255,157,0.3);
+}
+
+.status-indicator.terminated::before {
+  content: '●';
+  color: var(--accent3);
+}
+
+/* Panel Footer Buttons */
+.panel-footer {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg3);
+  justify-content: flex-end;
+}
+
+/* Intervention List */
+.intervention-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.intervention-list-table th {
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.intervention-list-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(30,45,77,0.5);
+}
+
+.intervention-list-table tr {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.intervention-list-table tr:hover td {
+  background: rgba(0,200,255,0.05);
+}
+
+.intervention-list-table tr.selected td {
+  background: rgba(0,200,255,0.1);
+  border-left: 3px solid var(--accent);
+}
+
+/* Responsive */
+@media(max-width:1200px) {
+  .intervention-dual-panel {
+    grid-template-columns: 1fr;
+  }
+  .intervention-fields {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media(max-width:768px){
   header { padding: 0 12px; height: 56px; }
@@ -243,7 +518,9 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat-card { padding: 14px; }
   .stat-value { font-size: 1.5rem; }
-  .modal { width: 95%; padding: 18px; margin: 10px; }  .modal-lg { max-width: 95%; }
+  .modal { width: 95%; padding: 18px; margin: 10px; }
+  .modal-lg { max-width: 95%; }
+  .modal-xl { width: 98vw; max-width: 98vw; }
   .form-grid { grid-template-columns: 1fr !important; }
   input, select, textarea, button, .pers-chip, .piece-sel-item { font-size: 16px !important; min-height: 48px; }
   .btn { width: 100%; margin-bottom: 8px; }
@@ -253,7 +530,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   .header-right { gap: 8px; }
   .alert-btn, .login-btn { padding: 6px 10px; font-size: 0.7rem; }
   .admin-badge { font-size: 0.7rem; padding: 5px 8px; }
-  .fab { display: flex; }
+  .intervention-fields { grid-template-columns: 1fr; }
+  .personnel-row { grid-template-columns: 1fr; gap: 4px; }
 }
 </style>
 </head>
@@ -276,11 +554,11 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <button class="login-required" style="display:none" onclick="showPage('analytics')">📈 Analytiques</button>
   <button onclick="showPage('employees')">👷 Personnel</button>
   <button class="login-required" style="display:none" onclick="showPage('planned')">🗓 Préventif</button>
-  <button class="admin-only" id="navSuppliers" style="display:none" onclick="showPage('suppliers')">🛒 Fournisseurs</button>
+  <button class="admin-only" id="navSuppliers" style="display:none" onclick="showPage('suppliers')"> Fournisseurs</button>
   <button onclick="showPage('about')">ℹ À Propos</button>
   <button onclick="showPage('factorymap')">🏭 Plan Atelier</button>
   <button class="admin-only" id="navAudit" style="display:none" onclick="showPage('audit')">📜 Audit</button>
-  <button class="admin-only" id="navAddIntervention" style="display:none" onclick="openInterventionList()">📋 Interventions</button>
+  <button class="admin-only" id="navAddIntervention" style="display:none" onclick="openInterventionManager()">📋 Interventions</button>
   <button class="admin-only" id="navAdmin" style="display:none" onclick="showPage('admin')">⚙ Admin</button>
 </nav>
 
@@ -292,7 +570,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       <div class="card-title">Dernières Interventions</div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th><th>Coût Est.</th></tr></thead>          <tbody id="dashInterventions"></tbody>
+          <thead><tr><th>Date</th><th>Machine</th><th>Ligne</th><th>Personnel</th><th>Durée</th><th>Arrêt</th><th>Pièces</th><th>Coût Est.</th></tr></thead>
+          <tbody id="dashInterventions"></tbody>
         </table>
       </div>
     </div>
@@ -318,7 +597,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       <div class="card-title" style="margin:0">📦 Stock des Pièces</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn btn-secondary btn-sm" onclick="exportStockPDF()">📄 Export PDF</button>
-        <button class="btn btn-secondary btn-sm" onclick="openPieceQRScan()">📷 Scanner QR Pièce</button>
+        <button class="btn btn-secondary btn-sm" onclick="openPieceQRScan()"> Scanner QR Pièce</button>
         <input id="stockSearch" placeholder="Nom ou référence..." style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:0.85rem;outline:none;width:200px;" oninput="renderStock()">
       </div>
     </div>
@@ -341,7 +620,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <div class="page" id="page-analytics">
     <div class="card-title">📈 Analytiques & Tableaux de Bord</div>
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Interventions (7j)</div><div class="stat-value" id="statWeek">0</div></div>      <div class="stat-card"><div class="stat-label">Temps d'arrêt total</div><div class="stat-value" id="statDowntime">0h</div></div>
+      <div class="stat-card"><div class="stat-label">Interventions (7j)</div><div class="stat-value" id="statWeek">0</div></div>
+      <div class="stat-card"><div class="stat-label">Temps d'arrêt total</div><div class="stat-value" id="statDowntime">0h</div></div>
       <div class="stat-card"><div class="stat-label">MTTR Moyen</div><div class="stat-value" id="statMTTR">--</div><div class="stat-sub">Mean Time To Repair</div></div>
       <div class="stat-card"><div class="stat-label">MTBF Estimé</div><div class="stat-value" id="statMTBF">--</div><div class="stat-sub">Mean Time Between Failures</div></div>
       <div class="stat-card"><div class="stat-label">Coût total estimé</div><div class="stat-value" id="statTotalCost" style="color:var(--warn)">0</div><div class="stat-sub">DA (Dinars)</div></div>
@@ -390,7 +670,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <div class="page" id="page-factorymap">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
       <div class="card-title" style="margin:0">🏭 Plan de l'Atelier</div>
-      <div style="font-size:0.75rem;color:var(--text3);display:flex;gap:16px;align-items:center;">        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent3);margin-right:4px;"></span>OK</span>
+      <div style="font-size:0.75rem;color:var(--text3);display:flex;gap:16px;align-items:center;">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent3);margin-right:4px;"></span>OK</span>
         <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn);margin-right:4px;"></span>Alerte BOM</span>
         <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--danger);margin-right:4px;"></span>Rupture BOM</span>
       </div>
@@ -401,7 +682,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   <!-- AUDIT -->
   <div class="page" id="page-audit">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-      <div class="card-title" style="margin:0">📜 Journal d'Audit (ISO)</div>
+      <div class="card-title" style="margin:0"> Journal d'Audit (ISO)</div>
       <button class="btn btn-secondary btn-sm" onclick="clearAuditLog()">🗑 Vider</button>
     </div>
     <div class="card">
@@ -439,7 +720,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
       </div>
       <div class="card">
         <div class="card-title">Gérer les Catégories</div>
-        <div class="form-grid" style="grid-template-columns:1fr;margin-bottom:10px;">          <div class="form-group"><label>Nouvelle catégorie</label><input id="newCatName" placeholder="Ex: Électrique..."></div>
+        <div class="form-grid" style="grid-template-columns:1fr;margin-bottom:10px;">
+          <div class="form-group"><label>Nouvelle catégorie</label><input id="newCatName" placeholder="Ex: Électrique..."></div>
         </div>
         <button class="btn btn-primary" onclick="addCategory()" style="margin-bottom:12px;">Créer</button>
         <div id="catList"></div>
@@ -476,9 +758,6 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </main>
 
-<!-- FAB (mobile QR shortcut) -->
-<button class="fab" onclick="openQRScanner()" title="Scanner QR">📷</button>
-
 <footer>
   <div class="footer-brand">GMAO — Atelier de Maintenance</div>
   <div class="footer-sub">Système de Gestion de Maintenance Assistée par Ordinateur</div>
@@ -486,15 +765,16 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     <div class="creator-avatar">HI</div>
     <div class="creator-info">
       <div class="creator-name">Créé par Hammia Islam</div>
-      <div class="creator-contacts">📞 <a href="tel:+213559096105">+213 559 096 105</a>  |  ✉️ <a href="mailto:islam.hammia1995@gmail.com">islam.hammia1995@gmail.com</a></div>
+      <div class="creator-contacts">📞 <a href="tel:+213559096105">+213 559 096 105</a> &nbsp;|&nbsp; ✉️ <a href="mailto:islam.hammia1995@gmail.com">islam.hammia1995@gmail.com</a></div>
     </div>
-  </div>  <div class="footer-copy">© 2026 HAMMIA Islam — Tous droits réservés</div>
+  </div>
+  <div class="footer-copy">© 2026 HAMMIA Islam — Tous droits réservés</div>
 </footer>
 
 <!-- ==================== MODALS ==================== -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
-    <div class="modal-title">🔒 Connexion <button class="modal-close" onclick="closeModal('loginModal')">✕</button></div>
+    <div class="modal-title"> Connexion <button class="modal-close" onclick="closeModal('loginModal')">✕</button></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Email</label><input type="email" id="loginEmail" placeholder="votre@email.com"></div>
     <div class="form-group" style="margin-bottom:20px;"><label>Mot de passe</label><input type="password" id="loginPass" placeholder="••••••••"></div>
     <div id="loginError" style="color:var(--danger);font-size:0.82rem;margin-bottom:12px;display:none;">Email ou mot de passe incorrect.</div>
@@ -507,7 +787,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <div class="modal-overlay" id="alertsModal">
   <div class="modal modal-lg">
-    <div class="modal-title">⚠ Articles en Rupture / Alerte <button class="modal-close" onclick="closeModal('alertsModal')">✕</button></div>
+    <div class="modal-title"> Articles en Rupture / Alerte <button class="modal-close" onclick="closeModal('alertsModal')">✕</button></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
       <button class="btn btn-orange admin-only" id="btnReorderPDF" style="display:none;" onclick="exportReorderPDF()">📄 Générer Demande d'Achat (PDF)</button>
       <button class="btn btn-secondary btn-sm" onclick="sendLowStockEmail()">📧 Alerter le Responsable</button>
@@ -516,228 +796,540 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
   </div>
 </div>
 
-<!-- ENHANCED INTERVENTION MODAL -->
-<div class="modal-overlay" id="interventionModal">
-  <div class="modal modal-lg">
+<!-- ==================== INTERVENTION MANAGER (DUAL PANEL) ==================== -->
+<div class="modal-overlay" id="interventionManagerModal">
+  <div class="modal modal-xl">
     <div class="modal-title">
-      <span>➕ Nouvelle Intervention</span>
-      <button class="modal-close" onclick="closeModal('interventionModal')">✕</button>
+      <span>📋 Gestion des Interventions</span>
+      <button class="modal-close" onclick="closeModal('interventionManagerModal')">✕</button>
     </div>
     
-    <!-- Request Info Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">📋 Informations de la Demande</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Date de la demande</label>
-          <input type="date" id="intRequestDate">
-        </div>
-        <div class="form-group">
-          <label>Heure</label>
-          <input type="time" id="intTime">
-        </div>
-        <div class="form-group">
-          <label>Demandeur</label>          <select id="intRequester">
-            <option value="">— Sélectionner —</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>État de la demande</label>
-          <select id="intRequestStatus">
-            <option value="Nouvelle">🔵 Nouvelle</option>
-            <option value="En cours">🟡 En cours</option>
-            <option value="Planifiée">🟢 Planifiée</option>
-            <option value="Terminée">✅ Terminée</option>
-            <option value="Annulée">🔴 Annulée</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Machine & Breakdown Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">⚙ Machine & Panne</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Secteur / Machine</label>
-          <select id="intLigne" onchange="updateMachineSelect()">
-            <option value="">— Choisir secteur —</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Machine</label>
-          <select id="intMachine">
-            <option value="">— Choisir machine —</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Type de machine</label>
-          <input type="text" id="intMachineType" placeholder="Ex: Convoyeur, Pompe...">
-        </div>
-        <div class="form-group">
-          <label>Type de panne</label>
-          <select id="intBreakdownType">
-            <option value="">— Sélectionner —</option>
-            <option value="Mécanique">⚙ Mécanique</option>
-            <option value="Électrique">⚡ Électrique</option>
-            <option value="Hydraulique">💧 Hydraulique</option>
-            <option value="Pneumatique">💨 Pneumatique</option>
-            <option value="Automatisme">🤖 Automatisme</option>
-            <option value="Autre">📋 Autre</option>
-          </select>
-        </div>
-      </div>    </div>
-
-    <!-- Intervention Details Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">🔧 Détails de l'Intervention</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Description / Travaux à réaliser</label>
-          <textarea id="intDesc" placeholder="Décrire l'intervention..." rows="3"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Cause de la panne</label>
-          <textarea id="intCause" placeholder="Cause identifiée..." rows="2"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Priorité</label>
-          <select id="intPriority">
-            <option value="Basse">🟢 Basse</option>
-            <option value="Moyenne" selected>🟡 Moyenne</option>
-            <option value="Haute">🟠 Haute</option>
-            <option value="Urgente">🔴 Urgente</option>
-            <option value="Critique">⚫ Critique</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>A réaliser par</label>
-          <select id="intAssignedTo">
-            <option value="Interne">👷 Équipe Interne</option>
-            <option value="Sous-traitant">🏢 Sous-traitant</option>
-            <option value="Mixte">🔄 Mixte</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Timing Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">⏱ Durées & Planning</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Date souhaitée</label>
-          <input type="date" id="intDesiredDate">
-        </div>
-        <div class="form-group">
-          <label>Durée estimée (min)</label>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <input type="number" id="intDuration" min="1" placeholder="Ex: 90" style="flex:1;">
-            <div id="chronoDisplay" class="chrono-display" style="display:none;">00:00:00</div>
+    <div class="intervention-dual-panel">
+      <!-- LEFT PANEL: Demandes d'intervention -->
+      <div class="intervention-panel">
+        <div class="intervention-panel-header">Demandes d'intervention</div>
+        <div class="intervention-panel-body">
+          
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <div class="form-group">
+              <label>Intervention sur:</label>
+              <select id="intFilterSur">
+                <option value="">— Tous —</option>
+                <option value="machine">Machine</option>
+                <option value="equipement">Équipement</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Après le:</label>
+              <input type="date" id="intFilterApres" value="">
+            </div>
+            <div class="form-group">
+              <label>Type de machine:</label>
+              <select id="intFilterTypeMachine">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Avant le:</label>
+              <input type="date" id="intFilterAvant" value="">
+            </div>
+            <div class="form-group">
+              <label>Machine/secteur:</label>
+              <select id="intFilterMachineSecteur">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>État:</label>
+              <select id="intFilterEtat">
+                <option value="">— Tous —</option>
+                <option value="Nouvelle">Nouvelle</option>
+                <option value="En cours">En cours</option>
+                <option value="Planifiée">Planifiée</option>
+                <option value="Terminée">Terminée</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>À réaliser par:</label>
+              <select id="intFilterRealiserPar">
+                <option value="">— Tous —</option>
+                <option value="interne">Équipe interne</option>
+                <option value="externe">Sous-traitant</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Demandeur:</label>
+              <select id="intFilterDemandeur">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Type de panne:</label>
+              <select id="intFilterTypePanne">
+                <option value="">— Tous —</option>
+                <option value="Mécanique">Mécanique</option>
+                <option value="Électrique">Électrique</option>
+                <option value="Hydraulique">Hydraulique</option>
+                <option value="Pneumatique">Pneumatique</option>
+                <option value="Automatisme">Automatisme</option>
+              </select>
+            </div>
           </div>
-          <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">            <button type="button" class="chrono-btn chrono-start" id="chronoStartBtn" onclick="chronoStart()">▶ Chrono</button>
-            <button type="button" class="chrono-btn chrono-stop" id="chronoStopBtn" onclick="chronoStop()" style="display:none;">⏹ Stop</button>
-            <button type="button" class="chrono-btn chrono-reset" id="chronoResetBtn" onclick="chronoReset()" style="display:none;">↺ Reset</button>
+          
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <button class="toolbar-btn" onclick="newInterventionRequest()" title="Nouveau">➕</button>
+            <button class="toolbar-btn" onclick="saveInterventionRequest()" title="Enregistrer">💾</button>
+            <button class="toolbar-btn" onclick="deleteInterventionRequest()" title="Supprimer">🗑️</button>
+            <button class="toolbar-btn" onclick="printInterventionRequest()" title="Imprimer">️</button>
+            <button class="toolbar-btn" onclick="refreshInterventionList()" title="Actualiser">🔄</button>
+            <button class="toolbar-btn" onclick="filterInterventionList()" title="Filtrer">🔍</button>
+          </div>
+          
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab active" onclick="showIntTab('liste', this)">Liste des demandes</button>
+            <button class="tab" onclick="showIntTab('detail', this)">Détail</button>
+            <button class="tab" onclick="showIntTab('remarque', this)">Remarque</button>
+            <button class="tab" onclick="showIntTab('image', this)">Image</button>
+            <button class="tab" onclick="showIntTab('actions', this)">Actions</button>
+            <button class="tab" onclick="showIntTab('fichiers', this)">Fichiers</button>
+            <button class="tab" onclick="showIntTab('informations', this)">Informations</button>
+          </div>
+          
+          <!-- Tab: Liste -->
+          <div id="intTab-liste" class="tab-content active">
+            <div class="table-wrap" style="max-height:300px;overflow-y:auto;">
+              <table class="intervention-list-table" id="interventionListTable">
+                <thead>
+                  <tr>
+                    <th>N° émission</th>
+                    <th>Date</th>
+                    <th>Machine</th>
+                    <th>État</th>
+                  </tr>
+                </thead>
+                <tbody id="interventionListBody"></tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Tab: Détail -->
+          <div id="intTab-detail" class="tab-content">
+            <div class="intervention-fields">
+              <div class="form-group">
+                <label>N° émission:</label>
+                <input type="text" id="intNumEmission" readonly>
+              </div>
+              <div class="form-group">
+                <label>État:</label>
+                <select id="intEtat">
+                  <option value="Nouvelle">Nouvelle</option>
+                  <option value="En cours">En cours</option>
+                  <option value="Planifiée">Planifiée</option>
+                  <option value="Terminée">Terminée</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Date demande:</label>
+                <input type="date" id="intDateDemande">
+              </div>
+              <div class="form-group">
+                <label>Réalisé le:</label>
+                <input type="date" id="intDateRealise">
+              </div>
+              <div class="form-group full-width">
+                <label>Machine:</label>
+                <select id="intMachine">
+                  <option value="">— Choisir —</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Organe:</label>
+                <select id="intOrgane">
+                  <option value="">(organe non défini)</option>
+                  <option value="Moteur principal">Moteur principal</option>
+                  <option value="Réducteur">Réducteur</option>
+                  <option value="Tapis">Tapis</option>
+                  <option value="Cylindre">Cylindre</option>
+                  <option value="Rouleaux">Rouleaux</option>
+                  <option value="Système de tension">Système de tension</option>
+                  <option value="Capteurs">Capteurs</option>
+                  <option value="Variateur">Variateur</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Résumé:</label>
+                <textarea id="intResume" rows="2" placeholder="Ex: Problème de saleté du cylindre tapis"></textarea>
+              </div>
+              <div class="form-group full-width">
+                <label>Demandeur:</label>
+                <input type="text" id="intDemandeur" placeholder="Ex: Production Blida | BEN MOUSSA Nesrine">
+              </div>
+              <div class="form-group">
+                <label>Date souhaitée:</label>
+                <input type="date" id="intDateSouhaitee">
+              </div>
+              <div class="form-group">
+                <label>Durée arrêt machine:</label>
+                <input type="text" id="intDureeArretMachine" placeholder="01:15">
+              </div>
+              <div class="form-group">
+                <label>Type de panne:</label>
+                <select id="intTypePanne">
+                  <option value="">— Sélectionner —</option>
+                  <option value="Mécanique">Mécanique</option>
+                  <option value="Électrique">Électrique</option>
+                  <option value="Hydraulique">Hydraulique</option>
+                  <option value="Pneumatique">Pneumatique</option>
+                  <option value="Automatisme">Automatisme</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Cause:</label>
+                <select id="intCause">
+                  <option value="">— Sélectionner —</option>
+                  <option value="Curatif">Curatif</option>
+                  <option value="Préventif">Préventif</option>
+                  <option value="Amélioratif">Amélioratif</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>État demande:</label>
+                <select id="intEtatDemande">
+                  <option value="Nouvelle">Nouvelle</option>
+                  <option value="En cours">En cours</option>
+                  <option value="Planifiée">Planifiée</option>
+                  <option value="Terminée">Terminée</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>À réaliser par:</label>
+                <input type="text" id="intRealiserPar" placeholder="Ex: Maintenance Blida | EQUIPE Maintenance">
+              </div>
+              <div class="form-group full-width">
+                <label>Priorité:</label>
+                <select id="intPriorite">
+                  <option value="Basse">🟢 Basse</option>
+                  <option value="Moyenne" selected>🟡 Moyenne</option>
+                  <option value="Haute">🟠 Haute</option>
+                  <option value="Urgente">🔴 Urgente</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tab: Remarque -->
+          <div id="intTab-remarque" class="tab-content">
+            <div class="form-group">
+              <label>Remarques:</label>
+              <textarea id="intRemarques" rows="6" placeholder="Remarques supplémentaires..."></textarea>
+            </div>
+          </div>
+          
+          <!-- Tab: Image -->
+          <div id="intTab-image" class="tab-content">
+            <div class="form-group">
+              <label>Photos de l'intervention:</label>
+              <input type="file" id="intPhotos" accept="image/*" capture="environment" multiple>
+            </div>
+            <div id="intPhotoPreview" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;"></div>
+          </div>
+          
+          <!-- Tab: Actions -->
+          <div id="intTab-actions" class="tab-content">
+            <div class="form-group">
+              <label>Actions entreprises:</label>
+              <textarea id="intActions" rows="6" placeholder="Décrire les actions réalisées..."></textarea>
+            </div>
+          </div>
+          
+          <!-- Tab: Fichiers -->
+          <div id="intTab-fichiers" class="tab-content">
+            <div class="form-group">
+              <label>Documents joints:</label>
+              <input type="file" id="intFiles" multiple>
+            </div>
+            <div id="intFilesList" style="margin-top:10px;"></div>
+          </div>
+          
+          <!-- Tab: Informations -->
+          <div id="intTab-informations" class="tab-content">
+            <div class="form-group">
+              <label>Informations complémentaires:</label>
+              <textarea id="intInfos" rows="6" placeholder="Informations supplémentaires..."></textarea>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label>Durée arrêt machine (min)</label>
-          <input type="number" id="intDowntime" min="0" placeholder="Ex: 45">
+        <div class="panel-footer">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal('interventionManagerModal')">Fermer</button>
+          <button class="btn btn-primary btn-sm" onclick="printInterventionRequest()">🖨️ Imprimer</button>
+          <button class="btn btn-secondary btn-sm" onclick="showHelp()">❓ Aide</button>
         </div>
-        <div class="form-group">
-          <label>Date de réalisation</label>
-          <input type="date" id="intCompletionDate">
+      </div>
+
+      <!-- RIGHT PANEL: Saisie des fiches correctives -->
+      <div class="intervention-panel">
+        <div class="intervention-panel-header">Saisie des fiches correctives</div>
+        <div class="intervention-panel-body">
+          
+          <!-- Filter Bar -->
+          <div class="filter-bar">
+            <div class="form-group">
+              <label>Intervention sur:</label>
+              <select id="corrFilterSur">
+                <option value="">— Tous —</option>
+                <option value="machine">Machine</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Après le:</label>
+              <input type="date" id="corrFilterApres" value="">
+            </div>
+            <div class="form-group">
+              <label>Avant le:</label>
+              <input type="date" id="corrFilterAvant" value="">
+            </div>
+            <div class="form-group">
+              <label>Type de machine:</label>
+              <select id="corrFilterTypeMachine">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Réalisé par:</label>
+              <select id="corrFilterRealisePar">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Secteur/machine:</label>
+              <select id="corrFilterSecteurMachine">
+                <option value="">— Tous —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>État:</label>
+              <select id="corrFilterEtat">
+                <option value="">— Tous —</option>
+                <option value="En cours">En cours</option>
+                <option value="Terminé">Terminé</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Type de panne:</label>
+              <select id="corrFilterTypePanne">
+                <option value="">— Tous —</option>
+                <option value="Mécanique">Mécanique</option>
+                <option value="Électrique">Électrique</option>
+                <option value="Hydraulique">Hydraulique</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Verrouillé:</label>
+              <select id="corrFilterVerrouille">
+                <option value="">— Tous —</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <button class="toolbar-btn" onclick="newCorrectiveSheet()" title="Nouveau"></button>
+            <button class="toolbar-btn" onclick="saveCorrectiveSheet()" title="Enregistrer">💾</button>
+            <button class="toolbar-btn" onclick="deleteCorrectiveSheet()" title="Supprimer">🗑️</button>
+            <button class="toolbar-btn" onclick="printCorrectiveSheet()" title="Imprimer">🖨️</button>
+            <button class="toolbar-btn" onclick="refreshCorrectiveList()" title="Actualiser">🔄</button>
+          </div>
+          
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab active" onclick="showCorrTab('liste', this)">Liste des fiches correctives</button>
+            <button class="tab" onclick="showCorrTab('detail', this)">Détail</button>
+            <button class="tab" onclick="showCorrTab('remarque', this)">Remarque</button>
+            <button class="tab" onclick="showCorrTab('image', this)">Image</button>
+            <button class="tab" onclick="showCorrTab('actions', this)">Actions</button>
+          </div>
+          
+          <!-- Tab: Liste -->
+          <div id="corrTab-liste" class="tab-content active">
+            <div class="table-wrap" style="max-height:200px;overflow-y:auto;">
+              <table class="intervention-list-table" id="correctiveListTable">
+                <thead>
+                  <tr>
+                    <th>N° émission</th>
+                    <th>Date</th>
+                    <th>Machine</th>
+                    <th>État</th>
+                  </tr>
+                </thead>
+                <tbody id="correctiveListBody"></tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Tab: Détail -->
+          <div id="corrTab-detail" class="tab-content">
+            <div class="intervention-fields">
+              <div class="form-group">
+                <label>N° émission:</label>
+                <input type="text" id="corrNumEmission" readonly>
+              </div>
+              <div class="form-group">
+                <label>État correctif:</label>
+                <select id="corrEtatCorrectif">
+                  <option value="En cours">En cours</option>
+                  <option value="Terminée">Terminée</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Date d'intervention:</label>
+                <input type="date" id="corrDateIntervention">
+              </div>
+              <div class="form-group full-width">
+                <label>Machine:</label>
+                <select id="corrMachine">
+                  <option value="">— Choisir —</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Organe:</label>
+                <select id="corrOrgane">
+                  <option value="">(organe non défini)</option>
+                  <option value="Moteur principal">Moteur principal</option>
+                  <option value="Réducteur">Réducteur</option>
+                  <option value="Tapis">Tapis</option>
+                  <option value="Cylindre">Cylindre</option>
+                  <option value="Rouleaux">Rouleaux</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label>Intervention/réparation:</label>
+                <textarea id="corrIntervention" rows="3" placeholder="Ex: Nettoyage cylindre du tapis - Tendu du tapis"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Type de panne:</label>
+                <select id="corrTypePanne">
+                  <option value="">— Sélectionner —</option>
+                  <option value="Mécanique">Mécanique</option>
+                  <option value="Électrique">Électrique</option>
+                  <option value="Hydraulique">Hydraulique</option>
+                  <option value="Pneumatique">Pneumatique</option>
+                  <option value="Automatisme">Automatisme</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Cause:</label>
+                <select id="corrCause">
+                  <option value="">— Sélectionner —</option>
+                  <option value="Curatif">Curatif</option>
+                  <option value="Préventif">Préventif</option>
+                  <option value="Amélioratif">Amélioratif</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Niveau:</label>
+                <select id="corrNiveau">
+                  <option value="">(niveau de maintenance non défini)</option>
+                  <option value="1">Niveau 1</option>
+                  <option value="2">Niveau 2</option>
+                  <option value="3">Niveau 3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Durée arrêt:</label>
+                <input type="text" id="corrDureeArret" placeholder="01:15">
+              </div>
+              <div class="form-group">
+                <label>Num. qualité:</label>
+                <input type="text" id="corrNumQualite" placeholder="">
+              </div>
+            </div>
+            
+            <!-- Personnel Section -->
+            <div class="pieces-section" style="margin-top:16px;">
+              <h4>👷 Personnel</h4>
+              <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                <select id="corrPersonnelSelect" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;flex:1;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                  <option value="">— Sélectionner un technicien —</option>
+                </select>
+                <input type="text" id="corrPersonnelDuree" placeholder="Durée (ex: 01:15)" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;width:120px;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                <button class="btn btn-primary btn-sm" onclick="addCorrectivePersonnel()">+ Ajouter</button>
+              </div>
+              <div id="correctivePersonnelList"></div>
+            </div>
+            
+            <!-- Sous-traitants Section -->
+            <div class="sous-traitants-section">
+              <h4>🏢 Sous-traitants</h4>
+              <div id="correctiveSousTraitantsList">
+                <div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">La fiche corrective ne comporte aucun sous-traitant</div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                <input type="text" id="corrSousTraitantNom" placeholder="Nom du sous-traitant" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;flex:1;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                <input type="text" id="corrSousTraitantFonction" placeholder="Fonction" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;flex:1;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                <button class="btn btn-secondary btn-sm" onclick="addCorrectiveSousTraitant()">+ Ajouter</button>
+              </div>
+            </div>
+            
+            <!-- Pièces Section -->
+            <div class="pieces-section">
+              <h4>🔩 Pièces</h4>
+              <div id="correctivePiecesList">
+                <div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">La fiche corrective ne comporte aucune pièce</div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                <select id="corrPieceSelect" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;flex:1;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                  <option value="">— Sélectionner une pièce —</option>
+                </select>
+                <input type="number" id="corrPieceQty" placeholder="Qté" min="1" value="1" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;width:80px;font-family:'Exo 2',sans-serif;font-size:0.82rem;">
+                <button class="btn btn-secondary btn-sm" onclick="addCorrectivePiece()">+ Ajouter</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tab: Remarque -->
+          <div id="corrTab-remarque" class="tab-content">
+            <div class="form-group">
+              <label>Remarques:</label>
+              <textarea id="corrRemarques" rows="6" placeholder="Remarques sur la fiche corrective..."></textarea>
+            </div>
+          </div>
+          
+          <!-- Tab: Image -->
+          <div id="corrTab-image" class="tab-content">
+            <div class="form-group">
+              <label>Photos:</label>
+              <input type="file" id="corrPhotos" accept="image/*" capture="environment" multiple>
+            </div>
+            <div id="corrPhotoPreview" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;"></div>
+          </div>
+          
+          <!-- Tab: Actions -->
+          <div id="corrTab-actions" class="tab-content">
+            <div class="form-group">
+              <label>Actions entreprises:</label>
+              <textarea id="corrActions" rows="6" placeholder="Décrire les actions réalisées..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-secondary btn-sm" onclick="closeModal('interventionManagerModal')">Fermer</button>
+          <button class="btn btn-primary btn-sm" onclick="printCorrectiveSheet()">🖨️ Imprimer</button>
+          <button class="btn btn-secondary btn-sm" onclick="showHelp()">❓ Aide</button>
         </div>
       </div>
     </div>
-
-    <!-- Personnel & Photos Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">👷 Personnel & Documentation</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Personnel assigné</label>
-          <div class="personnel-multi" id="personnelMulti"></div>
-        </div>
-        <div class="form-group">
-          <label>📸 Photos</label>
-          <input type="file" id="intPhoto" accept="image/*" capture="environment" multiple>
-        </div>
-        <div class="form-group">
-          <label>🎤 Description vocale</label>
-          <button type="button" id="micBtn" class="mic-btn" onclick="toggleVoice()" title="Dictée vocale">🎤 Démarrer</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Parts Section -->
-    <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">🔩 Pièces utilisées</div>
-      <div class="piece-selector">
-        <div class="piece-selector-list" id="pieceSelectorList"></div>
-        <div id="selectedPiecesQty"></div>
-      </div>
-    </div>
-
-    <!-- Actions -->
-    <div class="modal-footer-btns" style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="saveIntervention()">💾 Enregistrer</button>
-      <button class="btn btn-secondary" onclick="closeModal('interventionModal')">❌ Annuler</button>
-      <button class="btn btn-orange" onclick="saveAsDraft()">💭 Sauvegarder brouillon</button>
-    </div>  </div>
+  </div>
 </div>
 
-<!-- Intervention Requests List Modal -->
-<div class="modal-overlay" id="interventionListModal">
-  <div class="modal modal-lg">
-    <div class="modal-title">
-      <span>📋 Demandes d'Intervention</span>
-      <button class="modal-close" onclick="closeModal('interventionListModal')">✕</button>
-    </div>
-    
-    <!-- Filters -->
-    <div class="search-bar" style="margin-bottom:16px;">
-      <input type="text" id="filterIntMachine" placeholder="Machine..." oninput="renderInterventionList()">
-      <select id="filterIntStatus" onchange="renderInterventionList()">
-        <option value="">Tous les états</option>
-        <option value="Nouvelle">Nouvelle</option>
-        <option value="En cours">En cours</option>
-        <option value="Planifiée">Planifiée</option>
-        <option value="Terminée">Terminée</option>
-      </select>
-      <select id="filterIntPriority" onchange="renderInterventionList()">
-        <option value="">Toutes priorités</option>
-        <option value="Basse">Basse</option>
-        <option value="Moyenne">Moyenne</option>
-        <option value="Haute">Haute</option>
-        <option value="Urgente">Urgente</option>
-      </select>
-      <button class="btn btn-primary btn-sm" onclick="openAddIntervention()">➕ Nouvelle</button>
-    </div>
-
-    <!-- List -->
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>N°</th>
-            <th>Date</th>
-            <th>Machine</th>
-            <th>Type panne</th>
-            <th>Demandeur</th>
-            <th>Priorité</th>
-            <th>État</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="interventionListBody"></tbody>
-      </table>
-    </div>
-  </div></div>
-
+<!-- Other existing modals -->
 <div class="modal-overlay" id="managePiecesModal">
   <div class="modal modal-lg">
-    <div class="modal-title">📦 Gérer le Stock <button class="modal-close" onclick="closeModal('managePiecesModal')">✕</button></div>
+    <div class="modal-title">📦 Gérer le Stock <button class="modal-close" onclick="closeModal('managePiecesModal')"></button></div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Pièce</th><th>Catégorie</th><th>Qté</th><th>Seuil</th><th>Prix (DA)</th><th>Ajuster</th><th>Supprimer</th></tr></thead>
@@ -765,7 +1357,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <div class="modal-overlay" id="woModal">
   <div class="modal">
-    <div class="modal-title">➕ Nouvel Ordre <button class="modal-close" onclick="closeModal('woModal')">✕</button></div>
+    <div class="modal-title"> Nouvel Ordre <button class="modal-close" onclick="closeModal('woModal')">✕</button></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Machine</label><select id="woMachine"></select></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Description</label><textarea id="woDesc"></textarea></div>
     <div class="form-group" style="margin-bottom:20px;"><label>Assigner à</label><select id="woAssigned"></select></div>
@@ -778,11 +1370,12 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <div class="modal-overlay" id="plannedModal">
   <div class="modal">
-    <div class="modal-title">🗓 Planifier Maintenance <button class="modal-close" onclick="closeModal('plannedModal')">✕</button></div>
+    <div class="modal-title">🗓 Planifier Maintenance <button class="modal-close" onclick="closeModal('plannedModal')"></button></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Machine</label><select id="pmMachine"></select></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Tâche</label><input type="text" id="pmDesc" placeholder="Ex: Vidange huile"></div>
     <div class="form-group" style="margin-bottom:20px;"><label>Intervalle (Jours)</label><input type="number" id="pmInterval" value="90" min="1"></div>
-    <div class="modal-footer-btns" style="display:flex;gap:10px;">      <button class="btn btn-primary" onclick="savePlanned()">Planifier</button>
+    <div class="modal-footer-btns" style="display:flex;gap:10px;">
+      <button class="btn btn-primary" onclick="savePlanned()">Planifier</button>
       <button class="btn btn-secondary" onclick="closeModal('plannedModal')">Annuler</button>
     </div>
   </div>
@@ -803,7 +1396,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <div class="modal-overlay" id="editMachineModal">
   <div class="modal modal-lg">
-    <div class="modal-title">⚙ Informations Machine <button class="modal-close" onclick="closeModal('editMachineModal')">✕</button></div>
+    <div class="modal-title"> Informations Machine <button class="modal-close" onclick="closeModal('editMachineModal')">✕</button></div>
     <input type="hidden" id="editMachineId">
     <div class="form-group" style="margin-bottom:14px;"><label>Nom</label><input type="text" id="editMachineName" readonly style="background:var(--bg2);color:var(--text3);"></div>
     <div class="form-group" style="margin-bottom:14px;"><label>Description / Spécifications</label><textarea id="editMachineDesc" rows="5" placeholder="Détails, spécifications, notes..."></textarea></div>
@@ -832,6 +1425,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
     </div>
   </div>
 </div>
+
 <div class="modal-overlay" id="machineInfoModal">
   <div class="modal modal-lg">
     <div class="modal-title" id="machineInfoTitle">🏭 Info Machine <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button></div>
@@ -871,7 +1465,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 
 <div class="modal-overlay" id="pieceQRScanModal">
   <div class="modal">
-    <div class="modal-title">🔍 Scanner QR Pièce <button class="modal-close" onclick="stopPieceQRScan()">✕</button></div>
+    <div class="modal-title">🔍 Scanner QR Pièce <button class="modal-close" onclick="stopPieceQRScan()"></button></div>
     <div id="piece-qr-reader" style="width:100%;border-radius:8px;overflow:hidden;"></div>
     <p style="text-align:center;color:var(--text3);margin-top:10px;font-size:0.8rem;">Pointez vers le QR code d'une pièce.</p>
   </div>
@@ -880,7 +1474,8 @@ footer { position: relative; z-index: 1; border-top: 1px solid var(--border); ma
 <script>
 // ==========================================
 // 1. CONSTANTS & STATE
-// ==========================================const sb = supabase.createClient('https://cuctsokaivauyulgpvfg.supabase.co', 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL');
+// ==========================================
+const sb = supabase.createClient('https://cuctsokaivauyulgpvfg.supabase.co', 'sb_publishable_nX7iYihEuJgJcqeZaxE7-g_KIgW81wL');
 let currentUser = null;
 let categories = [], pieces = [], employees = [], interventions = [], lignes = [], machines = [], suppliers = [], workOrders = [], plannedMaint = [];
 let charts = {}, selectedPiecesMap = {}, selectedPersonnel = [];
@@ -894,6 +1489,15 @@ const DEFAULT_HOURLY_RATE = 500;
 const DEFAULT_PART_PRICE = 0;
 let currentPieceDetailId = null;
 let pieceQRScanner = null;
+
+// Intervention Manager State
+let interventionRequests = JSON.parse(localStorage.getItem('gmao_intervention_requests') || '[]');
+let correctiveSheets = JSON.parse(localStorage.getItem('gmao_corrective_sheets') || '[]');
+let currentInterventionId = null;
+let currentCorrectiveId = null;
+let correctivePersonnel = [];
+let correctiveSousTraitants = [];
+let correctivePieces = [];
 
 // ==========================================
 // 2. UTILITIES
@@ -914,6 +1518,7 @@ function hideLoader() { const el = document.getElementById('globalLoader'); if (
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function formatDate(d) {
+  if (!d) return '';
   const [y, m, day] = d.split('-');
   const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
   return `${parseInt(day)} ${months[parseInt(m)-1]} ${y}`;
@@ -929,7 +1534,8 @@ async function compressAndUpload(file, folder) {
         const MAX_WIDTH = 1024;
         const scale = MAX_WIDTH / img.width;
         canvas.width = MAX_WIDTH; canvas.height = img.height * scale;
-        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);        canvas.toBlob(async (blob) => {
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(async (blob) => {
           if (!blob) return reject('Compression failed');
           const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2, 9)}.jpg`;
           const { error: uploadError } = await sb.storage.from('photos').upload(fileName, blob, { contentType: 'image/jpeg', upsert: false });
@@ -942,6 +1548,24 @@ async function compressAndUpload(file, folder) {
     };
     reader.readAsDataURL(file);
   });
+}
+
+function generateInterventionNumber() {
+  const date = new Date();
+  const year = date.getFullYear().toString().substr(-2);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const count = interventionRequests.length + 1;
+  return `DE${year}${month}${day}/${count.toString().padStart(2, '0')}`;
+}
+
+function generateCorrectiveNumber() {
+  const date = new Date();
+  const year = date.getFullYear().toString().substr(-2);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const count = correctiveSheets.length + 1;
+  return `CO${year}${month}${day}/${count.toString().padStart(2, '0')}`;
 }
 
 // ==========================================
@@ -957,12 +1581,10 @@ function calcInterventionCost(intervention) {
   });
   const avgRate = personnelNames.length ? totalRate / personnelNames.length : DEFAULT_HOURLY_RATE;
   const laborCost = durationH * avgRate * personnelNames.length;
-  
   const partsCost = (intervention.piecesUsed || intervention.pieces_used || []).reduce((sum, u) => {
     const p = pieces.find(x => x.name === u.name);
     return sum + (u.qty * (p?.prix_unitaire || p?.unit_price || DEFAULT_PART_PRICE));
   }, 0);
-  
   return Math.round(laborCost + partsCost);
 }
 
@@ -979,6 +1601,7 @@ function addAuditEntry(action, detail, icon = '📝') {
   if (auditLog.length > 500) auditLog = auditLog.slice(0, 500);
   localStorage.setItem('gmao_audit_log', JSON.stringify(auditLog));
 }
+
 function renderAudit() {
   const container = document.getElementById('auditLogContainer');
   if (!auditLog.length) { container.innerHTML = '<div class="empty">Aucun événement enregistré.</div>'; return; }
@@ -1027,6 +1650,7 @@ function chronoStop() {
   document.getElementById('chronoStartBtn').style.display = '';
   document.getElementById('chronoStopBtn').style.display = 'none';
 }
+
 function chronoReset() {
   clearInterval(chronoInterval);
   chronoRunning = false; chronoElapsed = 0;
@@ -1049,7 +1673,7 @@ function toggleVoice() {
     voiceRecognition && voiceRecognition.stop();
     voiceActive = false;
     document.getElementById('micBtn').classList.remove('recording');
-    document.getElementById('micBtn').textContent = '🎤 Démarrer';
+    document.getElementById('micBtn').textContent = ' Démarrer';
     return;
   }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1076,7 +1700,8 @@ function toggleVoice() {
   document.getElementById('micBtn').textContent = '🔴';
 }
 
-// ==========================================// LOW-STOCK EMAIL ALERT
+// ==========================================
+// LOW-STOCK EMAIL ALERT
 // ==========================================
 function sendLowStockEmail() {
   const low = pieces.filter(p => p.qty <= p.thresh);
@@ -1125,7 +1750,8 @@ function renderBOMEditor() {
     if (!p) return '';
     return `<div class="bom-item">
       <span class="bom-name">${p.name}</span>
-      <span class="bom-qty ${p.qty === 0 ? 'piece-qty danger' : (p.qty <= p.thresh ? 'piece-qty warn' : 'piece-qty ok')}" style="font-size:0.85rem;">${p.qty}</span>      <button type="button" onclick="removeBOMItem(${pid})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.9rem;">✕</button>
+      <span class="bom-qty ${p.qty === 0 ? 'piece-qty danger' : (p.qty <= p.thresh ? 'piece-qty warn' : 'piece-qty ok')}" style="font-size:0.85rem;">${p.qty}</span>
+      <button type="button" onclick="removeBOMItem(${pid})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.9rem;">✕</button>
     </div>`;
   }).join('');
 }
@@ -1175,6 +1801,7 @@ function renderFactoryMap() {
     </div>`;
   }).join('');
 }
+
 // ==========================================
 // 3. DATA FETCHING & SEEDING
 // ==========================================
@@ -1223,14 +1850,15 @@ sb.auth.onAuthStateChange((event, session) => {
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPass').value.trim();
-  if (!email || !password) { document.getElementById('loginError').style.display = 'block'; return; }  showLoader('Connexion...');
+  if (!email || !password) { document.getElementById('loginError').style.display = 'block'; return; }
+  showLoader('Connexion...');
   const { error } = await sb.auth.signInWithPassword({ email, password });
   hideLoader();
   if (error) { document.getElementById('loginError').textContent = "Email ou mot de passe incorrect."; document.getElementById('loginError').style.display = 'block'; }
   else {
     closeModal('loginModal');
     document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = ''; document.getElementById('loginError').style.display = 'none';
-    addAuditEntry('Connexion', `${email}`, '🔓');
+    addAuditEntry('Connexion', `${email}`, '');
   }
 }
 
@@ -1243,7 +1871,7 @@ function openLogin() { document.getElementById('loginEmail').value = ''; documen
 function updateAuthUI() {
   const authArea = document.getElementById('authArea');
   const isLogged = !!currentUser, isAdmin = currentUser?.role === 'admin', isTech = currentUser?.role === 'technician';
-  authArea.innerHTML = isLogged ? `<div class="admin-badge">${isAdmin ? '👑 Admin' : (isTech ? '🔧 Tech' : '👁 Lecture')} (${currentUser.name}) <button onclick="doLogout()" style="background:none;border:none;color:var(--danger);cursor:pointer;margin-left:8px;font-size:0.8rem;">✕</button></div>` : `<button class="login-btn" onclick="openLogin()">🔒 Connexion</button>`;
+  authArea.innerHTML = isLogged ? `<div class="admin-badge">${isAdmin ? '👑 Admin' : (isTech ? '🔧 Tech' : '👁 Lecture')} (${currentUser.name}) <button onclick="doLogout()" style="background:none;border:none;color:var(--danger);cursor:pointer;margin-left:8px;font-size:0.8rem;"></button></div>` : `<button class="login-btn" onclick="openLogin()">🔒 Connexion</button>`;
   
   const toggle = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? '' : 'none'; };
   toggle('navAdmin', isAdmin); toggle('navSuppliers', isAdmin); toggle('btnAddWO', isAdmin); toggle('btnAddPlanned', isAdmin); toggle('btnReorderPDF', isAdmin);
@@ -1272,7 +1900,8 @@ function renderDashboard() {
   updateAlertBadge();
   const totalPieces = pieces.reduce((s, p) => s + p.qty, 0);
   const lowCount = pieces.filter(p => p.qty <= p.thresh).length;
-  const intToday = interventions.filter(i => i.date === new Date().toISOString().slice(0, 10)).length;  const totalDowntime = interventions.reduce((sum, i) => sum + (parseInt(i.downtime_minutes) || 0), 0);
+  const intToday = interventions.filter(i => i.date === new Date().toISOString().slice(0, 10)).length;
+  const totalDowntime = interventions.reduce((sum, i) => sum + (parseInt(i.downtime_minutes) || 0), 0);
   const totalCost = interventions.reduce((sum, i) => sum + calcInterventionCost(i), 0);
   
   document.getElementById('statsGrid').innerHTML = `
@@ -1303,7 +1932,7 @@ function renderStock() {
     const price = p.prix_unitaire || p.unit_price || 0;
     const photoHtml = (p.photo_url)
       ? `<img src="${p.photo_url}" class="piece-detail-photo">`
-      : `<div class="piece-detail-photo-ph">🔩</div>`;
+      : `<div class="piece-detail-photo-ph"></div>`;
     return `<div class="piece-detail-card ${level}" onclick="openPieceDetail(${p.id})">
       ${photoHtml}
       <div class="piece-detail-body">
@@ -1321,7 +1950,8 @@ function renderStock() {
         <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openPieceDetail(${p.id})">🔍 Détails</button>
         <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();showPieceQRModal(${p.id})">📷 QR</button>
       </div>
-    </div>`;  }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
+    </div>`;
+  }).join('') : '<div class="empty">Aucune pièce trouvée.</div>';
 }
 
 function renderHistorique() {
@@ -1344,15 +1974,15 @@ function renderHistorique() {
         const cost = calcInterventionCost(i);
         return `<div class="intervention-card">
           <div class="intervention-meta">
-            <div class="meta-tag">🕐 <strong>${i.time}</strong></div><div class="meta-tag">⏱ <strong>${i.duration} min</strong></div>
-            <div class="meta-tag">⛔ <strong>${i.downtime_minutes || 0} min arrêt</strong></div><div class="meta-tag">🏭 <strong>${i.ligne || '—'}</strong></div><div class="meta-tag">⚙ <strong>${i.machine || '—'}</strong></div>
+            <div class="meta-tag">🕐 <strong>${i.time}</strong></div><div class="meta-tag"> <strong>${i.duration} min</strong></div>
+            <div class="meta-tag"> <strong>${i.downtime_minutes || 0} min arrêt</strong></div><div class="meta-tag">🏭 <strong>${i.ligne || '—'}</strong></div><div class="meta-tag">⚙ <strong>${i.machine || '—'}</strong></div>
             <div class="meta-tag">💰 <strong>${cost.toLocaleString()} DA</strong></div>
           </div>
           <div style="margin-bottom:8px;font-size:0.9rem;color:var(--text2);">${i.description || ''}</div>
           ${i.photo_url ? `<img src="${i.photo_url}" class="intervention-photo" onclick="window.open('${i.photo_url}', '_blank')">` : ''}
-          <div style="margin-bottom:6px;">👷 ${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('') || '<em style="color:var(--text3)">—</em>'}</div>
+          <div style="margin-bottom:6px;"> ${(i.personnel || []).map(n => `<span class="personnel-chip">${n}</span>`).join('') || '<em style="color:var(--text3)">—</em>'}</div>
           ${(i.piecesUsed || i.pieces_used || []).length ? `<div class="pieces-used">🔩 ${(i.piecesUsed || i.pieces_used).map(u => `<span class="piece-chip">${u.name} × ${u.qty}</span>`).join('')}</div>` : ''}
-          ${currentUser?.role === 'admin' ? `<div style="margin-top:10px;"><button class="btn btn-danger btn-sm" onclick="deleteIntervention('${i.id}')">🗑 Supprimer</button></div>` : ''}
+          ${currentUser?.role === 'admin' ? `<div style="margin-top:10px;"><button class="btn btn-danger btn-sm" onclick="deleteIntervention('${i.id}')"> Supprimer</button></div>` : ''}
         </div>`;
       }).join('')}
     </div>`).join('') : '<div class="empty">Aucune intervention trouvée.</div>';
@@ -1371,6 +2001,7 @@ function renderEmployees() {
 function renderAdmin() {
   refreshCatSelects(); renderCatList(); refreshLigneSelects(); renderLigneList(); refreshSupplierSelects();
 }
+
 function renderWorkOrders() {
   document.getElementById('woTableBody').innerHTML = workOrders.length ? workOrders.map(wo => {
     const statusClass = wo.status === 'done' ? 'badge-ok' : (wo.status === 'in_progress' ? 'badge-warn' : 'badge-info');
@@ -1420,6 +2051,7 @@ function renderAnalytics() {
   document.getElementById('statMTTR').textContent = avgRepair ? avgRepair + 'min' : '--';
   document.getElementById('statMTBF').textContent = avgMTBF;
   document.getElementById('statTotalCost').textContent = totalCost.toLocaleString() + ' DA';
+
   const machineCounts = {}, machineDowntime = {}, partCounts = {};
   interventions.forEach(i => {
     machineCounts[i.machine] = (machineCounts[i.machine] || 0) + 1;
@@ -1468,7 +2100,8 @@ async function addPiece() {
 
 function openManagePieces() {
   document.getElementById('managePiecesBody').innerHTML = pieces.map(p => {
-    const price = p.prix_unitaire || p.unit_price || 0;    return `<tr>
+    const price = p.prix_unitaire || p.unit_price || 0;
+    return `<tr>
       <td><strong>${p.name}</strong></td><td>${p.cat}</td>
       <td><span class="piece-qty ${p.qty === 0 ? 'danger' : (p.qty <= p.thresh ? 'warn' : 'ok')}" style="font-size:1rem">${p.qty}</span></td><td>${p.thresh}</td>
       <td style="font-family:'Share Tech Mono',monospace;color:var(--accent3);">${price.toLocaleString()}</td>
@@ -1477,7 +2110,7 @@ function openManagePieces() {
         <span id="qty_${p.id}" style="font-family:'Share Tech Mono';min-width:28px;text-align:center">${p.qty}</span>
         <button class="btn btn-secondary btn-sm" onclick="adjustQty(${p.id},1)">+</button>
       </div></td>
-      <td><button class="btn btn-danger btn-sm" onclick="deletePiece(${p.id})">🗑</button></td>
+      <td><button class="btn btn-danger btn-sm" onclick="deletePiece(${p.id})"></button></td>
     </tr>`;
   }).join('');
   openModal('managePiecesModal');
@@ -1488,7 +2121,7 @@ async function adjustQty(id, delta) {
   p.qty = Math.max(0, p.qty + delta);
   await sb.from('pieces').update({ qty: p.qty }).eq('id', id);
   document.getElementById('qty_' + id).textContent = p.qty; updateAlertBadge();
-  addAuditEntry('Stock ajusté', `${p.name}: ${p.qty - delta} → ${p.qty}`, '📦');
+  addAuditEntry('Stock ajusté', `${p.name}: ${p.qty - delta} → ${p.qty}`, '');
 }
 
 async function deletePiece(id) {
@@ -1517,7 +2150,8 @@ async function addEmployee() {
 async function deleteEmployee(id) {
   if (!confirm('Supprimer cet employé ?')) return;
   const e = employees.find(x => x.id === id);
-  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id);  addAuditEntry('Employé supprimé', e?.name || id, '🗑');
+  await sb.from('employees').delete().eq('id', id); employees = employees.filter(e => e.id !== id);
+  addAuditEntry('Employé supprimé', e?.name || id, '🗑');
   renderEmployees();
 }
 
@@ -1566,7 +2200,8 @@ function renderLigneList() {
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><strong>${l.name}</strong><button class="btn btn-danger btn-sm" onclick="deleteLigne(${l.id})">✕</button></div>
       ${macs.length ? macs.map(m => `<span style="background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-size:0.78rem;margin:2px;display:inline-flex;align-items:center;gap:6px;">
         ${m.name} 
-        <button onclick="openEditMachine(${m.id})" style="background:var(--accent3);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Modifier infos">⚙</button>        <button onclick="showMachineQR(${m.id}, '${m.name.replace(/'/g, "\\'")}')" style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;">QR</button>
+        <button onclick="openEditMachine(${m.id})" style="background:var(--accent3);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Modifier infos">⚙</button>
+        <button onclick="showMachineQR(${m.id}, '${m.name.replace(/'/g, "\\'")}')" style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;">QR</button>
         <button onclick="showMachineInfo(${m.id})" style="background:var(--accent2);color:#fff;border:none;border-radius:4px;padding:2px 6px;font-size:0.7rem;font-weight:bold;cursor:pointer;" title="Voir fiche">👁</button>
         <button onclick="deleteMachine(${m.id})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.7rem;">✕</button>
       </span>`).join('') : '<span style="color:var(--text3);font-size:0.8rem;">Aucune machine</span>'}
@@ -1615,8 +2250,9 @@ async function saveSupplier() {
 
 async function deleteSupplier(id) {
   if (!confirm('Supprimer ?')) return;
-  const s = suppliers.find(x => x.id === id);  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id);
-  addAuditEntry('Fournisseur supprimé', s?.name || id, '🗑');
+  const s = suppliers.find(x => x.id === id);
+  await sb.from('suppliers').delete().eq('id', id); suppliers = suppliers.filter(s => s.id !== id);
+  addAuditEntry('Fournisseur supprimé', s?.name || id, '');
   renderSuppliers(); refreshSupplierSelects();
 }
 
@@ -1664,11 +2300,12 @@ async function saveMachineInfo() {
 
 function showMachineInfo(mId) {
   currentMachineInfoId = mId;
-  const m = machines.find(x => x.id === mId); if (!m) return alert("Machine non trouvée.");  document.getElementById('machineInfoTitle').innerHTML = `🏭 ${m.name} <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button>`;
+  const m = machines.find(x => x.id === mId); if (!m) return alert("Machine non trouvée.");
+  document.getElementById('machineInfoTitle').innerHTML = `🏭 ${m.name} <button class="modal-close" onclick="closeModal('machineInfoModal')">✕</button>`;
   
   let content = '';
   if (currentUser && (currentUser.role === 'admin' || currentUser.role === 'technician')) {
-    content += `<div style="margin-bottom:16px;"><button class="btn btn-primary btn-sm" onclick="openAddInterventionForMachine(${mId})">➕ Nouvelle Intervention</button></div>`;
+    content += `<div style="margin-bottom:16px;"><button class="btn btn-primary btn-sm" onclick="openAddInterventionForMachine(${mId})"> Nouvelle Intervention</button></div>`;
   }
   if (m.photo_url) content += `<img src="${m.photo_url}" style="width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:16px;border:1px solid var(--border);">`;
   content += m.description ? `<div style="background:var(--bg2);padding:16px;border-radius:10px;border:1px solid var(--border);margin-bottom:16px;white-space:pre-wrap;line-height:1.6;">${m.description}</div>` : `<div style="color:var(--text3);text-align:center;padding:20px;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">Aucune description fournie.</div>`;
@@ -1710,10 +2347,11 @@ function showMachineInfo(mId) {
 function openAddInterventionForMachine(mId) {
   closeModal('machineInfoModal');
   const m = machines.find(x => x.id === mId); if (!m) return;
-  openAddIntervention();
+  openInterventionManager();
   const ligne = lignes.find(l => l.id === (m.ligne_id || m.ligneId));
-  if (ligne) { document.getElementById('intLigne').value = ligne.name; updateMachineSelect(); }
-  document.getElementById('intMachine').value = m.name;}
+  if (ligne) { document.getElementById('intFilterMachineSecteur').value = ligne.name; }
+  document.getElementById('intMachine').value = m.name;
+}
 
 function showMachineQR(id, name) {
   document.getElementById('qrModalTitle').textContent = `QR: ${name}`;
@@ -1735,337 +2373,599 @@ function checkURLHash() {
 }
 
 // ==========================================
-// 8. ENHANCED INTERVENTIONS
+// 8. INTERVENTION MANAGER (NEW - From Image)
 // ==========================================
-function openInterventionList() {
+function openInterventionManager() {
   if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { 
     openLogin(); 
     return; 
   }
+  
+  // Populate dropdowns
+  populateInterventionDropdowns();
+  
+  // Load first intervention or create new
+  if (interventionRequests.length > 0) {
+    loadInterventionRequest(interventionRequests[0].id);
+  } else {
+    newInterventionRequest();
+  }
+  
+  // Load first corrective or create new
+  if (correctiveSheets.length > 0) {
+    loadCorrectiveSheet(correctiveSheets[0].id);
+  } else {
+    newCorrectiveSheet();
+  }
+  
   renderInterventionList();
-  openModal('interventionListModal');
+  renderCorrectiveList();
+  openModal('interventionManagerModal');
 }
 
-function openAddIntervention() {
-  if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'technician')) { 
-    openLogin(); 
-    return; 
-  }
-  
-  selectedPiecesMap = {}; 
-  selectedPersonnel = [];
-  chronoReset();
-  
-  const now = new Date();
-  const today = now.toISOString().slice(0, 10);
-  
-  document.getElementById('intRequestDate').value = today;
-  document.getElementById('intTime').value = now.toTimeString().slice(0, 5);
-  document.getElementById('intDesiredDate').value = today;
-    ['intDuration', 'intDowntime', 'intDesc', 'intCause', 'intMachineType'].forEach(id => {
+function populateInterventionDropdowns() {
+  // Machine dropdowns
+  const machineOptions = '<option value="">— Choisir —</option>' + machines.map(m => `<option value="${m.name}">${m.name}</option>`).join('');
+  ['intMachine', 'corrMachine'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.value = '';
+    if (el) el.innerHTML = machineOptions;
   });
   
-  document.getElementById('intPhoto').value = '';
+  // Filter machine/secteur dropdowns
+  const secteurOptions = '<option value="">— Tous —</option>' + lignes.map(l => `<option value="${l.name}">${l.name}</option>`).join('');
+  ['intFilterMachineSecteur', 'corrFilterSecteurMachine'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = secteurOptions;
+  });
   
-  if (voiceActive) { 
-    voiceRecognition && voiceRecognition.stop(); 
-    voiceActive = false; 
-    document.getElementById('micBtn').classList.remove('recording'); 
-    document.getElementById('micBtn').textContent = '🎤 Démarrer'; 
-  }
+  // Filter type machine dropdowns
+  const typeMachineOptions = '<option value="">— Tous —</option>' + [...new Set(machines.map(m => m.type || 'Général'))].map(t => `<option value="${t}">${t}</option>`).join('');
+  ['intFilterTypeMachine', 'corrFilterTypeMachine'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = typeMachineOptions;
+  });
   
-  const requesterSelect = document.getElementById('intRequester');
-  requesterSelect.innerHTML = '<option value="">— Sélectionner —</option>' +
-    employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('') +
-    '<option value="Externe">👤 Externe</option>';
+  // Personnel dropdown for corrective
+  const personnelOptions = '<option value="">— Sélectionner un technicien —</option>' + employees.map(e => `<option value="${e.name}" data-fonction="${e.role || 'Technicien'}">${e.name} - ${e.role || 'Technicien'}</option>`).join('');
+  const corrPersonnelSelect = document.getElementById('corrPersonnelSelect');
+  if (corrPersonnelSelect) corrPersonnelSelect.innerHTML = personnelOptions;
   
-  document.getElementById('personnelMulti').innerHTML = employees.map(e => 
-    `<div class="pers-chip" data-name="${e.name}" onclick="togglePersonnel(this,'${e.name}')">${e.name}</div>`
-  ).join('');
+  // Filter réalisé par dropdown
+  const realiseParOptions = '<option value="">— Tous —</option>' + employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+  ['corrFilterRealisePar'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = realiseParOptions;
+  });
   
-  refreshLigneSelects();
+  // Filter demandeur dropdown
+  const demandeurOptions = '<option value="">— Tous —</option>' + employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('') + '<option value="Production Blida">Production Blida</option>';
+  const intFilterDemandeur = document.getElementById('intFilterDemandeur');
+  if (intFilterDemandeur) intFilterDemandeur.innerHTML = demandeurOptions;
   
-  document.getElementById('pieceSelectorList').innerHTML = 
-    pieces.filter(p => p.qty > 0).map(p => 
-      `<div class="piece-sel-item" data-id="${p.id}" onclick="togglePiece(${p.id},'${p.name.replace(/'/g, "\\'")}',${p.qty})">
-        <span>${p.name}</span>
-        <span style="color:var(--text3);font-size:0.72rem">[${p.qty}]</span>
-      </div>`
-    ).join('');
-  
-  renderSelectedPiecesQty();
-  closeModal('interventionListModal');
-  openModal('interventionModal');
+  // Pieces dropdown for corrective
+  const pieceOptions = '<option value="">— Sélectionner une pièce —</option>' + pieces.filter(p => p.qty > 0).map(p => `<option value="${p.id}">${p.name} (Stock: ${p.qty})</option>`).join('');
+  const corrPieceSelect = document.getElementById('corrPieceSelect');
+  if (corrPieceSelect) corrPieceSelect.innerHTML = pieceOptions;
 }
 
-function togglePersonnel(el, name) {
-  if (el.classList.contains('selected')) { 
-    el.classList.remove('selected'); 
-    selectedPersonnel = selectedPersonnel.filter(n => n !== name); 
-  } else { 
-    el.classList.add('selected'); 
-    selectedPersonnel.push(name); 
-  }
-}
-
-function togglePiece(id, name, maxQty) {
-  const el = document.querySelector(`.piece-sel-item[data-id="${id}"]`);  if (selectedPiecesMap[id]) { 
-    delete selectedPiecesMap[id]; 
-    el.classList.remove('selected'); 
-  } else { 
-    selectedPiecesMap[id] = { name, qty: 1, maxQty }; 
-    el.classList.add('selected'); 
-  }
-  renderSelectedPiecesQty();
-}
-
-function renderSelectedPiecesQty() {
-  const selected = Object.entries(selectedPiecesMap);
-  document.getElementById('selectedPiecesQty').innerHTML = selected.length ? 
-    `<div style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px;">` + 
-    selected.map(([id, { name, qty, maxQty }]) => 
-      `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <span class="piece-chip" style="flex:1">${name}</span>
-        <label style="font-size:0.75rem;color:var(--text2)">Qté:</label>
-        <input type="number" min="1" max="${maxQty}" value="${qty}" style="width:60px;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-family:'Exo 2',sans-serif;" onchange="updatePieceQty(${id},this.value,${maxQty})">
-        <span style="font-size:0.72rem;color:var(--text3)">/ ${maxQty}</span>
-      </div>`
-    ).join('') + `</div>` : '';
-}
-
-function updatePieceQty(id, val, max) {
-  const q = Math.min(Math.max(1, parseInt(val) || 1), max);
-  if (selectedPiecesMap[id]) selectedPiecesMap[id].qty = q;
-}
-
-async function saveIntervention(draft = false) {
-  const requestDate = document.getElementById('intRequestDate').value;
-  const time = document.getElementById('intTime').value;
-  const requester = document.getElementById('intRequester').value;
-  const status = draft ? 'Brouillon' : document.getElementById('intRequestStatus').value;
-  const ligne = document.getElementById('intLigne').value;
-  const machine = document.getElementById('intMachine').value;
-  const machineType = document.getElementById('intMachineType').value;
-  const breakdownType = document.getElementById('intBreakdownType').value;
-  const description = document.getElementById('intDesc').value.trim();
-  const cause = document.getElementById('intCause').value.trim();
-  const priority = document.getElementById('intPriority').value;
-  const assignedTo = document.getElementById('intAssignedTo').value;
-  const desiredDate = document.getElementById('intDesiredDate').value;
-  const duration = parseInt(document.getElementById('intDuration').value) || 0;
-  const downtime = parseInt(document.getElementById('intDowntime').value) || 0;
-  const completionDate = document.getElementById('intCompletionDate').value;
-  const photoInput = document.getElementById('intPhoto');
-
-  if (!requestDate || !time) return alert('Renseignez la date et l\'heure.');
-  if (!requester) return alert('Sélectionnez un demandeur.');  if (!machine) return alert('Sélectionnez une machine.');
-  if (!selectedPersonnel.length && !draft) return alert('Sélectionnez au moins un technicien.');
-
-  if (chronoRunning) chronoStop();
-  if (voiceActive) { 
-    voiceRecognition && voiceRecognition.stop(); 
-    voiceActive = false; 
-    document.getElementById('micBtn').classList.remove('recording'); 
-    document.getElementById('micBtn').textContent = '🎤 Démarrer'; 
-  }
-
-  showLoader('Traitement...');
+// Intervention Request Functions
+function newInterventionRequest() {
+  currentInterventionId = null;
+  document.getElementById('intNumEmission').value = generateInterventionNumber();
+  document.getElementById('intDateDemande').value = new Date().toISOString().split('T')[0];
+  document.getElementById('intDateRealise').value = '';
+  document.getElementById('intMachine').value = '';
+  document.getElementById('intOrgane').value = '';
+  document.getElementById('intResume').value = '';
+  document.getElementById('intDemandeur').value = '';
+  document.getElementById('intDateSouhaitee').value = '';
+  document.getElementById('intDureeArretMachine').value = '';
+  document.getElementById('intTypePanne').value = '';
+  document.getElementById('intCause').value = '';
+  document.getElementById('intEtatDemande').value = 'Nouvelle';
+  document.getElementById('intRealiserPar').value = '';
+  document.getElementById('intPriorite').value = 'Moyenne';
+  document.getElementById('intRemarques').value = '';
+  document.getElementById('intActions').value = '';
+  document.getElementById('intInfos').value = '';
+  document.getElementById('intPhotos').value = '';
+  document.getElementById('intFiles').value = '';
+  document.getElementById('intPhotoPreview').innerHTML = '';
+  document.getElementById('intFilesList').innerHTML = '';
   
-  let photoUrls = [];
-  if (photoInput.files && photoInput.files.length > 0) {
-    for (let file of photoInput.files) {
-      try {
-        const url = await compressAndUpload(file, 'interventions');
-        photoUrls.push(url);
-      } catch (e) {
-        console.error("Photo upload failed", e);
-      }
-    }
-  }
+  // Switch to detail tab
+  showIntTab('detail', document.querySelector('#interventionManagerModal .tab'));
+}
 
-  const piecesUsed = [];
-  for (const [id, { name, qty }] of Object.entries(selectedPiecesMap)) {
-    const piece = pieces.find(p => p.id === parseInt(id));
-    if (piece) {
-      if (piece.qty < qty && !draft) { 
-        hideLoader(); 
-        return alert(`Stock insuffisant pour : ${name}`); 
-      }
-      if (!draft) {
-        piece.qty -= qty;
-      }
-      piecesUsed.push({ name, qty });
-    }
-  }
-
-  const newInt = {
-    id: 'int_' + Date.now(),
-    request_date: requestDate,
-    date: completionDate || requestDate,
-    time,
-    requester,
-    status,
-    ligne,
-    machine,
-    machine_type: machineType,    breakdown_type: breakdownType,
-    description,
-    cause,
-    priority,
-    assigned_to: assignedTo,
-    desired_date: desiredDate,
-    duration,
-    downtime_minutes: downtime,
-    personnel: selectedPersonnel,
-    pieces_used: piecesUsed,
-    photo_urls: photoUrls,
-    created_at: new Date().toISOString(),
-    is_draft: draft
+function saveInterventionRequest() {
+  const intervention = {
+    id: currentInterventionId || Date.now(),
+    numEmission: document.getElementById('intNumEmission').value,
+    dateDemande: document.getElementById('intDateDemande').value,
+    dateRealise: document.getElementById('intDateRealise').value,
+    machine: document.getElementById('intMachine').value,
+    organe: document.getElementById('intOrgane').value,
+    resume: document.getElementById('intResume').value,
+    demandeur: document.getElementById('intDemandeur').value,
+    dateSouhaitee: document.getElementById('intDateSouhaitee').value,
+    dureeArretMachine: document.getElementById('intDureeArretMachine').value,
+    typePanne: document.getElementById('intTypePanne').value,
+    cause: document.getElementById('intCause').value,
+    etatDemande: document.getElementById('intEtatDemande').value,
+    realiserPar: document.getElementById('intRealiserPar').value,
+    priorite: document.getElementById('intPriorite').value,
+    remarques: document.getElementById('intRemarques').value,
+    actions: document.getElementById('intActions').value,
+    informations: document.getElementById('intInfos').value,
+    createdAt: new Date().toISOString()
   };
-
-  if (!navigator.onLine || draft) {
-    const queue = JSON.parse(localStorage.getItem('gmao_offline_interventions') || '[]');
-    queue.push(newInt);
-    localStorage.setItem('gmao_offline_interventions', JSON.stringify(queue));
-    interventions.unshift(newInt);
-    hideLoader();
-    closeModal('interventionModal');
-    showPage('historique');
-    addAuditEntry('Intervention ' + (draft ? 'brouillon' : 'hors ligne'), 
-      `${machine} — ${requestDate}`, '📋');
-    return alert("✅ " + (draft ? "Brouillon sauvegardé" : "Mode Hors Ligne : Sauvegardé localement"));
+  
+  if (currentInterventionId) {
+    const index = interventionRequests.findIndex(i => i.id === currentInterventionId);
+    if (index !== -1) interventionRequests[index] = intervention;
+  } else {
+    interventionRequests.push(intervention);
+    currentInterventionId = intervention.id;
   }
-
-  try {
-    if (!draft) {
-      for (const p of pieces) {
-        await sb.from('pieces').update({ qty: p.qty }).eq('id', p.id);
-      }
-    }
-    
-    const { data, error } = await sb.from('interventions').insert([newInt]).select().single();
-    if (error) throw error;
-    
-    interventions.unshift(data);
-    updateAlertBadge();
-    addAuditEntry('Intervention enregistrée', 
-      `${machine} — ${requestDate} — ${selectedPersonnel.join(', ')}`, '📋');
-    
-    closeModal('interventionModal');
-    showPage('historique');
-    alert("✅ Intervention enregistrée avec succès!");
-  } catch (e) {
-    alert("Erreur lors de l'enregistrement: " + e.message);
-  } finally {
-    hideLoader();  }
+  
+  localStorage.setItem('gmao_intervention_requests', JSON.stringify(interventionRequests));
+  renderInterventionList();
+  alert('✅ Demande d\'intervention enregistrée avec succès!');
+  addAuditEntry('Demande d\'intervention enregistrée', `${intervention.numEmission} - ${intervention.machine}`, '📋');
 }
 
-function saveAsDraft() {
-  saveIntervention(true);
+function loadInterventionRequest(id) {
+  const intervention = interventionRequests.find(i => i.id === id);
+  if (!intervention) return;
+  
+  currentInterventionId = id;
+  document.getElementById('intNumEmission').value = intervention.numEmission || '';
+  document.getElementById('intDateDemande').value = intervention.dateDemande || '';
+  document.getElementById('intDateRealise').value = intervention.dateRealise || '';
+  document.getElementById('intMachine').value = intervention.machine || '';
+  document.getElementById('intOrgane').value = intervention.organe || '';
+  document.getElementById('intResume').value = intervention.resume || '';
+  document.getElementById('intDemandeur').value = intervention.demandeur || '';
+  document.getElementById('intDateSouhaitee').value = intervention.dateSouhaitee || '';
+  document.getElementById('intDureeArretMachine').value = intervention.dureeArretMachine || '';
+  document.getElementById('intTypePanne').value = intervention.typePanne || '';
+  document.getElementById('intCause').value = intervention.cause || '';
+  document.getElementById('intEtatDemande').value = intervention.etatDemande || 'Nouvelle';
+  document.getElementById('intRealiserPar').value = intervention.realiserPar || '';
+  document.getElementById('intPriorite').value = intervention.priorite || 'Moyenne';
+  document.getElementById('intRemarques').value = intervention.remarques || '';
+  document.getElementById('intActions').value = intervention.actions || '';
+  document.getElementById('intInfos').value = intervention.informations || '';
+}
+
+function deleteInterventionRequest() {
+  if (!currentInterventionId) { alert('Aucune demande sélectionnée.'); return; }
+  if (!confirm('Supprimer cette demande d\'intervention?')) return;
+  
+  interventionRequests = interventionRequests.filter(i => i.id !== currentInterventionId);
+  localStorage.setItem('gmao_intervention_requests', JSON.stringify(interventionRequests));
+  
+  if (interventionRequests.length > 0) {
+    loadInterventionRequest(interventionRequests[0].id);
+  } else {
+    newInterventionRequest();
+  }
+  
+  renderInterventionList();
+  addAuditEntry('Demande d\'intervention supprimée', currentInterventionId, '🗑');
 }
 
 function renderInterventionList() {
-  const filterMachine = document.getElementById('filterIntMachine').value.toLowerCase();
-  const filterStatus = document.getElementById('filterIntStatus').value;
-  const filterPriority = document.getElementById('filterIntPriority').value;
+  const tbody = document.getElementById('interventionListBody');
+  if (!tbody) return;
   
-  let filtered = interventions.filter(i => {
-    const matchMachine = !filterMachine || (i.machine || '').toLowerCase().includes(filterMachine);
-    const matchStatus = !filterStatus || i.status === filterStatus;
-    const matchPriority = !filterPriority || i.priority === filterPriority;
-    return matchMachine && matchStatus && matchPriority;
-  });
+  tbody.innerHTML = interventionRequests.map(int => `
+    <tr class="${int.id === currentInterventionId ? 'selected' : ''}" onclick="loadInterventionRequest(${int.id}); renderInterventionList();">
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--accent);font-weight:700;">${int.numEmission}</td>
+      <td>${int.dateDemande || '—'}</td>
+      <td>${int.machine || '—'}</td>
+      <td><span class="badge badge-${int.etatDemande === 'Terminée' ? 'ok' : (int.etatDemande === 'En cours' ? 'warn' : 'info')}">${int.etatDemande || 'Nouvelle'}</span></td>
+    </tr>
+  `).join('');
+}
+
+function filterInterventionList() {
+  const filterMachine = document.getElementById('intFilterMachineSecteur').value;
+  const filterEtat = document.getElementById('intFilterEtat').value;
+  const filterTypePanne = document.getElementById('intFilterTypePanne').value;
+  const filterApres = document.getElementById('intFilterApres').value;
+  const filterAvant = document.getElementById('intFilterAvant').value;
   
-  const priorityOrder = { 'Critique': 5, 'Urgente': 4, 'Haute': 3, 'Moyenne': 2, 'Basse': 1 };
-  filtered.sort((a, b) => {
-    const dateCompare = b.request_date.localeCompare(a.request_date);
-    if (dateCompare !== 0) return dateCompare;
-    return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
+  const filtered = interventionRequests.filter(int => {
+    if (filterMachine && int.machine !== filterMachine) return false;
+    if (filterEtat && int.etatDemande !== filterEtat) return false;
+    if (filterTypePanne && int.typePanne !== filterTypePanne) return false;
+    if (filterApres && int.dateDemande < filterApres) return false;
+    if (filterAvant && int.dateDemande > filterAvant) return false;
+    return true;
   });
   
   const tbody = document.getElementById('interventionListBody');
-  if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucune intervention trouvée</td></tr>';
-    return;
-  }
-  
-  tbody.innerHTML = filtered.map((i, idx) => {
-    const statusColors = {
-      'Nouvelle': 'badge-info',
-      'En cours': 'badge-warn',
-      'Planifiée': 'badge-ok',
-      'Terminée': 'badge-ok',
-      'Annulée': 'badge-danger',
-      'Brouillon': 'badge-secondary'
-    };
-    
-    const priorityIcons = {
-      'Basse': '🟢',
-      'Moyenne': '🟡',
-      'Haute': '🟠',
-      'Urgente': '🔴',
-      'Critique': '⚫'
-    };
-        return `<tr>
-      <td>${idx + 1}</td>
-      <td>${i.request_date}</td>
-      <td><strong>${i.machine || '—'}</strong></td>
-      <td>${i.breakdown_type || '—'}</td>
-      <td>${i.requester || '—'}</td>
-      <td>${priorityIcons[i.priority] || '⚪'} ${i.priority || '—'}</td>
-      <td><span class="badge ${statusColors[i.status] || 'badge-secondary'}">${i.status || '—'}</span></td>
-      <td>
-        <button class="btn btn-primary btn-sm" onclick="viewIntervention('${i.id}')">👁 Voir</button>
-        ${i.is_draft ? `<button class="btn btn-orange btn-sm" onclick="completeIntervention('${i.id}')">✓ Compléter</button>` : ''}
-      </td>
-    </tr>`;
-  }).join('');
+  tbody.innerHTML = filtered.map(int => `
+    <tr class="${int.id === currentInterventionId ? 'selected' : ''}" onclick="loadInterventionRequest(${int.id}); renderInterventionList();">
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--accent);font-weight:700;">${int.numEmission}</td>
+      <td>${int.dateDemande || '—'}</td>
+      <td>${int.machine || '—'}</td>
+      <td><span class="badge badge-${int.etatDemande === 'Terminée' ? 'ok' : (int.etatDemande === 'En cours' ? 'warn' : 'info')}">${int.etatDemande || 'Nouvelle'}</span></td>
+    </tr>
+  `).join('');
 }
 
-function viewIntervention(id) {
-  const intervention = interventions.find(i => i.id === id);
-  if (!intervention) return;
-  
-  alert(`Intervention #${id}\nMachine: ${intervention.machine}\nDate: ${intervention.request_date}\nStatut: ${intervention.status}\nPriorité: ${intervention.priority}`);
-}
-
-function completeIntervention(id) {
-  const intervention = interventions.find(i => i.id === id);
-  if (!intervention) return;
-  
-  intervention.is_draft = false;
-  intervention.status = 'En cours';
-  
-  alert(`Intervention ${id} activée et prête à être complétée!`);
+function refreshInterventionList() {
   renderInterventionList();
 }
 
-async function deleteIntervention(id) {
-  if (!confirm('Supprimer cette intervention ?')) return;
-  const i = interventions.find(x => x.id === id);
-  await sb.from('interventions').delete().eq('id', id); 
-  interventions = interventions.filter(i => i.id !== id);
-  addAuditEntry('Intervention supprimée', `${i?.machine || id} — ${i?.date || ''}`, '🗑');
-  renderHistorique(); 
-  renderDashboard();
+function printInterventionRequest() {
+  if (!currentInterventionId) { alert('Aucune demande à imprimer.'); return; }
+  const intervention = interventionRequests.find(i => i.id === currentInterventionId);
+  if (!intervention) return;
+  
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <html>
+    <head><title>Demande d'Intervention ${intervention.numEmission}</title>
+    <style>body{font-family:Arial,sans-serif;padding:20px;} table{width:100%;border-collapse:collapse;} th,td{border:1px solid #ddd;padding:8px;text-align:left;} th{background:#f0f0f0;}</style>
+    </head>
+    <body>
+    <h1>Demande d'Intervention</h1>
+    <table>
+      <tr><th>N° émission</th><td>${intervention.numEmission}</td></tr>
+      <tr><th>Date demande</th><td>${intervention.dateDemande}</td></tr>
+      <tr><th>Réalisé le</th><td>${intervention.dateRealise || '—'}</td></tr>
+      <tr><th>Machine</th><td>${intervention.machine || '—'}</td></tr>
+      <tr><th>Organe</th><td>${intervention.organe || '—'}</td></tr>
+      <tr><th>Résumé</th><td>${intervention.resume || '—'}</td></tr>
+      <tr><th>Demandeur</th><td>${intervention.demandeur || '—'}</td></tr>
+      <tr><th>Date souhaitée</th><td>${intervention.dateSouhaitee || '—'}</td></tr>
+      <tr><th>Durée arrêt machine</th><td>${intervention.dureeArretMachine || '—'}</td></tr>
+      <tr><th>Type de panne</th><td>${intervention.typePanne || '—'}</td></tr>
+      <tr><th>Cause</th><td>${intervention.cause || '—'}</td></tr>
+      <tr><th>État demande</th><td>${intervention.etatDemande}</td></tr>
+      <tr><th>À réaliser par</th><td>${intervention.realiserPar || '—'}</td></tr>
+      <tr><th>Priorité</th><td>${intervention.priorite}</td></tr>
+      <tr><th>Remarques</th><td>${intervention.remarques || '—'}</td></tr>
+      <tr><th>Actions</th><td>${intervention.actions || '—'}</td></tr>
+    </table>
+    </body></html>
+  `);
+  printWindow.document.close();
+  printWindow.print();
 }
 
-async function syncOfflineData() {
-  if (!navigator.onLine) return;
-  const queue = JSON.parse(localStorage.getItem('gmao_offline_interventions') || '[]');
-  if (queue.length === 0) return;
-  showLoader('Synchronisation...');
-  let successCount = 0;  for (const item of queue) {
-    const { data, error } = await sb.from('interventions').insert([item]).select().single();
-    if (!error) { interventions.unshift(data); successCount++; }
+// Corrective Sheet Functions
+function newCorrectiveSheet() {
+  currentCorrectiveId = null;
+  correctivePersonnel = [];
+  correctiveSousTraitants = [];
+  correctivePieces = [];
+  
+  document.getElementById('corrNumEmission').value = generateCorrectiveNumber();
+  document.getElementById('corrDateIntervention').value = new Date().toISOString().split('T')[0];
+  document.getElementById('corrMachine').value = '';
+  document.getElementById('corrOrgane').value = '';
+  document.getElementById('corrIntervention').value = '';
+  document.getElementById('corrTypePanne').value = '';
+  document.getElementById('corrCause').value = '';
+  document.getElementById('corrNiveau').value = '';
+  document.getElementById('corrDureeArret').value = '';
+  document.getElementById('corrNumQualite').value = '';
+  document.getElementById('corrEtatCorrectif').value = 'En cours';
+  document.getElementById('corrRemarques').value = '';
+  document.getElementById('corrActions').value = '';
+  document.getElementById('corrPhotos').value = '';
+  document.getElementById('corrPhotoPreview').innerHTML = '';
+  document.getElementById('corrSousTraitantNom').value = '';
+  document.getElementById('corrSousTraitantFonction').value = '';
+  document.getElementById('corrPieceQty').value = '1';
+  
+  renderCorrectivePersonnel();
+  renderCorrectiveSousTraitants();
+  renderCorrectivePieces();
+  
+  showCorrTab('detail', document.querySelector('#interventionManagerModal .intervention-panel:last-child .tab'));
+}
+
+function saveCorrectiveSheet() {
+  const corrective = {
+    id: currentCorrectiveId || Date.now(),
+    numEmission: document.getElementById('corrNumEmission').value,
+    dateIntervention: document.getElementById('corrDateIntervention').value,
+    machine: document.getElementById('corrMachine').value,
+    organe: document.getElementById('corrOrgane').value,
+    intervention: document.getElementById('corrIntervention').value,
+    typePanne: document.getElementById('corrTypePanne').value,
+    cause: document.getElementById('corrCause').value,
+    niveau: document.getElementById('corrNiveau').value,
+    dureeArret: document.getElementById('corrDureeArret').value,
+    numQualite: document.getElementById('corrNumQualite').value,
+    etatCorrectif: document.getElementById('corrEtatCorrectif').value,
+    personnel: [...correctivePersonnel],
+    sousTraitants: [...correctiveSousTraitants],
+    pieces: [...correctivePieces],
+    remarques: document.getElementById('corrRemarques').value,
+    actions: document.getElementById('corrActions').value,
+    createdAt: new Date().toISOString()
+  };
+  
+  if (currentCorrectiveId) {
+    const index = correctiveSheets.findIndex(c => c.id === currentCorrectiveId);
+    if (index !== -1) correctiveSheets[index] = corrective;
+  } else {
+    correctiveSheets.push(corrective);
+    currentCorrectiveId = corrective.id;
   }
-  if (successCount > 0) {
-    localStorage.removeItem('gmao_offline_interventions');
-    alert(`✅ ${successCount} intervention(s) synchronisée(s) !`);
-    renderHistorique(); renderDashboard();
+  
+  localStorage.setItem('gmao_corrective_sheets', JSON.stringify(correctiveSheets));
+  renderCorrectiveList();
+  alert('✅ Fiche corrective enregistrée avec succès!');
+  addAuditEntry('Fiche corrective enregistrée', `${corrective.numEmission} - ${corrective.machine}`, '🔧');
+}
+
+function loadCorrectiveSheet(id) {
+  const corrective = correctiveSheets.find(c => c.id === id);
+  if (!corrective) return;
+  
+  currentCorrectiveId = id;
+  document.getElementById('corrNumEmission').value = corrective.numEmission || '';
+  document.getElementById('corrDateIntervention').value = corrective.dateIntervention || '';
+  document.getElementById('corrMachine').value = corrective.machine || '';
+  document.getElementById('corrOrgane').value = corrective.organe || '';
+  document.getElementById('corrIntervention').value = corrective.intervention || '';
+  document.getElementById('corrTypePanne').value = corrective.typePanne || '';
+  document.getElementById('corrCause').value = corrective.cause || '';
+  document.getElementById('corrNiveau').value = corrective.niveau || '';
+  document.getElementById('corrDureeArret').value = corrective.dureeArret || '';
+  document.getElementById('corrNumQualite').value = corrective.numQualite || '';
+  document.getElementById('corrEtatCorrectif').value = corrective.etatCorrectif || 'En cours';
+  document.getElementById('corrRemarques').value = corrective.remarques || '';
+  document.getElementById('corrActions').value = corrective.actions || '';
+  
+  correctivePersonnel = corrective.personnel || [];
+  correctiveSousTraitants = corrective.sousTraitants || [];
+  correctivePieces = corrective.pieces || [];
+  
+  renderCorrectivePersonnel();
+  renderCorrectiveSousTraitants();
+  renderCorrectivePieces();
+}
+
+function deleteCorrectiveSheet() {
+  if (!currentCorrectiveId) { alert('Aucune fiche corrective sélectionnée.'); return; }
+  if (!confirm('Supprimer cette fiche corrective?')) return;
+  
+  correctiveSheets = correctiveSheets.filter(c => c.id !== currentCorrectiveId);
+  localStorage.setItem('gmao_corrective_sheets', JSON.stringify(correctiveSheets));
+  
+  if (correctiveSheets.length > 0) {
+    loadCorrectiveSheet(correctiveSheets[0].id);
+  } else {
+    newCorrectiveSheet();
   }
-  hideLoader();
+  
+  renderCorrectiveList();
+  addAuditEntry('Fiche corrective supprimée', currentCorrectiveId, '🗑');
+}
+
+function renderCorrectiveList() {
+  const tbody = document.getElementById('correctiveListBody');
+  if (!tbody) return;
+  
+  tbody.innerHTML = correctiveSheets.map(corr => `
+    <tr class="${corr.id === currentCorrectiveId ? 'selected' : ''}" onclick="loadCorrectiveSheet(${corr.id}); renderCorrectiveList();">
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--accent);font-weight:700;">${corr.numEmission}</td>
+      <td>${corr.dateIntervention || '—'}</td>
+      <td>${corr.machine || '—'}</td>
+      <td><span class="badge badge-${corr.etatCorrectif === 'Terminée' ? 'ok' : 'warn'}">${corr.etatCorrectif || 'En cours'}</span></td>
+    </tr>
+  `).join('');
+}
+
+function refreshCorrectiveList() {
+  renderCorrectiveList();
+}
+
+function printCorrectiveSheet() {
+  if (!currentCorrectiveId) { alert('Aucune fiche corrective à imprimer.'); return; }
+  const corrective = correctiveSheets.find(c => c.id === currentCorrectiveId);
+  if (!corrective) return;
+  
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <html>
+    <head><title>Fiche Corrective ${corrective.numEmission}</title>
+    <style>body{font-family:Arial,sans-serif;padding:20px;} table{width:100%;border-collapse:collapse;} th,td{border:1px solid #ddd;padding:8px;text-align:left;} th{background:#f0f0f0;}</style>
+    </head>
+    <body>
+    <h1>Fiche Corrective</h1>
+    <table>
+      <tr><th>N° émission</th><td>${corrective.numEmission}</td></tr>
+      <tr><th>Date d'intervention</th><td>${corrective.dateIntervention}</td></tr>
+      <tr><th>Machine</th><td>${corrective.machine || '—'}</td></tr>
+      <tr><th>Organe</th><td>${corrective.organe || '—'}</td></tr>
+      <tr><th>Intervention/réparation</th><td>${corrective.intervention || '—'}</td></tr>
+      <tr><th>Type de panne</th><td>${corrective.typePanne || '—'}</td></tr>
+      <tr><th>Cause</th><td>${corrective.cause || '—'}</td></tr>
+      <tr><th>Niveau</th><td>${corrective.niveau || '—'}</td></tr>
+      <tr><th>Durée arrêt</th><td>${corrective.dureeArret || '—'}</td></tr>
+      <tr><th>Num. qualité</th><td>${corrective.numQualite || '—'}</td></tr>
+      <tr><th>État correctif</th><td>${corrective.etatCorrectif}</td></tr>
+    </table>
+    <h3>Personnel</h3>
+    <table><tr><th>Durée</th><th>Nom</th><th>Fonction</th></tr>
+    ${corrective.personnel.map(p => `<tr><td>${p.duree}</td><td>${p.name}</td><td>${p.fonction}</td></tr>`).join('')}
+    </table>
+    <h3>Pièces</h3>
+    <table><tr><th>Pièce</th><th>Quantité</th></tr>
+    ${corrective.pieces.map(p => `<tr><td>${p.name}</td><td>${p.qty}</td></tr>`).join('')}
+    </table>
+    </body></html>
+  `);
+  printWindow.document.close();
+  printWindow.print();
+}
+
+// Personnel Management for Corrective
+function addCorrectivePersonnel() {
+  const select = document.getElementById('corrPersonnelSelect');
+  const duree = document.getElementById('corrPersonnelDuree').value || '01:15';
+  const selected = select.options[select.selectedIndex];
+  
+  if (!selected || !selected.value) { alert('Sélectionnez un technicien.'); return; }
+  
+  const personnel = {
+    name: selected.value,
+    fonction: selected.dataset.fonction || 'Technicien',
+    duree: duree
+  };
+  
+  if (!correctivePersonnel.find(p => p.name === personnel.name)) {
+    correctivePersonnel.push(personnel);
+    renderCorrectivePersonnel();
+  }
+  
+  select.value = '';
+  document.getElementById('corrPersonnelDuree').value = '';
+}
+
+function removeCorrectivePersonnel(index) {
+  correctivePersonnel.splice(index, 1);
+  renderCorrectivePersonnel();
+}
+
+function renderCorrectivePersonnel() {
+  const container = document.getElementById('correctivePersonnelList');
+  if (!container) return;
+  
+  if (correctivePersonnel.length === 0) {
+    container.innerHTML = '<div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">Aucun personnel assigné</div>';
+    return;
+  }
+  
+  container.innerHTML = correctivePersonnel.map((p, index) => `
+    <div class="personnel-row">
+      <span class="pers-duration">${p.duree}</span>
+      <span class="pers-name">${p.name}</span>
+      <span class="pers-fonction">${p.fonction}</span>
+      <button class="pers-remove" onclick="removeCorrectivePersonnel(${index})">✕</button>
+    </div>
+  `).join('');
+}
+
+// Sous-traitants Management
+function addCorrectiveSousTraitant() {
+  const nom = document.getElementById('corrSousTraitantNom').value.trim();
+  const fonction = document.getElementById('corrSousTraitantFonction').value.trim();
+  
+  if (!nom) { alert('Entrez le nom du sous-traitant.'); return; }
+  
+  correctiveSousTraitants.push({ nom, fonction: fonction || 'Sous-traitant' });
+  renderCorrectiveSousTraitants();
+  
+  document.getElementById('corrSousTraitantNom').value = '';
+  document.getElementById('corrSousTraitantFonction').value = '';
+}
+
+function removeCorrectiveSousTraitant(index) {
+  correctiveSousTraitants.splice(index, 1);
+  renderCorrectiveSousTraitants();
+}
+
+function renderCorrectiveSousTraitants() {
+  const container = document.getElementById('correctiveSousTraitantsList');
+  if (!container) return;
+  
+  if (correctiveSousTraitants.length === 0) {
+    container.innerHTML = '<div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">La fiche corrective ne comporte aucun sous-traitant</div>';
+    return;
+  }
+  
+  container.innerHTML = correctiveSousTraitants.map((st, index) => `
+    <div class="personnel-row">
+      <span class="pers-duration">—</span>
+      <span class="pers-name">${st.nom}</span>
+      <span class="pers-fonction">${st.fonction}</span>
+      <button class="pers-remove" onclick="removeCorrectiveSousTraitant(${index})">✕</button>
+    </div>
+  `).join('');
+}
+
+// Pieces Management for Corrective
+function addCorrectivePiece() {
+  const select = document.getElementById('corrPieceSelect');
+  const qty = parseInt(document.getElementById('corrPieceQty').value) || 1;
+  const selected = select.options[select.selectedIndex];
+  
+  if (!selected || !selected.value) { alert('Sélectionnez une pièce.'); return; }
+  
+  const piece = pieces.find(p => p.id === parseInt(selected.value));
+  if (!piece) return;
+  
+  if (piece.qty < qty) { alert(`Stock insuffisant pour ${piece.name} (disponible: ${piece.qty})`); return; }
+  
+  const existingIndex = correctivePieces.findIndex(p => p.id === piece.id);
+  if (existingIndex !== -1) {
+    correctivePieces[existingIndex].qty += qty;
+  } else {
+    correctivePieces.push({ id: piece.id, name: piece.name, qty: qty });
+  }
+  
+  renderCorrectivePieces();
+  select.value = '';
+  document.getElementById('corrPieceQty').value = '1';
+}
+
+function removeCorrectivePiece(index) {
+  correctivePieces.splice(index, 1);
+  renderCorrectivePieces();
+}
+
+function renderCorrectivePieces() {
+  const container = document.getElementById('correctivePiecesList');
+  if (!container) return;
+  
+  if (correctivePieces.length === 0) {
+    container.innerHTML = '<div style="color:var(--text3);font-size:0.82rem;padding:8px 0;">La fiche corrective ne comporte aucune pièce</div>';
+    return;
+  }
+  
+  container.innerHTML = correctivePieces.map((p, index) => `
+    <div class="personnel-row">
+      <span class="pers-duration">×${p.qty}</span>
+      <span class="pers-name">${p.name}</span>
+      <span class="pers-fonction">Pièce</span>
+      <button class="pers-remove" onclick="removeCorrectivePiece(${index})">✕</button>
+    </div>
+  `).join('');
+}
+
+// Tab Functions
+function showIntTab(tabName, btn) {
+  document.querySelectorAll('#interventionManagerModal .intervention-panel:first-child .tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.getElementById(`intTab-${tabName}`).classList.add('active');
+  
+  document.querySelectorAll('#interventionManagerModal .intervention-panel:first-child .tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function showCorrTab(tabName, btn) {
+  document.querySelectorAll('#interventionManagerModal .intervention-panel:last-child .tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.getElementById(`corrTab-${tabName}`).classList.add('active');
+  
+  document.querySelectorAll('#interventionManagerModal .intervention-panel:last-child .tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function showHelp() {
+  alert('Aide:\n\n• Utilisez les filtres en haut pour rechercher des interventions/fiches correctives\n• Cliquez sur une ligne dans la liste pour la charger\n• Remplissez tous les champs nécessaires\n• Cliquez sur Enregistrer pour sauvegarder\n• Utilisez Imprimer pour générer un rapport PDF');
 }
 
 // ==========================================
@@ -2105,9 +3005,10 @@ async function savePlanned() {
   const machine = document.getElementById('pmMachine').value, desc = document.getElementById('pmDesc').value.trim(), interval = parseInt(document.getElementById('pmInterval').value);
   if (!desc || !machine || !interval || interval < 1) return alert('Champs requis et intervalle > 0');
   const next = new Date(); next.setDate(next.getDate() + interval);
-  const { data, error } = await sb.from('planned_maintenance').insert([{ machine_name: machine, description: desc, interval_days: interval, next_due: next.toISOString().split('T')[0] }]).select().single();  if (error) { alert("Erreur: " + error.message); return; }
+  const { data, error } = await sb.from('planned_maintenance').insert([{ machine_name: machine, description: desc, interval_days: interval, next_due: next.toISOString().split('T')[0] }]).select().single();
+  if (error) { alert("Erreur: " + error.message); return; }
   plannedMaint.push(data); closeModal('plannedModal'); renderPlanned();
-  addAuditEntry('Maintenance planifiée', `${machine} — ${desc}`, '🗓');
+  addAuditEntry('Maintenance planifiée', `${machine} — ${desc}`, '');
   alert("✅ Planifié !");
 }
 
@@ -2199,7 +3100,8 @@ function openPieceDetail(id) {
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div>
         <div style="font-size:0.7rem;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:5px;">Statut</div>
-        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}" style="font-size:0.85rem;padding:5px 14px;">${p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE STOCK' : 'DISPONIBLE')}</span>      </div>
+        <span class="badge badge-${level === 'ok' ? 'ok' : (level === 'warn' ? 'warn' : 'danger')}" style="font-size:0.85rem;padding:5px 14px;">${p.qty === 0 ? 'RUPTURE' : (p.qty <= p.thresh ? 'ALERTE STOCK' : 'DISPONIBLE')}</span>
+      </div>
       <div class="form-group"><label>Référence</label>
         <div style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:var(--accent);background:var(--bg3);padding:8px 12px;border-radius:6px;border:1px solid var(--border);">${p.ref || '—'}</div>
       </div>
@@ -2248,7 +3150,8 @@ async function uploadPiecePhoto(id) {
       const match = p.photo_url.match(/\/photos\/(.+)$/);
       if (match) await sb.storage.from('photos').remove([match[1]]);
     }
-    const url = await compressAndUpload(input.files[0], 'pieces/' + id);    await sb.from('pieces').update({ photo_url: url }).eq('id', id);
+    const url = await compressAndUpload(input.files[0], 'pieces/' + id);
+    await sb.from('pieces').update({ photo_url: url }).eq('id', id);
     p.photo_url = url;
     addAuditEntry('Photo pièce', p.name, '📸');
     closeModal('pieceDetailModal');
@@ -2297,6 +3200,7 @@ function stopPieceQRScan() {
     pieceQRScanner = null;
   } else { closeModal('pieceQRScanModal'); }
 }
+
 // ==========================================
 // 12. INITIALIZATION
 // ==========================================
